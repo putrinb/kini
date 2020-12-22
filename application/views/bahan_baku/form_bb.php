@@ -31,8 +31,9 @@
                         
                         <div class="form-group col-sm-12">
                           <label>Satuan</label><span class="text-danger">*</span>
-                          <?php echo "<b>".form_error('satuan')."</b>"; ?>
+                          
                           <select name="satuan" class="form-control" value="<?php echo set_value('satuan');?>" placeholder="Pilih Satuan">
+                              <option value="">- Pilih Satuan -</option>
                               <option value="Kilogram (Kg)">Kilogram (Kg)</option>
                               <option value="Liter (L)">Liter (L)</option>
                               <option value="Gram (Gr)">Gram (Gr)</option>
@@ -41,6 +42,7 @@
                               <option value="Pack">Pack</option>
                               <option value="Balok">Balok</option>
                           </select>
+                          <?php echo "<b>".form_error('satuan')."</b>"; ?>
                         </div>
                         
                         <div class="form-group col-sm-12">

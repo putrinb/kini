@@ -32,13 +32,14 @@
                                 </div>
                               </div>
                             
-                            
-                            <div class="form-group col-sm-3">
-                                <p><strong>Gambar</strong></p>
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="image">Upload Gambar</label>
-                                        <input type="file" class="custom-file-input" id="image" name="image">
-                                </div>
+                            <div class="row">
+                              <div class="form-group col-sm-3">
+                                  <p><strong>Gambar</strong></p>
+                                  <div class="custom-file">
+                                      <label class="custom-file-label" for="image">Upload Gambar</label>
+                                          <input type="file" class="custom-file-input" id="image" name="image">
+                                  </div>
+                              </div>
                             </div>
                         </div>
                         <!-- /.card-body -->

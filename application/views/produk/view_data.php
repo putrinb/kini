@@ -34,6 +34,7 @@
                     <th>ID Produk</th>
                     <th>Nama Produk</th>
                     <th>Gambar</th>
+                    <th>ID BOM</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
@@ -45,18 +46,20 @@
                                 foreach($data_produk as $row):
                                 echo "<tr>";
                                 echo "<td>".$row['id_produk']."</td>
-                                <td>".$row['nama_produk']."</td>"
+                                <td>".$row['nama_produk']."</td>
+                                <td>".$row['id_bom']."</td>"
                             ?>
+                            
                             <td class="text-center">
                               <a id="image" href="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="perbesar">
                               <img alt="image" src="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="img-thumbnail" width="55" />
                             </td>
                             <td class="text-center">
-                                <a href="<?=site_url('bahan_baku/edit_data/'.$row['id_produk'])?>" class="btn btn-success btn-sm">
+                                <a href="<?=site_url('produk/edit_data/'.$row['id_produk'])?>" class="btn btn-success btn-sm">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
-                                <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$row['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                <a onclick="deleteConfirm('<?=site_url('produk/delete_data/'.$row['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                     <span class="fa fa-trash"></span>
                                 </a>
                                 <?php

@@ -92,7 +92,7 @@
                         </div>
                             <div class="card-footer">
                                 <div class="text-center">
-                                    <!-- <a href="<?=site_url()?>/pembelian/view_data" class="btn btn-danger"><span class="fas fa-times"></span> Batal</a> -->
+                                    <!-- <a href="<?=site_url('')?>/pembelian/view_data" class="btn btn-danger"><span class="fas fa-times"></span> Batal</a> -->
                                         <button type="submit"class="btn btn-success"><span class="fas fa-plus"></span> Tambah</button>
                                 </div>
                             </div>
@@ -104,7 +104,6 @@
                         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
                         <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.js"></script>
                         <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
-                        <script type="text/javascript">
                         <script src="<?=base_url();?>assets/js/jquery.min.js"></script>
                         <script src="<?=base_url();?>assets/js/jquery.mask.min.js"></script>
     </section>

@@ -46,6 +46,18 @@ class m_produk extends CI_Model
         return $this->db->get('produk')->result_array();
       }
 
+      public function getdataIdBOM()
+      {
+        $this->db->select('*');
+        $this->db->from('produk');
+        // $this->db->join('detail_bom', 'bom.id_bom = detail_bom.id_bom');
+        $this->db->join('bom', 'produk.id_produk = bom.id_produk');
+        // $this->db->join('bahan_baku', 'bahan_baku.kode_bb = detail_bom.kode_bb');
+        
+        $query = $this->db->get();      
+        return $query->result_array();
+      }
+
       public function delete($id_produk)
       {
         return $this->db->delete('produk', array("id_produk" => $id_produk));

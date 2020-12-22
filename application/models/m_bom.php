@@ -96,9 +96,7 @@ class m_bom extends CI_Model {
       $data['data_bom'] = [
         'id_bom' => $this->getId(), 
         'id_produk'  => $this->input->post('id_produk'),
-        'kode_bb'  => $this->input->post('kode_bb'),
-        'qty'  => $this->input->post('qty'),
-        'satuan_bb'  => $this->input->post('satuan'),
+    
       ];
         
       //cek dulu apakah sudah ada
@@ -121,6 +119,7 @@ class m_bom extends CI_Model {
             'id_produk'  => $this->input->post('id_produk'),
         ];
         $this->db->insert('bom', $data);
+				
     
         //insert ke tabel detail penerimaan
         $detail=[
@@ -131,14 +130,12 @@ class m_bom extends CI_Model {
           'satuan_bb'        =>  $this->input->post('satuan'),
           // 'keterangan'    =>  $this->input->post('keterangan'),
         ];
-        //update stok barang
-        
-				$sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($post["qty"]);
-				$sql = $sql." WHERE kode_bb = ".$this->db->escape($post["nama_bb"]);
-				$query = $this->db->query($sql);
-				
-				return $this->db->affected_rows();
         $this->db->insert('detail_bom', $detail);
+        //update id_bom
+				$sql = "UPDATE produk SET id_bom = ".$this->db->escape($this->input->post('id_bom'));
+				$sql = $sql." WHERE id_produk = ".$this->db->escape($this->input->post('id_produk'));
+        $query = $this->db->query($sql);
+        return $this->db->affected_rows();
 
       }else{
         //insert ke tabel detail bom
@@ -152,21 +149,23 @@ class m_bom extends CI_Model {
 
         ];
         $this->db->insert('detail_bom', $detail);
+
+        //update id_bom
+				$sql = "UPDATE produk SET id_bom = ".$this->db->escape($this->input->post('id_bom'));
+				$sql = $sql." WHERE id_produk = ".$this->db->escape($this->input->post('id_produk'));
+        $query = $this->db->query($sql);
+        return $this->db->affected_rows();
       }
       
     }
 
     public function getData(){
-        $this->db->select('*');
-        $this->db->from('bom');
-        // $this->db->join('detail_bom', 'bom.id_bom = detail_bom.id_bom');
-        $this->db->join('produk', 'produk.id_produk = bom.id_produk');
-        // $this->db->join('bahan_baku', 'bahan_baku.kode_bb = detail_bom.kode_bb');
-        // $this->db->group_by('nama_minum'); 
-        $this->db->order_by('bom.id_bom','asc'); 
-        
-        $query = $this->db->get();      
-        return $query->result_array();
+      $this->db->select('*');
+      $this->db->from('produk');
+      // $this->db->join('detail_bom', 'detail_bom.id_bom = bom.id_bom');
+      $this->db->join('bom', 'produk.id_produk = bom.id_produk');
+      $query = $this->db->get();             
+      return $query->result_array();
     }
     
     // public function getDataByNoFakturid_supplier($no_faktur,$id_supplier){

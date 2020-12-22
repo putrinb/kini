@@ -71,7 +71,7 @@ class bom extends CI_Controller
                 );
                 // $this->m_bom->input_data();
                 
-                $_SESSION['id_bom'] = $this->m_bom->getId();
+                $_SESSION['id_bom'] = $this->input->post('id_bom');
                 $_SESSION['id_produk'] = $post["id_produk"];
                 
                 $data['data_bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'], $_SESSION['id_produk']);
@@ -122,7 +122,6 @@ class bom extends CI_Controller
                 $this->m_bom->input_data();
                 
                 //dapatkan data hasil penyimpanan
-                $post = $this->input->post();
                 $data['bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);
 
                 $data['data_bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);

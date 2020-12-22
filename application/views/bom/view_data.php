@@ -29,11 +29,12 @@
               <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-hover">
-                            <thead>
+                            <thead class="text-center">
                                 <tr>
                                     <th>No.</th>
-                                    <th>No. BOM</th>
+                                    <th>Kode Produk</th>
                                     <th>Nama Produk</th>
+                                    <th>No. BOM</th>
                                     <!-- <th>No. Faktur</th> -->
                                     <!--<th class="text-center">Upload</th>-->
                                     <th>Detail</th>
@@ -45,10 +46,10 @@
                                     $no=1;
                                     foreach($data_bom as $cacah):
                                     echo "<tr>";
-                                    echo "<td>".$no++;"</td>";
-                                    echo "<td>".$cacah['id_bom']."</td>";
-                                    // echo "<td align='center'>".$cacah['tanggal']."</td>";
+                                    echo "<td class='text-center'>".$no++;"</td>";
+                                    echo "<td>".$cacah['id_produk']."</td>";
                                     echo "<td>"."[".$cacah['id_produk']."] ".$cacah['nama_produk']."</td>";
+                                    echo "<td>".$cacah['id_bom']."</td>";
                                     
                                 ?>
                                     <td class="text-center">
@@ -69,12 +70,11 @@
                             </tbody>
                         </table>
                         <!-- DataTables -->
-                        <script>
+
                             <script src="<?=base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
                             <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
                             <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
                             <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> 
-                        </script>
 
                         <!-- Logout Delete Confirmation-->
                             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

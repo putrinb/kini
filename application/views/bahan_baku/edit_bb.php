@@ -25,14 +25,11 @@
                                     <input type="text" name="nama_bb" class="form-control" value="<?=$bahanbaku['nama_bb'];?>" placeholder="Masukan nama bahan baku">
                                     <?php echo "<b>".form_error('nama_bb')."</b>"; ?>
                             </div>
-                            <div class="form-group col-sm-12">
-                                <label>Merk</label><span class="text-danger">*</span>
-                                    <input type="text" name="merk" id="merk" class="form-control merk" value="<?= $bahanbaku['merk'];?>" placeholder="ABC">
-                                <?php echo "<b>".form_error('merk')."</b>"; ?>
-                            </div>
+                            
                             <div class="form-group col-sm-12">
                                 <label>Satuan</label><span class="text-danger">*</span>
                                 <select name="satuan" class="form-control" id="satuan" placeholder="Pilih Satuan">
+                                    <option value="">- Pilih Satuan -</option>
                                     <?php foreach( $satuan as $s) : ?>
                                         <?php if( $s == $bahanbaku['satuan'] ) : ?>
                                             <option value="<?= $s; ?>" selected><?= $s ;?></option>
@@ -42,6 +39,12 @@
                                     <?php endforeach; ?>
                                 </select>
                                 <?php echo "<b>".form_error('satuan')."</b>"; ?>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label>Merk</label><span class="text-danger">*</span>
+                                    <input type="text" name="merk" id="merk" class="form-control merk" value="<?= $bahanbaku['merk'];?>" placeholder="ABC">
+                                <?php echo "<b>".form_error('merk')."</b>"; ?>
                             </div>
                             <!-- <div class="form-group col-sm-12">
                                 <label>Harga Satuan</label><span class="text-danger">*</span>

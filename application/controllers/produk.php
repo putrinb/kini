@@ -119,6 +119,7 @@ class produk extends CI_Controller
     public function view_data()
     {
         $data=array('data_produk' =>  $this->m_produk->getdata(),
+        'produk_bom' => $this->m_produk->getdataIdBOM(),
         'title'=>'Kini Cheese Tea | Produk',
         'heading' => 'Produk'
         );
