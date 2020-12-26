@@ -24,10 +24,11 @@ class m_produk extends CI_Model
           $config['max_size']             = 1024; // 1MB
 
           $this->load->library('upload', $config);
-          if (!$this->upload->do_upload('image')) {
-              echo "Upload Gagal"; die;
-              
-          }return $this->upload->data('file_name');
+          if ($this->upload->do_upload('image')) {
+            return $this->upload->data("file_name");
+          }
+          
+          return "default.jpg";
       }
 
       public function insert_data()
@@ -46,33 +47,47 @@ class m_produk extends CI_Model
         return $this->db->get('produk')->result_array();
       }
 
-      public function getdataIdBOM()
+      public function getEdit($id_produk)
       {
-        $this->db->select('*');
-        $this->db->from('produk');
-        // $this->db->join('detail_bom', 'bom.id_bom = detail_bom.id_bom');
-        $this->db->join('bom', 'produk.id_produk = bom.id_produk');
-        // $this->db->join('bahan_baku', 'bahan_baku.kode_bb = detail_bom.kode_bb');
-        
-        $query = $this->db->get();      
-        return $query->result_array();
+        return $this->db->get_where('produk', array("id_produk" => $id_produk))->row_array();
       }
 
       public function delete($id_produk)
       {
-        return $this->db->delete('produk', array("id_produk" => $id_produk));
+        $this->_deleteImage($id_produk);
+			  return $this->db->delete('produk', array("id_produk" => $id_produk));
+      }
+
+      public function update_data($id_produk)
+      {
+        $post = $this->input->post();
+        $this->id_produk = $this->input->post('id_produk');
+        $this->nama_produk = $this->input->post('nama_produk');
+        
+        //jika ada file yang diupload saat mengedit data maka upload filenya
+        if(!empty($_FILES["image"]["name"])){
+          $this->image = $this->_uploadImage();
+        }else{
+          $this->image = $this->input->post('old_image');
+        }
+        
+        $sql = "UPDATE produk";
+        $sql = $sql." SET nama_produk = ".$this->db->escape($this->nama_produk).", gambar= ".$this->db->escape($this->image);
+        $sql = $sql." WHERE id_produk = ".$this->db->escape($this->input->post('id_produk'));
+        $query = $this->db->query($sql);
+        return $this->db->affected_rows();
       }
 		
-		// private function _deleteImage($id)
-		// {
-		// 	$buah = $this->getDataEdit($id);
-		// 	foreach($buah as $cacah):
-		// 		$gambar = $cacah['Gambar'];
-		// 	endforeach;
-		// 	if ($gambar != "default.jpg") {
-		// 		$filename = explode(".", $gambar);
-		// 		return array_map('unlink', glob(FCPATH."upload/buah/".$filename[0].".*"));
-		// 	}
-		// }
+		private function _deleteImage($id_produk)
+		{
+			$produk = $this->getEdit($id_produk);
+			foreach($produk as $cacah):
+				$gambar = $cacah['gambar'];
+			endforeach;
+			if ($gambar != 0) {
+				$filename = explode(".", $gambar);
+				return array_map('unlink', glob(FCPATH."upload/produk/".$filename[0].".*"));
+			}
+		}
 }
 ?>

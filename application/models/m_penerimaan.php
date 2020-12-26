@@ -185,6 +185,7 @@ class m_penerimaan extends CI_Model {
       $this->db->select('*');
       $this->db->from('penerimaan');
       $this->db->join('pembelian', 'penerimaan.id_pembelian = pembelian.id_pembelian');
+      $this->db->order_by('id_penerimaan', 'asc');
       $query = $this->db->get();             
       return $query->result_array();
     }

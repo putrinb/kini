@@ -22,7 +22,7 @@
                             <div class="form-group col-sm-12">
                                 <input type="hidden" name="kode_bb" class="form-control" value="<?=$bahanbaku['kode_bb'];?>">
                                 <label><b>Nama Bahan Baku</label><span class="text-danger">*</span> 
-                                    <input type="text" name="nama_bb" class="form-control" value="<?=$bahanbaku['nama_bb'];?>" placeholder="Masukan nama bahan baku">
+                                    <input type="text" name="nama_bb" maxlength="50" class="form-control" value="<?=$bahanbaku['nama_bb'];?>" placeholder="Masukan nama bahan baku">
                                     <?php echo "<b>".form_error('nama_bb')."</b>"; ?>
                             </div>
                             
@@ -43,7 +43,7 @@
 
                             <div class="form-group col-sm-12">
                                 <label>Merk</label><span class="text-danger">*</span>
-                                    <input type="text" name="merk" id="merk" class="form-control merk" value="<?= $bahanbaku['merk'];?>" placeholder="ABC">
+                                    <input type="text" name="merk" id="merk" class="form-control merk" maxlength="30" value="<?= $bahanbaku['merk'];?>" placeholder="ABC">
                                 <?php echo "<b>".form_error('merk')."</b>"; ?>
                             </div>
                             <!-- <div class="form-group col-sm-12">
