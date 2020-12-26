@@ -34,17 +34,19 @@ class penerimaan extends CI_Controller
             $data['id_penerimaan'] = $this->m_penerimaan->getId(); // ambil id penerimaan
 			$data['pembelian'] = $this->m_penerimaan->getIdPembelian(); // ambil id pembelian
 			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
-			$data['datasupplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
+            $data['datasupplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
+            
 			$data['heading'] = 'Penerimaan Bahan Baku';
 			$data['title'] = 'Kini Cheese Tea | Penerimaan Bahan Baku';
-			$data['satuan'] = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+			$data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
 
 			$this->form_validation->set_rules('id_pembelian', 'no. faktur', 'required',
 			array('required' => 'Anda harus memasukkan %s.')
             );
             
-            $this->form_validation->set_rules('nm_penerima', 'nama penerima', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
+            $this->form_validation->set_rules('nm_penerima', 'nama penerima', 'required|max_length[20]',
+            array('required' => 'Anda harus memasukkan %s.',
+            'max_length'    =>  'Maksimal 20 karakter.')
 			);
 
 			$this->form_validation->set_rules('tanggal', 'tanggal penerimaan', 'required',
@@ -76,6 +78,7 @@ class penerimaan extends CI_Controller
                 $_SESSION['nm_penerima'] = $post["nm_penerima"];
 
                 $data['penerimaan'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'], $_SESSION["id_pembelian"]);
+                $data['bb_pembelian'] = $this->m_penerimaan->getDataBBPembelian($_SESSION['id_pembelian']);
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
                 $this->load->view('penerimaan/input_detail', $data);
@@ -95,7 +98,7 @@ class penerimaan extends CI_Controller
 			$data['datasupplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
 			$data['heading'] = 'Penerimaan Bahan Baku';
 			$data['title'] = 'Kini Cheese Tea | Penerimaan Bahan Baku';
-            $data['satuan'] = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+            $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
             
             $this->form_validation->set_rules('nama_bb', 'nama bahan baku', 'required',
 			array('required' => 'Anda harus memasukkan %s.')
@@ -106,7 +109,7 @@ class penerimaan extends CI_Controller
             );
             
             $this->form_validation->set_rules('keterangan', 'keterangan produk', 'max_length[20]',
-			array('max_length[20]' => 'Jumlah karakter maksimal 20.')
+			array('max_length' => 'Jumlah karakter maksimal 20.')
 			);
 
 			$this->form_validation->set_rules('satuan', 'satuan', 'required',
@@ -119,6 +122,7 @@ class penerimaan extends CI_Controller
             $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
             if ($this->form_validation->run() == FALSE)
 			{
+                $data['bb_pembelian'] = $this->m_penerimaan->getDataBBPembelian($_SESSION['id_pembelian']);
                 $data['penerimaan'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'],$_SESSION['id_pembelian']);
 
 				$this->load->view('templates/header', $data);
@@ -131,7 +135,7 @@ class penerimaan extends CI_Controller
                 $this->m_penerimaan->input_data();
                 
                 //dapatkan data hasil penyimpanan
-                $post = $this->input->post();
+                $data['bb_pembelian'] = $this->m_penerimaan->getDataBBPembelian($_SESSION['id_pembelian']);
                 $data['penerimaan'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'],$_SESSION['id_pembelian']);
 
                 $data['data_penerimaan'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'],$_SESSION['id_pembelian']);
@@ -155,7 +159,7 @@ class penerimaan extends CI_Controller
 			$data['datasuplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
 			$data['title'] = 'Kini Cheese Tea | Penerimaan Bahan Baku';
             $data['heading'] = 'Penerimaan Bahan Baku';
-            $data['satuan'] = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+            $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -202,13 +206,15 @@ class penerimaan extends CI_Controller
     }
     
     //fungsi untuk menghapus data
-    public function delete_form($id_penerimaan,$id_pembelian)
+    public function delete_data($id_penerimaan,$id_pembelian)
     {
 
-        if ((!isset($id_penerimaan)) or (!isset($id_pembelian))) show_404();
+        // if ((!isset($id_penerimaan)) or (!isset($id_pembelian))) show_404();
                
-        if ($this->m_penerimaan->deleteFormInput($id_penerimaan,$id_pembelian)) {
-        redirect(site_url('penerimaan/view_data'));
+        if ($this->m_penerimaan->delete_penerimaan($id_penerimaan,$id_pembelian)) 
+        {
+            $this->session->set_flashdata('flash','dihapus');
+            redirect(site_url('penerimaan/view_data'));
         }
 
     }
@@ -222,12 +228,5 @@ class penerimaan extends CI_Controller
         }
     }
     
-    public function delete_detail($id_transaksi_pembelian,$no_faktur,$id_supplier){
-
-        if($this->pembelian_model->deleteFormInputDetailPembelian($id_transaksi_pembelian)){
-        redirect(site_url('pembelian/view_data_pembelian_detail2/'.$no_faktur.'/'.$id_supplier));
-        }
-
-        }
 }
 ?>

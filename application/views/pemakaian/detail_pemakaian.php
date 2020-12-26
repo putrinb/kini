@@ -13,33 +13,26 @@
             <!-- general form elements -->
             <div class="card card-light">
               <div class="card-header">
-                <h3 class="card-title">Penerimaan Bahan Baku</h3>
-              </div>
-              <!-- <div class="card-tools">
+                <h3 class="card-title">Pemakaian Bahan Baku</h3>
+                <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                       <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                    </div> -->
+                    </div>
+              </div>
 
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="<?php echo site_url('penerimaan/input_form_detail') ?>" method="post"> 
+                        <form action="<?php echo site_url('pemakaian/input_form_detail') ?>" method="post"> 
                             <div class="row">
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                 <!-- text input -->
                                     <div class="form-group">
-                                        <label for="id_penerimaan">No. Penerimaan<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="id_penerimaan" readonly value="<?php echo $_SESSION['id_penerimaan']; ?>">
-                                        <!-- <?php echo "<b>".form_error('id_penerimaan')."</b>"; ?> -->
+                                        <label for="no_pemakaian">No. Pemakaian<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="no_pemakaian" readonly value="<?php echo $_SESSION['no_pemakaian']; ?>">
+                                        <!-- <?php echo "<b>".form_error('no_pemakaian')."</b>"; ?> -->
                                     </div>
                                 </div>
-                                <div class="col-sm-5">
-                                <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="nm_penerima">Nama Penerima<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="nm_penerima" readonly value="<?php echo $_SESSION['nm_penerima']; ?>">
-                                        <!-- <?php echo "<b>".form_error('nm_penerima')."</b>"; ?> -->
-                                    </div>
-                                </div>
+                
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                             <label for="tanggal">Tanggal<span class="text-danger">*</span></label>
@@ -53,17 +46,25 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="id_pembelian">No. Faktur
-                                        <span class="text-danger">*</span>
+                                    <label for="nama_produk">ID Produk</label><span class="text-danger">*</span>
                                     </label>
-                                    <input readonly class="form-control" name="id_pembelian" value="<?= $_SESSION['id_pembelian'];?>">
+                                    <input readonly class="form-control" name="nama_produk" value="<?= $_SESSION['id_produk'];?>">
+                                    </input>
+                                </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="id_bom">ID BOM</label><span class="text-danger">*</span>
+                                    </label>
+                                    <input readonly class="form-control" name="id_bom" value="<?= $_SESSION['id_bom'];?>">
                                     </input>
                                 </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="nama_bb">Nama Bahan Baku
@@ -72,9 +73,9 @@
                                         <select class="form-control" name="nama_bb">
                                         <option value="">- None -</option>
                                             <?php
-                                            foreach($bb_pembelian as $row):
+                                            foreach($bahanbaku as $row):
                                             ?>
-                                            <option value="<?php echo $row['kode_barang']?>">[<?php echo $row['kode_barang']?>] <?php echo $row['nama_bb']?></option>
+                                            <option value="<?php echo $row['kode_bb']?>"><?php echo $row['nama_bb']?></option>
                                                 <?php
                                                 endforeach;
                                                 ?>
@@ -117,13 +118,13 @@
                                 </div>
                                 <div class="col sm-4">
                                     <!-- text input -->
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="keterangan">Keterangan<span class="text-danger">*</span></label>
                                             <textarea class="form-control" name="keterangan" value="<?php echo set_value("keterangan"); ?>" placeholder="Keterangan Barang"></textarea>
                                             <?php echo "<b>".form_error('keterangan')."</b>"; ?>
                                         </div>
                                     </div>  
-                            </div>
+                            </div> -->
                         </div>
                             <div class="card-footer">
                                 <div class="text-center">

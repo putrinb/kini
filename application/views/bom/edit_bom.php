@@ -10,13 +10,10 @@
             <div class="col-12">
                 <div class="card card-light">
                     <div class="card-header">
-                        <h3 class="card-title">Detail <i>Bill of Material</i></h3>
+                        <h3 class="card-title">Edit Detail <i>Bill of Material</i></h3>
                         <div class="text-right">
                             <!-- <button onclick="location.href = '<?php echo site_url('bom/view_data')?>'" type="button" class="btn btn-success btn-sm">
                                 <span class="fas fa-print"></span> Cetak
-                            </button> -->
-                            <!-- <button onclick="location.href = '<?php echo site_url('bom/edit_data/'.$cacah['id_bom'].'/'.$cacah['id_bom'])?>" type="button" class="btn btn-info btn-sm">
-                                <span class="fas fa-edit"></span> Edit
                             </button> -->
                         </div>
                     </div>
@@ -40,7 +37,7 @@
                                         echo "<b>No. BOM	 : </b> ".$id_bom."<br>";
                                         echo "<b>Kode Produk	 : </b> ".$id_produk."<br>";
                                         echo "<b>Nama Produk	 : </b> ".$nama_produk."<br><br>";
-                                ?>
+                                        ?>
                                 <!-- <div class="container"> -->
                                 <thead class="thead-light">
                                     <tr>
@@ -54,14 +51,14 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    $no=1;
+                                $no=1;
                                     foreach($data_bom as $cacah):
-                                        echo "<tr>";
-                                            echo "<td class='text-center'>".$no++;"</td>";
+                                        echo "<tr class='text-center'>";
+                                            echo "<td>".$no++;"</td>";
                                             echo "<td>".$cacah['nama_bb']."</td>";
                                             echo "<td>".$cacah['merk']."</td>";
-                                            echo "<td class='text-center'>".$cacah['qty']."</td>";
-                                            echo "<td class='text-center'>".$cacah['satuan_bb']."</td>";
+                                            echo "<td><input name='qty' type='number' min='1' class='form-control'></td>";
+                                            echo "<td>".$cacah['satuan_bb']."</td>";
                                                 ?>
                                                     <!-- <button onclick="location.href = '<?php echo site_url('pembelian/edit_form_detail/'.$cacah['no_penerimaan']) ?>';" type="button" class="btn btn-success btn-sm">
                                                         <span class="glyphicon glyphicon-edit"></span> Ubah
@@ -100,7 +97,13 @@
                                 });
                             });
                         </script>
-                       
+                        <script>
+                        $(document).ready(function() {
+                            $('#example').DataTable( {
+                                "pagingType": "full_numbers"
+                            } );
+                        } );
+                        </script>
                         <script>
                         function deleteConfirm(url){
                             $('#btn-delete').attr('href', url);

@@ -64,8 +64,8 @@ class users extends CI_Controller
                 $data['bahanbaku']= $this->m_bb->get_kode_bb($kode_bb);
                 $data['title']          = 'Kini Cheese Tea | Bahan Baku';
                 $data['heading']        = 'Edit Bahan Baku';
-                $data['satuan']         = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
-
+                $data['satuan']         = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
+                
                 $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces',
                         array('required' => '%s harus diisi!',
                                 'alpha_numeric_spaces' => '%s hanya boleh diisi dengan angka, huruf, atau spasi.')

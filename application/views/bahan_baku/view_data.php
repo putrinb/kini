@@ -28,71 +28,87 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead class="thead-light text-center">
-                  <tr>
-                    <th>ID Bahan Baku</th>
-                    <th>Nama Bahan Baku</th>
-                    <th>Merk</th>
-                    <th>Satuan</th>
-                    <!-- <th>Harga Satuan</th> -->
-                    <th>Stok Awal</th>
-                    <th>Aksi</th>
-                  </tr>
-                  </thead>
+                  <table id="example2" class="table table-bordered table-hover">
+                    <thead class=" text-center">
+                    <tr>
+                      <th>ID Bahan Baku</th>
+                      <th>Nama Bahan Baku</th>
+                      <th>Merk</th>
+                      <th>Satuan</th>
+                      <!-- <th>Harga Satuan</th> -->
+                      <th>Stok</th>
+                      <th>Aksi</th>
+                    </tr>
+                    </thead>
 
-                  <!-- <tfoot>
-                  <tr>
-                    <th>ID Bahan Baku</th>
-                    <th>Nama Bahan Baku</th>
-                    <th>Satuan</th>
-                    <th>Harga Satuan</th>
-                    <th>Stok Awal</th>
-                    <th>Aksi</th>
-                  </tr>
-                  </tfoot> -->
+                    <!-- <tfoot>
+                    <tr>
+                      <th>ID Bahan Baku</th>
+                      <th>Nama Bahan Baku</th>
+                      <th>Satuan</th>
+                      <th>Harga Satuan</th>
+                      <th>Stok Awal</th>
+                      <th>Aksi</th>
+                    </tr>
+                    </tfoot> -->
 
-                  <tbody>
-                  <tr>
-                            <?php
-                                $no=1;
-                                foreach($bahan_baku as $row):
-                                echo "<tr>";
-                                echo "<td>".$row['kode_bb']."</td>
-                                <td>".$row['nama_bb']."</td>
-                                <td>".$row['merk']."</td>
-                                <td>".$row['satuan']."</td>
-                                <td>".$row['stok_awal']."</td>
-                                <td align='center'>"
-                            ?>
+                    <tbody>
+                    <tr>
+                              <?php
+                                  $no=1;
+                                  foreach($bahan_baku as $row):
+                                  echo "<tr>";
+                                  echo "<td>".$row['kode_bb']."</td>
+                                  <td>".$row['nama_bb']."</td>
+                                  <td>".$row['merk']."</td>
+                                  <td>".$row['satuan']."</td>
+                                  <td>".$row['stok_awal']."</td>
+                                  <td align='center'>"
+                              ?>
 
-                                <a href="<?=site_url('bahan_baku/edit_data/'.$row['kode_bb'])?>" class="btn btn-success btn-sm">
-                                    <span class="fa fa-edit"></span>
-                                </a>
+                                  <a href="<?=site_url('bahan_baku/edit_data/'.$row['kode_bb'])?>" class="btn btn-success btn-sm">
+                                      <span class="fa fa-edit"></span>
+                                  </a>
 
-                                <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$row['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
-                                    <span class="fa fa-trash"></span>
-                                </a>
-                                <?php
-                                echo "</td>";
-                                echo "</tr>";
-                                endforeach;
-                                ?>
-                        </tr>
-                  </tbody>
-                </table>
+                                  <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$row['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                      <span class="fa fa-trash"></span>
+                                  </a>
+                                  <?php
+                                  echo "</td>";
+                                  echo "</tr>";
+                                  endforeach;
+                                  ?>
+                          </tr>
+                    </tbody>
+                  </table>
+                  <script src="<?=base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
+                  <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+                  <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+                  <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> 
+                        <script>
+                            $(function () {
+                                $("#example1").DataTable({
+                                "responsive": true,
+                                "autoWidth": false,
+                                });
+                                $('#example2').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                                });
+                            });
+                        </script>
                 <script>
                   function deleteConfirm(url){
                     $('#btn-delete').attr('href', url);
                     $('#deleteModal').modal();
                   }
                   </script>
-                  <script type="text/javascript" src="<?php echo base_url('js/jquery.min.js') ?>"></script>
-                  <script type="text/javascript" src="<?php echo base_url('assets/jquery/jquery.dataTables.min.js') ?>"></script>
-                  <script type="text/javascript" src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.js') ?>"></script>
-                  <script type="text/javascript" src="<?php echo base_url('datatables/lib/js/dataTables.bootstrap.min.js') ?>"></script>
                 
-
                   <!-- Logout Delete Confirmation-->
                   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

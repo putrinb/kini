@@ -55,48 +55,65 @@
                                     <td class="text-center">
                                         <button onclick="location.href = '<?php echo site_url('bom/view_data_detail/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>'" type="button" class="btn btn-info btn-sm">
                                         <span class="fas fa-info-circle"></span> Detail
+                                        </button>
                                     </td>
                                     <td class="text-center">
-                                        <!-- <button onclick="location.href = '<?php echo site_url('bom/edit_form/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>'" type="button" class="btn btn-success btn-sm">
-                                            <span class="fas fa-edit"></span> Ubah
+                                        <!-- <button onclick="location.href = '<?php echo site_url('bom/edit_data/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>'" type="button" class="btn btn-success btn-sm">
+                                            <span class="fas fa-edit"></span>
                                         </button> -->
-                                        <a onclick="deleteConfirm('<?php echo site_url('bom/delete_form/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>')" href="#!" class="btn btn-danger btn-sm">
-                                        <span class="fas fa-trash"></span> Hapus
+                                        <a onclick="deleteConfirm('<?=site_url('bom/delete_data/'.$cacah['id_bom'].'/'.$cacah['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                        <span class="fa fa-trash"></span>
                                         </a>
-                                    </td>
-                                <?php
+                                        <?php
+                                    echo "</td>";
+                                    echo "</tr>";
                                     endforeach;
-                                ?>
+                                    ?>
                             </tbody>
                         </table>
                         <!-- DataTables -->
-
-                            <script src="<?=base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> 
-
+                            <script>
+                            $(function () {
+                                $("#example1").DataTable({
+                                "responsive": true,
+                                "autoWidth": false,
+                                });
+                                $('#example2').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                                });
+                            });
+                            </script>
+                            <!-- delete modal -->
+                            <script>
+                            function deleteConfirm(url){
+                                $('#btn-delete').attr('href', url);
+                                $('#deleteModal').modal();
+                            }
+                            </script>
                         <!-- Logout Delete Confirmation-->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
-                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">X</span>
-                                                </button>
-                                        </div>
-                                        <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
-                                                <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
-                                            </div>
-                                        </div>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">X</span>
+                                        </button>
                                     </div>
-                                </div>
+                                <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
+                                <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
                             </div>
-                        </table>
-                    </div>    
+                        </div>
+                    </div>
+                  </div>    
             </div>
         </div>
         </div>

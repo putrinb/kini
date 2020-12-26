@@ -181,6 +181,15 @@ class m_penerimaan extends CI_Model {
       
     }
 
+    public function getDataBBPembelian($id_pembelian){
+      $this->db->select('*');
+      $this->db->from('pembelian');
+      $this->db->join('bahan_baku', 'bahan_baku.kode_bb = pembelian.kode_barang');
+      $this->db->where('pembelian.id_pembelian', $id_pembelian);
+      $query = $this->db->get();             
+      return $query->result_array();
+    }
+
     public function getData(){
       $this->db->select('*');
       $this->db->from('penerimaan');
@@ -212,7 +221,7 @@ class m_penerimaan extends CI_Model {
       return $id;
     }
 
-    public function deleteFormInput($id_penerimaan,$id_pembelian)
+    public function delete_penerimaan($id_penerimaan,$id_pembelian)
     {
       //delete dokumen dan qrcode
       //$this->_deleteDokumenDanQrCode($id_penerimaan,$id_pembelian);
@@ -220,7 +229,7 @@ class m_penerimaan extends CI_Model {
       //hapus data tabel anaknya
       $this->db->delete('detail_penerimaan', array("id_penerimaan" => $id_penerimaan, "id_pembelian" => $id_pembelian));
       //baru hapus tabel induknya
-      return $this->db->delete('pembelian_bb', array("id_penerimaan" => $id_penerimaan, "id_pembelian" => $id_pembelian));
+      return $this->db->delete('penerimaan', array("id_penerimaan" => $id_penerimaan, "id_pembelian" => $id_pembelian));
       
     }
 

@@ -28,13 +28,13 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead class="thead-light text-center">
+                <table id="example1" class="table table-bordered table-hover">
+                  <thead class="text-center">
                   <tr>
                     <th>ID Produk</th>
                     <th>Nama Produk</th>
-                    <th>Gambar</th>
                     <th>ID BOM</th>
+                    <th>Gambar</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
@@ -47,13 +47,14 @@
                                 echo "<tr>";
                                 echo "<td>".$row['id_produk']."</td>
                                 <td>".$row['nama_produk']."</td>
-                                <td>".$row['id_bom']."</td>"
+                                <td>  ".$row['id_bom']."</td>"
                             ?>
                             
                             <td class="text-center">
                               <a id="image" href="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="perbesar">
                               <img alt="image" src="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="img-thumbnail" width="55" />
                             </td>
+
                             <td class="text-center">
                                 <a href="<?=site_url('produk/edit_data/'.$row['id_produk'])?>" class="btn btn-success btn-sm">
                                     <span class="fa fa-edit"></span>
@@ -70,20 +71,32 @@
                         </tr>
                   </tbody>
                 </table>
+              </div>
                 <script>
                   function deleteConfirm(url){
                     $('#btn-delete').attr('href', url);
                     $('#deleteModal').modal();
                   }
                   </script>
-                  <script type="text/javascript" src="<?php echo base_url('js/jquery.min.js') ?>"></script>
-                  <script type="text/javascript" src="<?=base_url();?>assets/jquery/jquery.fancybox-1.3.4.pack.js"></script> 
-
+                  <script>
+                            $(function () {
+                                $("#example1").DataTable({
+                                "responsive": true,
+                                "autoWidth": false,
+                                });
+                                $('#example2').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                                });
+                            });
+                        </script>
                   <script>
                   $(document).ready(function() {
-                      $('#example').DataTable( {
-                          "pagingType": "full_numbers"
-                      } );
                       $(".perbesar").fancybox();
                       $("a#image").fancybox({
                       'opacity'		: true,
@@ -106,15 +119,13 @@
                           </button>
                         </div>
                         <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
-                        <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
-                          <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
-                        </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
+                            <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+                          </div>
                       </div>
                     </div>
                   </div>
-              </div>
-              <!-- /.card-body -->
             </div>
             <!-- /.card -->
               </div>

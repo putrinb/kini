@@ -11,8 +11,6 @@
   <link rel="stylesheet" href="<?=base_url();?>assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="<?=base_url();?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?=base_url();?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -21,27 +19,42 @@
   <link rel="stylesheet" href="<?=base_url();?>assets/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="<?=base_url();?>assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="<?=base_url();?>assets/plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="<?=base_url();?>assets/plugins/summernote/summernote-bs4.css">
+  <!-- Datetimepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"> 
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+
+  <script src="<?=base_url();?>assets/dist/css/bootstrap-datetimepicker.css"></script>
+  <script src="<?=base_url();?>assets/dist/css/bootstrap-datetimepicker.min.css"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/datepicker.css">
+  <!-- <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/datepicker.css"> -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/jquery.dataTables.min.css">
   <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.3.1.js"></script>
   <script src="<?php echo base_url(); ?>assets/jquery/jquery.dataTables.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="<?php echo base_url(); ?>assets/dist/js/bootstrap-datepicker.js"></script>
-  <link rel="stylesheet" href="<?=base_url();?>assets/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+  <!-- <script src="<?php echo base_url(); ?>assets/dist/js/bootstrap-datepicker.js"></script> -->
+  <link rel="stylesheet" href="<?=base_url();?>assets/jquery/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+
+    <!-- Start Page Loading -->
+    <!-- <div class="container">
+	
+      <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+        <circle cx="170" cy="170" r="160" stroke="#E2007C"/>
+        <circle cx="170" cy="170" r="135" stroke="#404041"/>
+        <circle cx="170" cy="170" r="110" stroke="#E2007C"/>
+        <circle cx="170" cy="170" r="85" stroke="#404041"/>
+      </svg>
+	 -->
+    </div>
+    <!-- End Page Loading -->
+
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-pink navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">

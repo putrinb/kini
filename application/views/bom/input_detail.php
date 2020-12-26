@@ -14,11 +14,12 @@
             <div class="card card-light">
               <div class="card-header">
                 <h3 class="card-title">Buat <i>Bill of Material</i></h3>
-              </div>
-              <!-- <div class="card-tools">
+                <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                       <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                    </div> -->
+                    </div>
+              </div>
+              
 
                     <!-- /.card-header -->
                     <div class="card-body">

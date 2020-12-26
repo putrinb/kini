@@ -41,6 +41,7 @@
                                     <th colspan="2">Aksi</th>
                                 </tr>
                             </thead>
+                            
                             <tbody>
                                 <?php
                                     $no=1;
@@ -59,7 +60,7 @@
                                         <!-- <button onclick="location.href = '<?php echo site_url('penerimaan/edit_form/'.$cacah['id_penerimaan'].'/'.$cacah['id_pembelian']) ?>'" type="button" class="btn btn-success btn-sm">
                                             <span class="fas fa-edit"></span> Ubah
                                         </button> -->
-                                    <a onclick="deleteConfirm('<?php echo site_url('penerimaan/delete_form/'.$cacah['id_penerimaan'].'/'.$cacah['id_pembelian']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                    <a onclick="deleteConfirm('<?php echo site_url('penerimaan/delete_data/'.$cacah['id_penerimaan'].'/'.$cacah['id_pembelian']) ?>')" href="#!" class="btn btn-danger btn-sm">
                                         <span class="fas fa-trash"></span>
                                     </a>
                                     </td>
@@ -69,13 +70,34 @@
                             </tbody>
                         </table>
                         <!-- DataTables -->
-                        <script>
                             <script src="<?=base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
                             <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
                             <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> 
+                            <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+                            <script>
+                            $(function () {
+                                $("#example1").DataTable({
+                                "responsive": true,
+                                "autoWidth": false,
+                                });
+                                $('#example2').DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": false,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                                });
+                            });
                         </script>
 
+                        <script>
+                        function deleteConfirm(url){
+                            $('#btn-delete').attr('href', url);
+                            $('#deleteModal').modal();
+                        }
+                        </script>
                         <!-- Logout Delete Confirmation-->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

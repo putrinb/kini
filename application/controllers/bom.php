@@ -28,6 +28,23 @@ class bom extends CI_Controller
     //     $this->load->view('templates/footer');
     // }
 
+    //untuk mengecek produk
+		function check_produk() {
+            // $no_faktur = $this->input->post('no_faktur');// get no_faktur
+            $id_produk = $this->input->post('id_produk');// get idsupplier
+            $this->db->select('id_produk');
+            $this->db->from('bom');
+            $this->db->where('id_produk', $id_produk);
+            $query = $this->db->get();
+            $num = $query->num_rows();
+            if ($num > 0) {
+                $this->form_validation->set_message('check_produk','BOM untuk produk tersebut sudah ada');
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+    }
+
     public function add()
     {
             $data['id_bom'] = $this->m_bom->getId(); // ambil id penerimaan
@@ -35,7 +52,7 @@ class bom extends CI_Controller
 			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
 			$data['heading'] = 'Bill of Material';
 			$data['title'] = 'Kini Cheese Tea | Bill of Material';
-			$data['satuan'] = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+			$data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
 
 			// $this->form_validation->set_rules('nama_bb', 'nama bahan baku', 'required',
 			// array('required' => 'Anda harus memasukkan %s.')
@@ -93,7 +110,7 @@ class bom extends CI_Controller
 			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
 			$data['heading'] = 'Bill of Material';
 			$data['title'] = 'Kini Cheese Tea | Bill of Material';
-            $data['satuan'] = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+            $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
             
             $this->form_validation->set_rules('nama_bb', 'nama bahan baku', 'required',
 			array('required' => 'Anda harus memasukkan %s.')
@@ -144,7 +161,7 @@ class bom extends CI_Controller
 			$data['bahanbaku'] = $this->m_bb->getData($_SESSION['id_bom']); //untuk mengpembelianta bahanbaku
 			$data['title'] = 'Kini Cheese Tea | Bill of Material';
             $data['heading'] = 'Bill of Material';
-            $data['satuan'] = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+            $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -176,26 +193,66 @@ class bom extends CI_Controller
 		$this->load->view('templates/footer');
     }
     
+    // //fungsi untuk edit data
+    //     public function edit_data($id_bom,$id_produk)
+    //     {
+			
+	// 		if ((!isset($id_bom)) and (!isset($id_produk))) redirect('bom/view_data');
+					
+	// 		$this->form_validation->set_rules('idsupplier', 'Nama Supplier', 'required',
+	// 				array('required' => 'Anda harus memasukkan %s.')
+	// 				);		
+					
+	// 		$this->form_validation->set_rules('datetimepicker', 'Tanggal Pembelian', 'required',
+	// 				array('required' => 'Anda harus memasukkan %s.')
+	// 				);	
+			
+    //         $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
+	// 		$data['id_produk'] = $this->m_bom->getIdMinuman($id_produk); //untuk mengambil data buah
+	// 		// $data['dataSupplier'] = $this->supplier_model->getDataOrderByNama(); //untuk mengambil data supplier
+			
+	// 		if ($this->form_validation->run() == FALSE)
+	// 		{
+    //             $data['heading'] = 'Bill of Material';
+	// 	        $data['title'] = 'Bill of Material | Data';
+    //             $data['data_bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
+
+	// 			$this->load->view('templates/header', $data);
+    //             $this->load->view('templates/sidebar', $data);
+    //             $this->load->view('bom/edit_bom', $data);
+    //             $this->load->view('templates/footer');
+	// 		}else{
+    //             //simpan ke database
+    //             // $this->m_bom->input_data();
+                
+    //             //dapatkan data hasil penyimpanan
+    //             // $data['bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);
+    //             redirect('bom/view_data');
+			
+    //     }
+    // }
+        
     //fungsi untuk melihat data
     public function view_data_detail($id_bom,$id_produk)
     {
         $data['data_bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
         //print_r($data['isi_data']);
-        $data['heading'] = 'Detail Penerimaan';
-        $data['title'] = 'Penerimaan Bahan Baku | Data';
+        $data['heading'] = 'Detail BOM';
+        $data['title'] = 'Bill of Material | Data';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('bom/view_detail_bb',$data);
         $this->load->view('templates/footer');
     }
+
+    
     
     //fungsi untuk menghapus data
-    public function delete_form($id_bom,$id_produk)
+    public function delete_data($id_bom,$id_produk)
     {
-
-        if ((!isset($id_bom)) or (!isset($id_produk))) show_404();
+        // if ((!isset($id_bom)) or (!isset($id_produk))) show_404();
                
-        if ($this->m_bom->deleteFormInput($id_bom,$id_produk)) {
+        if ($this->m_bom->delete_bom($id_bom,$id_produk)) {
             $this->session->set_flashdata('flash','dihapus');
         redirect(site_url('bom/view_data'));
         }

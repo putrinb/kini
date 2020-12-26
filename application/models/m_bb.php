@@ -38,7 +38,7 @@ class m_bb extends CI_Model
 		foreach($hasil as $cacah):
 		$jml_data = $cacah['hsl'];
 		endforeach;
-		$id = 'BB-';
+		$id = 'BBU-';
 		$nomor = str_pad(($jml_data+1),3,"0",STR_PAD_LEFT); //ID-001
 		$id = $id.$nomor;
 		return $id;

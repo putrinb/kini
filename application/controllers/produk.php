@@ -72,46 +72,32 @@ class produk extends CI_Controller
         
         
     }
-        public function edit_data($kode_bb){
-                if(!isset($kode_bb)) redirect('bahan_baku/view_data');
+        public function edit_data($id_produk){
+                if(!isset($id_produk)) redirect('produk/view_data');
 
-                $data['bahanbaku']= $this->m_bb->get_kode_bb($kode_bb);
-                $data['title']          = 'Kini Cheese Tea | Bahan Baku';
-                $data['heading']        = 'Edit Bahan Baku';
-                $data['satuan']         = ['Kilogram (Kg)','Liter (L)','Gram (Gr)','Kaleng','Pieces (Pcs)','Pack','Balok'];
+                $data['produk']= $this->m_produk->getEdit($id_produk);
+                $data['title']          = 'Kini Cheese Tea | Produk';
+                $data['heading']        = 'Edit Produk';
 
-                $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces',
+                $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|alpha_numeric_spaces',
                         array('required' => '%s harus diisi!',
                                 'alpha_numeric_spaces' => '%s hanya boleh diisi dengan angka, huruf, atau spasi.')
-                        );
-                $this->form_validation->set_rules('satuan', 'Satuan Bahan Baku', 'required',
-                        array('required' => '%s harus diisi!')
-                );		
-
-                $this->form_validation->set_rules('merk', 'Merk', 'required',
-                array('required' => '%s harus diisi!',
-                )
                 );
-                
-                $this->form_validation->set_rules('stok_awal', 'Stok Awal', 'required|numeric',
-                        array('required' => '%s harus diisi!',
-                        'numeric' =>  '%s hanya diisi oleh angka!',
-                        )
-                );              
+
                 $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
 
                 if ($this->form_validation->run() == FALSE)
                 {
                         $this->load->view('templates/header',$data);
                         $this->load->view('templates/sidebar',$data);
-                        $this->load->view('bahan_baku/edit_bb',$data);
+                        $this->load->view('produk/edit_produk',$data);
                         $this->load->view('templates/footer');
                 }
                 else
                 {
-                        $this->m_bb->update_edit();
+                        $this->m_produk->update_data($id_produk);
                         $this->session->set_flashdata('flash','diubah');
-                        redirect('bahan_baku/view_data'); 
+                        redirect('produk/view_data'); 
                 }
         
         }
@@ -119,7 +105,6 @@ class produk extends CI_Controller
     public function view_data()
     {
         $data=array('data_produk' =>  $this->m_produk->getdata(),
-        'produk_bom' => $this->m_produk->getdataIdBOM(),
         'title'=>'Kini Cheese Tea | Produk',
         'heading' => 'Produk'
         );

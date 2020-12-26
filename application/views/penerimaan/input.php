@@ -40,7 +40,7 @@
                                             <label for="nm_penerima">Nama Penerima<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="nm_penerima" value="<?php echo set_value('nm_penerima'); ?>" placeholder="Nama Penerima">
                                             </input>
-                                            <!-- <?php echo "<b>".form_error('penerima')."</b>"; ?> -->
+                                            <?php echo "<b>".form_error('nm_penerima')."</b>"; ?>
                                         </div>
                                     </div>
 

@@ -131,6 +131,7 @@ class m_bom extends CI_Model {
           // 'keterangan'    =>  $this->input->post('keterangan'),
         ];
         $this->db->insert('detail_bom', $detail);
+
         //update id_bom
 				$sql = "UPDATE produk SET id_bom = ".$this->db->escape($this->input->post('id_bom'));
 				$sql = $sql." WHERE id_produk = ".$this->db->escape($this->input->post('id_produk'));
@@ -177,7 +178,7 @@ class m_bom extends CI_Model {
     //   return $query->result_array();
     // }
 
-    public function deleteFormInput($id_bom,$id_produk)
+    public function delete_bom($id_bom,$id_produk)
     {
       //delete dokumen dan qrcode
       //$this->_deleteDokumenDanQrCode($id_bom,$id_produk);
@@ -187,10 +188,5 @@ class m_bom extends CI_Model {
       //baru hapus tabel induknya
       return $this->db->delete('bom', array("id_bom" => $id_bom, "id_produk" => $id_produk));
       
-    }
-
-    public function deleteFormInputDetailBOM($no_bom)
-    {
-      return $this->db->delete('detail_bom', array("no_bom" => $no_bom));
     }
 }

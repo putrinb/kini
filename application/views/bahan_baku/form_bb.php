@@ -23,9 +23,15 @@
                   <!-- form start -->
                     <?php echo form_open('bahan_baku/insert');?>
                       <div class="card-body">
+
                         <div class="form-group col-sm-12">
-                          <label>Nama Bahan Baku</label><span class="text-danger">*</span>
-                          <input name="nama_bb" type="text" class="form-control" value="<?php echo set_value('nama_bb');?>" placeholder="Masukkan Bahan Baku">
+                          <label>ID Bahan Baku Utama</label><span class="text-danger">*</span>
+                          <input readonly type="text" maxlength="50" class="form-control" value="<?= $kode_bb;?>" placeholder="Masukkan Bahan Baku">
+                          <?php echo "<b>".form_error('nama_bb')."</b>"; ?>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label>Nama Bahan Baku Utama</label><span class="text-danger">*</span>
+                          <input name="nama_bb" type="text" maxlength="50" class="form-control" value="<?php echo set_value('nama_bb');?>" placeholder="Masukkan Bahan Baku">
                           <?php echo "<b>".form_error('nama_bb')."</b>"; ?>
                         </div>
                         
@@ -37,17 +43,17 @@
                               <option value="Kilogram (Kg)">Kilogram (Kg)</option>
                               <option value="Liter (L)">Liter (L)</option>
                               <option value="Gram (Gr)">Gram (Gr)</option>
-                              <option value="Kaleng">Kaleng</option>
+                              <option value="ml">ml</option>
                               <option value="Pcs">Pieces (Pcs)</option>
                               <option value="Pack">Pack</option>
-                              <option value="Balok">Balok</option>
+                              <option value="Roll">Roll</option>
                           </select>
                           <?php echo "<b>".form_error('satuan')."</b>"; ?>
                         </div>
                         
                         <div class="form-group col-sm-12">
                           <label>Merk</label><span class="text-danger">*</span>
-                          <input type="text" name="merk" id="merk" class="form-control merk" value="<?php echo set_value('merk');?>" placeholder="ABC">
+                          <input type="text" name="merk" id="merk" class="form-control merk" maxlength="30" value="<?php echo set_value('merk');?>" placeholder="ABC">
                           <?php echo "<b>".form_error('merk')."</b>"; ?>
                         </div>
                         
