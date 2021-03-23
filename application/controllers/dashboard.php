@@ -8,12 +8,18 @@ class dashboard extends CI_Controller
         if(!$this->session->userdata('is_logged')){
                 redirect('auth');
             }
+        $this->load->model('m_bom');
+        
     }
     public function index()
     {
         $data=[
             'title'     =>   'Kini Cheese Tea | Dashboard',
             'heading'   =>   'Dashboard',
+            'bb'        => $this->m_bom->CountBB(),
+            'produk'        => $this->m_bom->CountProduk(),
+            'penerimaan'        => $this->m_bom->CountPenerimaan(),
+            'bom'        => $this->m_bom->CountBOM(),
         ];
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar',$data);

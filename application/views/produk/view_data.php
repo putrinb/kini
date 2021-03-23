@@ -31,6 +31,7 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead class="text-center">
                   <tr>
+                    <th class="text-center">No</th>
                     <th>ID Produk</th>
                     <th>Nama Produk</th>
                     <th>ID BOM</th>
@@ -40,22 +41,32 @@
                   </thead>
 
                   <tbody>
-                  <tr>
+                  
                             <?php
                                 $no=1;
                                 foreach($data_produk as $row):
-                                echo "<tr>";
-                                echo "<td>".$row['id_produk']."</td>
-                                <td>".$row['nama_produk']."</td>
-                                <td>  ".$row['id_bom']."</td>"
                             ?>
-                            
-                            <td class="text-center">
-                              <a id="image" href="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="perbesar">
-                              <img alt="image" src="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="img-thumbnail" width="55" />
-                            </td>
+                            <tr>
+                              <td class="text-center">
+                              <?= $no; ?>
+                              </td>
+                              <td class="text-center">
+                                  <?= $row['id_produk']; ?>
+                              </td>
+                              <td class="text-left">
+                                  <?= $row['nama_produk']; ?>
+                              </td>
 
-                            <td class="text-center">
+                              <td class="text-center">
+                                  <?= $row['id_bom']; ?>
+                              </td>
+
+                              <td class="text-center">
+                              <a id="image" href="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="perbesar">
+                                <img alt="image" src="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="img-thumbnail" width="64" /></a>
+                              </td>
+
+                              <td class="text-center">
                                 <a href="<?=site_url('produk/edit_data/'.$row['id_produk'])?>" class="btn btn-success btn-sm">
                                     <span class="fa fa-edit"></span>
                                 </a>
@@ -63,15 +74,21 @@
                                 <a onclick="deleteConfirm('<?=site_url('produk/delete_data/'.$row['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                     <span class="fa fa-trash"></span>
                                 </a>
+                            </td>
+                                </tr>
+                            
+                           
+
+                            
                                 <?php
-                                echo "</td>";
-                                echo "</tr>";
+                                $no++;
                                 endforeach;
                                 ?>
-                        </tr>
+                      
                   </tbody>
                 </table>
               </div>
+              <script src="<?= base_url('assets/jquery/jquery.fancybox.js') ?>"></script>
                 <script>
                   function deleteConfirm(url){
                     $('#btn-delete').attr('href', url);
@@ -98,12 +115,6 @@
                   <script>
                   $(document).ready(function() {
                       $(".perbesar").fancybox();
-                      $("a#image").fancybox({
-                      'opacity'		: true,
-                      'overlayShow'	: false,
-                      'transitionIn'	: 'elastic',
-                      'transitionOut'	: 'none'
-                    });
                   } );
                   </script>
                 

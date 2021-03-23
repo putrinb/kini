@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body class="hold-transition sidebar-mini">
 <div class="wrapper">   
 
     <!-- Main content -->
@@ -28,7 +25,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="example" class="table table-bordered table-hover mt-3">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -47,7 +44,7 @@
                                     $no=1;
                                     foreach($data_penerimaan as $cacah):
                                     echo "<tr>";
-                                    echo "<td>".$no++;"</td>";
+                                    echo "<td class='text-center'>".$no++;"</td>";
                                     echo "<td>".$cacah['id_penerimaan']."</td>";
                                     echo "<td>".$cacah['tanggal']."</td>";
                                     echo "<td>".$cacah['nm_penerima']."</td>";
@@ -70,11 +67,13 @@
                             </tbody>
                         </table>
                         <!-- DataTables -->
-                            <script src="<?=base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-                            <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-                            <script>
+                        <script>
+                        $(document).ready(function() {
+                            $('#example').DataTable();
+                        } );
+                        </script>
+
+                        <script>
                             $(function () {
                                 $("#example1").DataTable({
                                 "responsive": true,
@@ -126,4 +125,3 @@
         </div>
     </section>
 </div>
-</body></html>

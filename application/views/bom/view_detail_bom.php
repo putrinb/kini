@@ -15,7 +15,7 @@
             <?php if( $this->session->flashdata('flash') ) : ?>
             <div class="div row mt-3">
                 <div class="div col md-3">
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                     Bahan baku<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
                     </div>
@@ -25,43 +25,35 @@
             <div class="row">
                 <div class="container-fluid">
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card card-light">
                             <div class="card-header">
                                 <h3 class="card-title mt-2">Detail Data</h3>
                             </div>
                             <!-- /.card-header -->
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover">
-                                        <thead>
+                                        <thead class="thead-light">
                                             <tr>
                                                 <th class="text-center">No.</th>
-                                                <th class="text-center">Bahan Baku</th>
-                                                <th class="text-center">Merk</th>
+                                                <th class="text-center">Nama Bahan Baku</th>
                                                 <th class="text-center">Jumlah</th>
                                                 <th class="text-center">Satuan</th>
-                                                <th class="text-center">Harga</th>
-                                                <th class="text-center">Total</th>
-                                                <th class="text-center">Keterangan</th>
                                                 <th class="text-center">Hapus</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <?php
                                             $no=1;
-                                            foreach($penerimaan as $cacah):
+                                            foreach($data_bom as $cacah):
                                                 echo "<tr>";
                                                     echo "<td class='text-center'>".$no++;"</td>";
-                                                    echo "<td>"."[".$cacah['kode_bb']."] ".$cacah['nama_bb']."</td>";
-                                                    echo "<td>".$cacah['merk']."</td>";
-                                                    echo "<td>".$cacah['qty']."</td>";
-                                                    echo "<td>".$cacah['satuan']."</td>";
-                                                    echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
-                                                    echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
-                                                    echo "<td>".$cacah['ket']."</td>";
+                                                    echo "<td>".$cacah['nama_bb']."</td>";
+                                                    echo "<td class='text-center'>".$cacah['qty']."</td>";
+                                                    echo "<td>".$cacah['satuan_bb']."</td>";
                                                     echo "<td align='center'>";
                                                         ?>
-                                                            <a onclick="deleteConfirm('<?php echo site_url('penerimaan/delete_form_detail/'.$cacah['no_penerimaan'].'/'.$cacah['id_penerimaan'].'/'.$cacah['id_pembelian']) ?>')" href="#!" class="btn btn-danger btn-sm">
-                                                                <span class="fas fa-trash"></span>
+                                                            <a onclick="deleteConfirm('<?php echo site_url('bom/delete_form_detail/'.$cacah['no_bom'].'/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                                                <span class="fas fa-trash"></span> 
                                                             </a>
                                                         <?php
                                                     echo "</td>";
@@ -69,12 +61,13 @@
                                             endforeach;
                                         ?>
                                         </tbody>
+                                                                        
                                     </table></div>
                                     <div class="card-footer">
                                         <div class="col-sm-12 text-center">
-                                            <button onclick="location.href = '<?php echo site_url('penerimaan/selesai') ?>';" type="button" class="btn btn-info btn-sm">
+                                            <button onclick="location.href = '<?php echo site_url('bom/selesai') ?>';" type="button" class="btn btn-info btn-sm">
                                             <span class="fas fa-check"></span>
-                                                        Selesai
+                                                        Simpan
                                             </button>
                                         </div>
                                     </div>
@@ -84,20 +77,13 @@
             </div>
         </div>
         </section>
-            <script>
                 <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
                 <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
                 <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> 
-            </script>
-            <!-- <script>
-            $(document).ready(function() {
-                $('#example').DataTable( {
-                    "pagingType": "full_numbers"
-                } );
-            } );
-            </script> -->
+            
             <script>
-            function deleteConfirm(url){
+            function deleteConfirm(url)
+            {
                 $('#btn-delete').attr('href', url);
                 $('#deleteModal').modal();
             }

@@ -9,7 +9,7 @@ class m_pemakaian extends CI_Model
         foreach($hasil as $cacah):
           $jml_data = $cacah['hsl'];
         endforeach;
-        $id = 'PROD';
+        $id = 'PMK';
         $nomor = str_pad(($jml_data+1),6,"0",STR_PAD_LEFT);
         $id = $id.$nomor;
         return $id;       
@@ -20,7 +20,7 @@ class m_pemakaian extends CI_Model
       $this->db->select('*');
       $this->db->from('pemakaian');
       $this->db->join('detail_pemakaian', 'pemakaian.no_pemakaian = detail_pemakaian.no_pemakaian');
-      $this->db->join('bom', 'bom.id_bom = pemakaian.id_bom');
+      // $this->db->join('bom', 'bom.id_bom = pemakaian.id_bom');
       $this->db->where('detail_pemakaian.no_pemakaian', $no_pemakaian);
       $this->db->where('detail_pemakaian.id_bom', $id_bom);
       $query = $this->db->get();      
@@ -37,6 +37,40 @@ class m_pemakaian extends CI_Model
       $query = $this->db->get();
       return $query->result_array();
     }
+
+    //untuk memberi nilai qty berdasarkan id_bom
+    public function getAmount($id_bom){
+      $sql = "
+          SELECT qty
+          FROM detail_bom
+          WHERE id_bom = ".$this->db->escape($id_bom)."
+          ";
+  
+      $query = $this->db->query($sql);
+      $hasil = $query->result_array();
+      foreach($hasil as $cacah):
+      $amount = $cacah['qty'];
+      endforeach;
+  
+      return $amount;
+      }
+
+    //untuk memberi satuan berdasarkan id_bom
+    public function getSatuan($id_bom){
+      $sql = "
+          SELECT satuan_bb
+          FROM detail_bom
+          WHERE id_bom = ".$this->db->escape($id_bom)."
+          ";
+  
+      $query = $this->db->query($sql);
+      $hasil = $query->result_array();
+      foreach($hasil as $cacah):
+      $satuan = $cacah['satuan_bb'];
+      endforeach;
+  
+      return $satuan;
+      }
 
     public function input_data(){
       $post = $this->input->post();
@@ -74,15 +108,16 @@ class m_pemakaian extends CI_Model
         // $sql = "set id_bom = ".$this->db->escape($this->input->post('id_bom'));
         // $sql = "while (id_bom = ".$this->db->escape($this->input->post('id_bom'));
         // $sql = "begin "
+        $amount = $this->getAmount($post['id_bom']);
+        $satuan = $this->getSatuan($post['id_bom']);
         $detail=[
           'no_pemakaian' =>  $this->input->post('no_pemakaian'),
           'id_bom'  =>  $this->input->post('id_bom'),
-          'kode_bb'            =>  $this->input->post('kode_bb'),
-          'jumlah_pemakaian'           =>  $this->input->post('qty'),
-          'satuan_bahan'        =>  $this->input->post('satuan_bahan'),
+          'kode_bb'            =>  $this->input->post('nama_bb'),
+          'jumlah_pemakaian'           =>  $this->getAmount($amount,
+          'satuan_bahan'        =>  $this->$satuan,
           'harga_bahan'  =>  str_replace(".","",$this->input->post('harga')),
-          
-
+  
         ];
         $this->db->insert('detail_pemakaian', $detail);
 
@@ -95,12 +130,14 @@ class m_pemakaian extends CI_Model
         
       }else{
         //insert ke tabel detail pemakaian
+        $amount = $this->getAmount($post['id_bom']);
+        $satuan = $this->getSatuan($post['id_bom']);
         $detail=[
           'no_pemakaian' =>  $this->input->post('no_pemakaian'),
           'id_bom'  =>  $this->input->post('id_bom'),
-          'kode_bb'            =>  $this->input->post('kode_bb'),
-          'jumlah_pemakaian'           =>  $this->input->post('qty'),
-          'satuan_bahan'        =>  $this->input->post('satuan_bahan'),
+          'kode_bb'            =>  $this->input->post('nama_bb'),
+          'jumlah_pemakaian'           =>  $this->$amount,
+          'satuan_bahan'        =>  $this->$satuan,
           'harga_bahan'  =>  str_replace(".","",$this->input->post('harga')),
 
         ];

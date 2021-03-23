@@ -34,7 +34,6 @@ class penerimaan extends CI_Controller
             $data['id_penerimaan'] = $this->m_penerimaan->getId(); // ambil id penerimaan
 			$data['pembelian'] = $this->m_penerimaan->getIdPembelian(); // ambil id pembelian
 			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
-            $data['datasupplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
             
 			$data['heading'] = 'Penerimaan Bahan Baku';
 			$data['title'] = 'Kini Cheese Tea | Penerimaan Bahan Baku';
@@ -95,7 +94,6 @@ class penerimaan extends CI_Controller
             // $data['IdPenerimaan'] = $this->m_penerimaan->getIdPenerimaan(); // ambil id penerimaan
 			$data['pembelian'] = $this->m_penerimaan->getIdPembelian(); // ambil id pembelian
 			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
-			$data['datasupplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
 			$data['heading'] = 'Penerimaan Bahan Baku';
 			$data['title'] = 'Kini Cheese Tea | Penerimaan Bahan Baku';
             $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
@@ -152,11 +150,9 @@ class penerimaan extends CI_Controller
     //input form 2
 		public function input_form_detail2(){
 
+            $data['bb_pembelian'] = $this->m_penerimaan->getDataBBPembelian($_SESSION['id_pembelian']);
 			$data['penerimaan'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'],$_SESSION['id_pembelian']);
-
-			$data['isi_data'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'],$_SESSION['id_pembelian']);
 			$data['bahanbaku'] = $this->m_bb->getData($_SESSION['id_penerimaan']); //untuk mengpembelianta bahanbaku
-			$data['datasuplier'] = $this->m_supplier->getdata(); //untuk mengambil data supplier
 			$data['title'] = 'Kini Cheese Tea | Penerimaan Bahan Baku';
             $data['heading'] = 'Penerimaan Bahan Baku';
             $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];

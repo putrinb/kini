@@ -6,27 +6,95 @@
       <div class="row">
         <div class="col-md-12">
           <!-- notifikasi sukses -->
-                                  
-          <?php
-            if($this->session->flashdata('sukses')) {
-              $message = $this->session->flashdata('sukses');
-          ?>
-                <div class="alert alert-success text-center col-sm-12"><?php echo $message; ?></div>
-                  <?php
-                    }
-                ?>
-            <h4 class="text-left">Selamat Datang, <?php echo ($this->session->userdata('name')); ?></h4>
-            <p class="text-left">Anda login sebagai <?php echo $this->session->userdata('role_label'); ?>.</p><hr>                           
+          <div class="mt-3">
+              <?php
+                    if($this->session->flashdata('sukses')) {
+                      $message = $this->session->flashdata('sukses');
+                  ?>
+                        <div class="alert alert-success text-center col-sm-12"><?php echo $message; ?></div>
+                          <?php
+                            }
+                        ?>
+            </div>
+          <div class="card">
+            <div class="card-body">             
+              <h4 class="text-left">Selamat Datang, <?php echo ($this->session->userdata('name')); ?>.</h4>
+              <p class="text-left card-text">Anda login sebagai <?php echo $this->session->userdata('role_label'); ?>.</p> 
+            </div>
+          </div>
+          <hr>                                    
         </div>
       </div>
     </div>
   </section>
   
   <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-       
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3><?=$penerimaan;?></h3>
+
+                <p>Penerimaan</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-boxes"></i>
+              </div>
+              <a href="<?=site_url('penerimaan/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3><?=$bb;?></h3>
+
+                <p>Bahan Baku Utama</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-archive"></i>
+              </div>
+              <a href="<?=site_url('bahan_baku/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?=$produk;?></h3>
+
+                <p>Produk</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-beer"></i>
+              </div>
+              <a href="<?=site_url('produk/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><?=$bom;?></h3>
+
+                <p>Bill of Material</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <a href="<?=site_url('bom/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+                
                     <!-- /.card-body -->
                   </div>
                   <!-- /.card -->

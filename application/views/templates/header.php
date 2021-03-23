@@ -23,17 +23,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"> 
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 
-  <script src="<?=base_url();?>assets/dist/css/bootstrap-datetimepicker.css"></script>
-  <script src="<?=base_url();?>assets/dist/css/bootstrap-datetimepicker.min.css"></script>
+  <link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/dist/css/bootstrap-datetimepicker.css"></link>
+  <link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/dist/css/bootstrap-datetimepicker.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" >
   <!-- <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/datepicker.css"> -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/jquery.dataTables.min.css">
-  <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.3.1.js"></script>
-  <script src="<?php echo base_url(); ?>assets/jquery/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/dist/css/jquery.dataTables.min.css">
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="<?=base_url()?>assets\plugins\datatables\jquery.dataTables.js"></script>
+  <!-- <script src="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"></script> -->
+  <!-- <script src="<?php echo base_url(); ?>assets/jquery/jquery.dataTables.min.js"></script> -->
   <!-- <script src="<?php echo base_url(); ?>assets/dist/js/bootstrap-datepicker.js"></script> -->
-  <link rel="stylesheet" href="<?=base_url();?>assets/jquery/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/dist/css/jquery.fancybox.css" type="text/css" media="screen" />
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -174,24 +177,5 @@
     </ul>
   </nav>
   <!-- /.navbar -->
-  <!-- <script src="<?=base_url();?>assets/js/sweetalert2.all.min.js"></script> -->
-  <script>
-      Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    }
-  })
-  </script>
+
 

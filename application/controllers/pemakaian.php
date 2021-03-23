@@ -53,11 +53,11 @@ class pemakaian extends CI_Controller
                 $_SESSION['tanggal'] = $this->input->post('tanggal');
                 
                 $data['bom'] = $this->m_pemakaian->detailBOM($_SESSION["id_bom"]);
-                // $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
+                $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
                 $this->load->view('templates/header',$data);
                 $this->load->view('templates/sidebar',$data);
-                // $this->load->view('pemakaian/detail_pemakaian',$data);
-                $this->load->view('pemakaian/view_pemakaian',$data);
+                $this->load->view('pemakaian/detail_pemakaian',$data);
+                $this->load->view('pemakaian/view_pemakaian2',$data);
                 $this->load->view('templates/footer',$data);
             }
         
@@ -74,6 +74,10 @@ class pemakaian extends CI_Controller
             
             $this->form_validation->set_rules('harga', 'harga', 'required',
 			array('required' => 'Anda belum memasukkan %s.')
+            );
+            
+            $this->form_validation->set_rules('nama_bb', 'bahan baku', 'required',
+			array('required' => 'Anda belum memasukkan %s.')
 			);
 
             $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
@@ -82,11 +86,11 @@ class pemakaian extends CI_Controller
                 
                 $data['pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
 
-				$this->load->view('templates/header', $data);
-                $this->load->view('templates/sidebar', $data);
-                // $this->load->view('bom/input_detail', $data);
-                $this->load->view('pemakaian/view_pemakaian',$data);
-                $this->load->view('templates/footer');
+				$this->load->view('templates/header',$data);
+                $this->load->view('templates/sidebar',$data);
+                $this->load->view('pemakaian/detail_pemakaian',$data);
+                $this->load->view('pemakaian/view_pemakaian2',$data);
+                $this->load->view('templates/footer',$data);
 			}else{
                 //simpan ke database
                 $this->m_pemakaian->input_data();

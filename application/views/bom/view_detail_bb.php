@@ -84,18 +84,19 @@
                             </button>
                         </div>
                         <script>
+                        $(document).ready(function() {
+                            $('#example').DataTable();
+                        } );
+                        </script>
+                        <script>
                             $(function () {
-                                $("#example1").DataTable({
-                                "responsive": true,
-                                "autoWidth": false,
-                                });
-                                $('#example2').DataTable({
+                                $('#example1').DataTable({
                                 "paging": true,
-                                "lengthChange": false,
-                                "searching": false,
+                                "lengthChange": true,
+                                "searching": true,
                                 "ordering": true,
                                 "info": true,
-                                "autoWidth": false,
+                                "autoWidth": true,
                                 "responsive": true,
                                 });
                             });

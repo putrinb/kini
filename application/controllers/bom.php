@@ -164,7 +164,7 @@ class bom extends CI_Controller
             $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
 
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
+            // $this->load->view('templates/sidebar', $data);
 			$this->load->view('bom/input_detail', $data);
 			$this->load->view('bom/view_detail',$data);
             $this->load->view('templates/footer');
@@ -193,44 +193,52 @@ class bom extends CI_Controller
 		$this->load->view('templates/footer');
     }
     
-    // //fungsi untuk edit data
-    //     public function edit_data($id_bom,$id_produk)
-    //     {
+    //fungsi untuk edit data
+        public function edit_data($id_bom,$id_produk)
+        {
 			
-	// 		if ((!isset($id_bom)) and (!isset($id_produk))) redirect('bom/view_data');
+            if ((!isset($id_bom)) and (!isset($id_produk))) redirect('bom/view_data');
+            
+            $data['heading'] = 'Bill of Material';
+		    $data['title'] = 'Bill of Material | Data';
+            $data['data_bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
+            $data['id_produk'] = $this->m_bom->getIdMinuman($id_produk);
 					
-	// 		$this->form_validation->set_rules('idsupplier', 'Nama Supplier', 'required',
-	// 				array('required' => 'Anda harus memasukkan %s.')
-	// 				);		
-					
-	// 		$this->form_validation->set_rules('datetimepicker', 'Tanggal Pembelian', 'required',
-	// 				array('required' => 'Anda harus memasukkan %s.')
-	// 				);	
-			
-    //         $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
-	// 		$data['id_produk'] = $this->m_bom->getIdMinuman($id_produk); //untuk mengambil data buah
-	// 		// $data['dataSupplier'] = $this->supplier_model->getDataOrderByNama(); //untuk mengambil data supplier
-			
-	// 		if ($this->form_validation->run() == FALSE)
-	// 		{
-    //             $data['heading'] = 'Bill of Material';
-	// 	        $data['title'] = 'Bill of Material | Data';
-    //             $data['data_bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
+			$this->form_validation->set_rules('nama_bb', 'nama bahan baku', 'required',
+			array('required' => 'Anda harus memasukkan %s.')
+			);
 
-	// 			$this->load->view('templates/header', $data);
-    //             $this->load->view('templates/sidebar', $data);
-    //             $this->load->view('bom/edit_bom', $data);
-    //             $this->load->view('templates/footer');
-	// 		}else{
-    //             //simpan ke database
-    //             // $this->m_bom->input_data();
-                
-    //             //dapatkan data hasil penyimpanan
-    //             // $data['bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);
-    //             redirect('bom/view_data');
+			$this->form_validation->set_rules('qty', 'jumlah', 'required',
+			array('required' => 'Anda harus memasukkan %s.')
+			);
+
+			$this->form_validation->set_rules('satuan', 'satuan', 'required',
+			array('required' => 'Anda harus memasukkan %s.')
+			);
 			
-    //     }
-    // }
+            $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+                $data['heading'] = 'Bill of Material';
+		        $data['title'] = 'Bill of Material | Edit Data';
+                $data['data_bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
+
+				$this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('bom/edit_detail_bom',$data);
+                $this->load->view('bom/view_detail_bom', $data);
+                $this->load->view('templates/footer');
+			}else{
+                //simpan ke database
+                $this->m_bom->update_edit($id_bom,$id_produk);
+                
+                //dapatkan data hasil penyimpanan
+                $data['bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
+                redirect('bom/view_data');
+			
+        }
+    }
         
     //fungsi untuk melihat data
     public function view_data_detail($id_bom,$id_produk)
@@ -260,20 +268,37 @@ class bom extends CI_Controller
     }
 
     //fungsi untuk menghapus data ketika input data detail
-    public function delete_form_detail($no_bom)
+    public function delete_form_detail($no_bom,$id_bom,$id_produk)
     {    
         if ($this->m_bom->deleteFormInputDetailBOM($no_bom)) {
             $this->session->set_flashdata('flash','dihapus');
-        redirect(site_url('bom/input_form_detail2'));
+        redirect(site_url('bom/edit_detail_bom'.'/'.$id_bom.'/'.$id_produk));
         }
     }
     
-    public function delete_detail($id_transaksi_pembelian,$no_faktur,$id_supplier){
+    public function delete_detail($no_bom,$id_bom,$id_produk){
 
-        if($this->pembelian_model->deleteFormInputDetailPembelian($id_transaksi_pembelian)){
-        redirect(site_url('pembelian/view_data_pembelian_detail2/'.$no_faktur.'/'.$id_supplier));
+        if($this->m_bom->deleteFormInputDetailBOM($no_bom)){
+        redirect(site_url('bom/edit_data'.$id_bom.'/'.$id_produk));
         }
 
+        }
+    
+        public function edit_detail_bom($id_bom,$id_produk){
+
+			$data['data_bom'] = $this->m_bom->getDataDetail($id_bom,$id_produk);
+
+			// $data['isi_data'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);
+			$data['bahanbaku'] = $this->m_bb->getData($id_bom); //untuk mengpembelianta bahanbaku
+			$data['title'] = 'Kini Cheese Tea | Bill of Material';
+            $data['heading'] = 'Bill of Material';
+            $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
+
+            $this->load->view('templates/header', $data);
+            // $this->load->view('templates/sidebar', $data);
+			$this->load->view('bom/input_detail', $data);
+			$this->load->view('bom/view_detail',$data);
+            $this->load->view('templates/footer');
         }
 }
 ?>

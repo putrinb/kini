@@ -45,11 +45,12 @@ class bahan_baku extends CI_Controller
                 );
         $this->form_validation->set_rules('satuan', 'Satuan Bahan Baku', 'required',
                 array('required' => '%s harus diisi!')
-        );		
-        // $this->form_validation->set_rules('harga_satuan', 'Harga Satuan', 'required',
-        //         array('required' => '%s harus diisi!',
-        //         )
-        // );
+        );
+
+        $this->form_validation->set_rules('jml', 'Berat', 'required',
+                array('required' => '%s harus diisi!',
+                )
+        );
 
         $this->form_validation->set_rules('merk', 'Merk', 'required',
                 array('required' => '%s harus diisi!',
@@ -62,8 +63,11 @@ class bahan_baku extends CI_Controller
         );
         
         $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
-        $data=['title'=>'Bahan Baku | Input Bahan Baku',
-                'heading' => 'Form Data Bahan Baku'];
+        $data=[
+                'kode_bb' =>  $this->m_bb->getkodebb(),
+                'title'=>'Bahan Baku | Input Bahan Baku',
+                'heading' => 'Form Data Bahan Baku',
+                'satuan'  => array('kilogram (kg)','liter (L)','gram (gr)','ml','pieces (pcs)','pack','balok')];
         
         if ($this->form_validation->run() == FALSE)
         {
@@ -77,10 +81,10 @@ class bahan_baku extends CI_Controller
                  $post = $this->input->post();
                  $data['kirim'] = array('id'=> $this->m_bb->getkodebb(),
                                 'nama_bb'=>$post["nama_bb"],
-                                'satuan'=>$post["satuan"],  
-                                'harga_satuan'=>$post["harga_satuan"],
+                                'satuan'=>$post["satuan"],
                                 'merk'  =>      $post["merk"],
-                                'stok_awal'=>$post["stok_awal"]
+                                'stok_awal' => $post["stok_awal"],
+                                'jumlah' => $post["jml"]
                           );
                  
                 $hasil = $this->m_bb->insert_data();   
@@ -105,7 +109,7 @@ class bahan_baku extends CI_Controller
                 $data['bahanbaku']= $this->m_bb->get_kode_bb($kode_bb);
                 $data['title']          = 'Kini Cheese Tea | Bahan Baku';
                 $data['heading']        = 'Edit Bahan Baku';
-                $data['satuan']         = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','Pack','Balok'];
+                $data['satuan']         = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','balok'];
 
                 $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces',
                         array('required' => '%s harus diisi!',
@@ -114,6 +118,10 @@ class bahan_baku extends CI_Controller
                 $this->form_validation->set_rules('satuan', 'Satuan Bahan Baku', 'required',
                         array('required' => '%s harus diisi!')
                 );		
+
+                $this->form_validation->set_rules('jml', 'Berat Bahan Baku', 'required',
+                        array('required' => '%s harus diisi!')
+                );
 
                 $this->form_validation->set_rules('merk', 'Merk', 'required',
                 array('required' => '%s harus diisi!',

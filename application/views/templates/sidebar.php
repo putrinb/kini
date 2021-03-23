@@ -55,7 +55,7 @@
               <li class="nav-item">
                 <a href="<?=site_url('bahan_baku/add')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Baru</p>
+                  <p>Tambah Data</p>
                 </a>
               </li> 
               <li class="nav-item">
@@ -101,7 +101,7 @@
               <li class="nav-item">
                 <a href="<?=site_url('bom/add')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Buat Baru</p>
+                  <p>Tambah Data</p>
                 </a>
               </li> 
               <li class="nav-item">
@@ -124,7 +124,7 @@
               <li class="nav-item">
                 <a href="<?=site_url('produk/add')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Buat Baru</p>
+                  <p>Tambah Data</p>
                 </a>
               </li> 
               <li class="nav-item">
@@ -173,13 +173,13 @@
               <li class="nav-item">
                 <a href="<?=site_url('penerimaan/add')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Penerimaan</p>
+                  <p>Tambah Data</p>
                 </a>
               </li> 
               <li class="nav-item">
                 <a href="<?=site_url('penerimaan/view_data')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Data Penerimaan</p>
+                  <p>Lihat Data</p>
                 </a>
               </li> 
             </ul>
@@ -197,13 +197,13 @@
               <li class="nav-item">
                 <a href="<?=site_url('pemakaian/add')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Pemakaian</p>
+                  <p>Tambah Data</p>
                 </a>
               </li> 
               <li class="nav-item">
                 <a href="<?=site_url('pemakaian/view_data')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Data Pemakaian</p>
+                  <p>Lihat Data</p>
                 </a>
               </li> 
             </ul>
@@ -293,18 +293,6 @@
                 <a href="<?=site_url('laporan');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Penerimaan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=base_url();?>pages/UI/icons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Jurnal Umum</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=base_url();?>pages/UI/buttons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Buku Besar</p>
                 </a>
               </li>
               <li class="nav-item">

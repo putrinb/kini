@@ -16,12 +16,14 @@
                       <span class="fa fa-print"></span> Cetak</a>
                   </div>
                 </div>
-              
+            
                   <!-- <div align="right"> -->
                     <div class="card-body">
                         <div class="container"> 
                             <h3 class="text-center text-uppercase">laporan penerimaan barang</h3>
+                            <table id="example1" class="table table-bordered table-hover md-6">
                             <div class="d-flex justify-content-between mt-4">
+                            
                                 <?php 
                                     //cacah data dari tabel detail pembelian dengan id sesuai dengan inputan user
                                     foreach($data_penerimaan as $cacah):
@@ -45,7 +47,7 @@
                                         echo "<div><strong>Nama Pemasok:  </strong>".$nama_supplier."<br></div>";
                                         
                                         ?>
-                            <table id="example1" class="table table-bordered table-hover mt-3">
+                            <!-- <table id="example2" class="table table-bordered table-hover md-6"> -->
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-center">No.</th>
@@ -59,6 +61,7 @@
                                         <!-- <th class="text-center">Ubah/Hapus</th> -->
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                 <?php
                                 $no=1;
@@ -100,38 +103,34 @@
                                         <!--<th class="text-center">Ubah/Hapus</th>
                                     </tr>
                                 </tfoot> -->
-                                </table>
+                            </table>
                             </div>
                     </div>
-                        <div class="card-footer d-flex justify-content-between">
+                    <div class="card-footer">
                             <button onclick="location.href = '<?php echo site_url('penerimaan/view_data')?>'" type="button" class="btn btn-info btn-sm">
                                 <span class="fas fa-angle-double-left"></span> Kembali
                             </button>
                         </div>
                         <script>
+                        $(document).ready(function() {
+                            $('#example').DataTable();
+                        } );
+                        </script>
+
+                        <script>
                             $(function () {
-                                $("#example1").DataTable({
-                                "responsive": true,
-                                "autoWidth": false,
-                                });
-                                $('#example2').DataTable({
+                                $('#example1').DataTable({
                                 "paging": true,
-                                "lengthChange": false,
-                                "searching": false,
+                                "lengthChange": true,
+                                "searching": true,
                                 "ordering": true,
                                 "info": true,
-                                "autoWidth": false,
+                                "autoWidth": true,
                                 "responsive": true,
                                 });
                             });
                         </script>
-                        <script>
-                        $(document).ready(function() {
-                            $('#example').DataTable( {
-                                "pagingType": "full_numbers"
-                            } );
-                        } );
-                        </script>
+                        
                         <script>
                         function deleteConfirm(url){
                             $('#btn-delete').attr('href', url);

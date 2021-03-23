@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html>
-<body class="hold-transition sidebar-mini">
 <div class="wrapper">   
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <?php if( $this->session->flashdata('flash') ) : ?>
-      <div class="div row mt-3">
-          <div class="div col md-3">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              Data bom<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
-              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+            <div class="div row mt-3">
+                <div class="div col md-3">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Data bom<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                    </div>
+                </div>
             </div>
-          </div>
-      </div>
       <?php endif; ?>
         <div class="row">
           <div class="col-12">
@@ -32,9 +29,9 @@
                             <thead class="text-center">
                                 <tr>
                                     <th>No.</th>
+                                    <th>No. BOM</th>
                                     <th>Kode Produk</th>
                                     <th>Nama Produk</th>
-                                    <th>No. BOM</th>
                                     <!-- <th>No. Faktur</th> -->
                                     <!--<th class="text-center">Upload</th>-->
                                     <th>Detail</th>
@@ -47,9 +44,9 @@
                                     foreach($data_bom as $cacah):
                                     echo "<tr>";
                                     echo "<td class='text-center'>".$no++;"</td>";
+                                    echo "<td>".$cacah['id_bom']."</td>";                                    
                                     echo "<td>".$cacah['id_produk']."</td>";
                                     echo "<td>"."[".$cacah['id_produk']."] ".$cacah['nama_produk']."</td>";
-                                    echo "<td>".$cacah['id_bom']."</td>";
                                     
                                 ?>
                                     <td class="text-center">
@@ -119,5 +116,3 @@
         </div>
     </section>
 </div>
-</body>
-</html>

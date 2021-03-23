@@ -13,14 +13,14 @@ class m_bom extends CI_Model {
     // buat id_bom
     public function getId()
 	{
-		$sql = "SELECT (substring(IFNULL(MAX(id_bom),0),8)+0) as hsl FROM ".$this->_table;
+		$sql = "SELECT (substring(IFNULL(MAX(id_bom),0),7)+0) as hsl FROM ".$this->_table;
       $query = $this->db->query($sql);
       $hasil = $query->result_array();
       foreach($hasil as $cacah):
       $jml_data = $cacah['hsl'];
       endforeach;
-      $id = 'KCBOM-';
-      $nomor = str_pad(($jml_data+1),7,"0",STR_PAD_LEFT); //ID-001
+      $id = 'BOMP-';
+      $nomor = str_pad(($jml_data+1),5,"0",STR_PAD_LEFT); //ID-001
       $id = $id.$nomor;
 		return $id;
     }
@@ -165,18 +165,29 @@ class m_bom extends CI_Model {
       $this->db->from('produk');
       // $this->db->join('detail_bom', 'detail_bom.id_bom = bom.id_bom');
       $this->db->join('bom', 'produk.id_produk = bom.id_produk');
-      $query = $this->db->get();             
+      $query = $this->db->get();
       return $query->result_array();
     }
     
-    // public function getDataByNoFakturid_supplier($no_faktur,$id_supplier){
-    //   $sql = "SELECT a.*,b.nama as NamaSupplier FROM ".$this->_table." a ";
-    //   $sql = $sql." JOIN supplier b ON (a.id_supplier=b.id_supplier) ";
-    //   $sql = $sql." WHERE a.no_faktur =  ".$this->db->escape($no_faktur)." AND a.id_supplier = ".$this->db->escape($id_supplier);
-    //   $query = $this->db->query($sql);
-      
-    //   return $query->result_array();
-    // }
+    public function update_edit()
+    {
+        $post = $this->input->post();
+        $this->id_bom = $post['id_bom'];
+        $this->id_produk = $post['id_produk'];
+        $this->kode_bb= $post["nama_bb"];
+        $this->qty = $post["qty"];
+        $this->satuan_bb = $post["satuan"];
+			
+			$sql = "UPDATE detail_bom";
+			$sql = $sql." SET id_bom = ".$this->db->escape($this->id_bom).", id_produk = ".$this->db->escape($this->id_produk);
+            $sql = $sql." , kode_bb = ".$this->db->escape($this->nama_bb);
+            $sql = $sql." , qty = ".$this->db->escape($this->qty);
+            $sql = $sql." , satuan_bb = ".$this->db->escape($this->satuan);
+			$sql = $sql." WHERE id_bom = ".$this->db->escape($post["id_bom"])." AND id_produk = ".$this->db->escape($post["id_produk"])."";
+			$query = $this->db->query($sql);
+			return $this->db->affected_rows();
+        // return $this->db->get_where('bahan_baku', array('kode_bb' => $kode_bb))->row_array();
+    }
 
     public function delete_bom($id_bom,$id_produk)
     {
@@ -188,5 +199,43 @@ class m_bom extends CI_Model {
       //baru hapus tabel induknya
       return $this->db->delete('bom', array("id_bom" => $id_bom, "id_produk" => $id_produk));
       
+    }
+
+    public function deleteFormInputDetailBOM($no_bom)
+		{
+		
+			//query data jumlah bom yang akan di hapus
+			$sql = "SELECT kode_bb,qty FROM detail_bom ";
+			$sql = $sql." WHERE no_bom = ".$no_bom;
+			$query = $this->db->query($sql);
+			$hasil = $query->result_array();
+			// foreach($hasil as $cacah):
+			// 	//update stoknya ke semula sebelum dihapus
+			// 	// $sql2 = "UPDATE buah SET Stok = Stok - ".$cacah['jumlah_pembelian'];
+			// 	// $sql2 = $sql2." WHERE IdBuah = ".$cacah['id_buah'];
+			// 	$query2 = $this->db->query($sql2);
+			// endforeach;
+			
+			return $this->db->delete('detail_bom', array("no_bom" => $no_bom));
+    }
+    
+    public function CountPenerimaan()
+    {
+        return $this->db->count_all_results('penerimaan');  // Produces an integer, like 25
+    }
+
+    public function CountProduk()
+    {
+        return $this->db->count_all_results('produk');  // Produces an integer, like 25
+    }
+
+    public function CountBOM()
+    {
+        return $this->db->count_all_results('bom');  // Produces an integer, like 25
+    }
+
+    public function CountBB()
+    {
+        return $this->db->count_all_results('bahan_baku');  // Produces an integer, like 25
     }
 }

@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">   
+<div class="wrapper">  
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <?php if( $this->session->flashdata('flash') ) : ?>
-      <div class="div row mt-2">
-          <div class="div col md-3">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              Data bahan baku<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
-              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
-            </div>
+          <div class="div row mt-2">
+              <div class="div col md-3">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Data bahan baku<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
+                  <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                </div>
+              </div>
           </div>
-      </div>
-      <?php endif; ?>
+        <?php endif; ?>
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -28,85 +25,85 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                  <table id="example2" class="table table-bordered table-hover">
-                    <thead class=" text-center">
-                    <tr>
-                      <th>ID Bahan Baku</th>
-                      <th>Nama Bahan Baku</th>
-                      <th>Merk</th>
-                      <th>Satuan</th>
-                      <!-- <th>Harga Satuan</th> -->
-                      <th>Stok</th>
-                      <th>Aksi</th>
-                    </tr>
+                <table id="example1" class="table table-bordered table-hover">
+                    <thead class="text-center">
+                      <tr>
+                        <th>ID Bahan Baku</th>
+                        <th>Nama Bahan Baku</th>
+                        <th>Merk</th>
+                        <th>Berat</th>
+                        <th>Satuan</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
+                      </tr>
                     </thead>
 
-                    <!-- <tfoot>
-                    <tr>
-                      <th>ID Bahan Baku</th>
-                      <th>Nama Bahan Baku</th>
-                      <th>Satuan</th>
-                      <th>Harga Satuan</th>
-                      <th>Stok Awal</th>
-                      <th>Aksi</th>
-                    </tr>
-                    </tfoot> -->
+                      <!-- <tfoot>
+                      <tr>
+                        <th>ID Bahan Baku</th>
+                        <th>Nama Bahan Baku</th>
+                        <th>Merk</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                        <th>Stok Awal</th>
+                        <th>Aksi</th>
+                      </tr>
+                      </tfoot> -->
 
                     <tbody>
-                    <tr>
-                              <?php
-                                  $no=1;
-                                  foreach($bahan_baku as $row):
-                                  echo "<tr>";
-                                  echo "<td>".$row['kode_bb']."</td>
-                                  <td>".$row['nama_bb']."</td>
-                                  <td>".$row['merk']."</td>
-                                  <td>".$row['satuan']."</td>
-                                  <td>".$row['stok_awal']."</td>
-                                  <td align='center'>"
-                              ?>
+                      <tr>
+                                <?php
+                                    $no=1;
+                                    foreach($bahan_baku as $row):
+                                    echo "<tr>";
+                                    echo "<td>".$row['kode_bb']."</td>
+                                    <td>".$row['nama_bb']."</td>
+                                    <td>".$row['merk']."</td>
+                                    <td>".$row['jumlah']."</td>
+                                    <td>".$row['satuan']."</td>
+                                    <td>".$row['stok_awal']."</td>
+                                    <td align='center'>"
+                                ?>
 
-                                  <a href="<?=site_url('bahan_baku/edit_data/'.$row['kode_bb'])?>" class="btn btn-success btn-sm">
-                                      <span class="fa fa-edit"></span>
-                                  </a>
+                                    <a href="<?=site_url('bahan_baku/edit_data/'.$row['kode_bb'])?>" class="btn btn-success btn-sm">
+                                        <span class="fa fa-edit"></span>
+                                    </a>
 
-                                  <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$row['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
-                                      <span class="fa fa-trash"></span>
-                                  </a>
-                                  <?php
-                                  echo "</td>";
-                                  echo "</tr>";
-                                  endforeach;
-                                  ?>
-                          </tr>
+                                    <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$row['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                        <span class="fa fa-trash"></span>
+                                    </a>
+                                    <?php
+                                    echo "</td>";
+                                    echo "</tr>";
+                                    endforeach;
+                                    ?>
+                            </tr>
                     </tbody>
                   </table>
-                  <script src="<?=base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-                  <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-                  <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-                  <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> 
-                        <script>
-                            $(function () {
-                                $("#example1").DataTable({
-                                "responsive": true,
-                                "autoWidth": false,
-                                });
-                                $('#example2').DataTable({
-                                "paging": true,
-                                "lengthChange": false,
-                                "searching": false,
-                                "ordering": true,
-                                "info": true,
-                                "autoWidth": false,
-                                "responsive": true,
-                                });
-                            });
-                        </script>
-                <script>
-                  function deleteConfirm(url){
-                    $('#btn-delete').attr('href', url);
-                    $('#deleteModal').modal();
-                  }
+
+                  <script>
+                    $(function () {
+                      $("#example1").DataTable({
+                      "responsive": true,
+                      "autoWidth": false,
+                      });
+                      $('#example2').DataTable({
+                      "paging": true,
+                      "lengthChange": false,
+                      "searching": false,
+                      "ordering": true,
+                      "info": true,
+                      "autoWidth": false,
+                      "responsive": true,
+                      });
+                    });        
+                  </script>
+
+                  <script>
+                    function deleteConfirm(url){
+                      $('#btn-delete').attr('href', url);
+                      $('#deleteModal').modal();
+                    }
                   </script>
                 
                   <!-- Logout Delete Confirmation-->
@@ -127,10 +124,7 @@
                       </div>
                     </div>
                   </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+
               </div>
               <!-- /.card-body -->
             </div>
@@ -143,5 +137,5 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-</body>
-</html>
+</div>
+<!-- /.wrapper -->

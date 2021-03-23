@@ -2,100 +2,165 @@
 
 class m_laporan extends CI_Model
 {
-    //data tahun
-    public function getTahun(){
-        $sql = "
-                    SELECT year(tanggal) as tahun 
-                    FROM penerimaan
-                    ORDER BY 1 ASC			
-                ";
-        $query = $this->db->query($sql);
-        return $query->result_array();
+	private $_table = "penerimaan";
+	function get_penerimaan()
+	{
+		$this->db->select("penerimaan.id_penerimaan, concat(day(penerimaan.tanggal),' ',monthname(penerimaan.tanggal),' ',year(penerimaan.tanggal)) as Tanggal, sum(detail_penerimaan.jumlah*detail_penerimaan.harga_satuan) as total");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		$this->db->group_by('month(penerimaan.tanggal)');
+		$this->db->order_by('penerimaan.tanggal');
+		return $this->db->get()->result();
+	}
+
+	function get_lap_penerimaan($tanggal)
+	{
+		$this->db->select("penerimaan.id_penerimaan, concat(day(penerimaan.tanggal),' ',monthname(penerimaan.tanggal),' ',year(penerimaan.tanggal)) as Tanggal, sum(detail_penerimaan.jumlah*detail_penerimaan.harga_satuan) as total");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		$this->db->order_by('penerimaan.tanggal');
+		return $this->db->get_where('penerimaan', array('month(tanggal)' => $tanggal))->result_array();
+
+	}
+
+	function get_penerimaan_pertahun()
+	{
+		$this->db->select("penerimaan.id_penerimaan, penerimaan.tanggal, sum(detail_penerimaan.jumlah*detail_penerimaan.harga_satuan) as total");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		$this->db->group_by('year(penerimaan.tanggal)');
+		$this->db->order_by('penerimaan.tanggal');
+		return $this->db->get()->result();
+	}
+
+	function get_penerimaan_perbulan()
+	{
+		$this->db->select("penerimaan.id_penerimaan, concat(monthname(penerimaan.tanggal),' ',year(penerimaan.tanggal)) as Tanggal, sum(detail_penerimaan.jumlah*detail_penerimaan.harga_satuan) as total");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		$this->db->group_by('month(penerimaan.tanggal)');
+		$this->db->order_by('penerimaan.tanggal');
+		return $this->db->get()->result();
+	}
+
+	public function get_supplier(){
+		$sql = "SELECT a.*,b.nama as NamaSupplier FROM ".$this->_table." a ";
+		$sql = $sql." JOIN supplier b ON (a.id_supplier=b.id_supplier) ";
+		$query = $this->db->query($sql);
+		
+		return $query->result_array();
+	  }
+
+  	public function view_by_date($date){
+		$this->db->select("*");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
+		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->where('DATE(tanggal)', $date); // Tambahkan where tanggal nya
+		$this->db->order_by('DATE(tanggal)');
+        
+    return $this->db->get()->result();// Tampilkan data penerimaan sesuai tanggal yang diinput oleh user pada filter
+  	}
+    
+  	public function view_by_month($month, $year){
+		$this->db->select("*");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
+		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+        $this->db->where('MONTH(tanggal)', $month); // Tambahkan where bulan
+		$this->db->where('YEAR(tanggal)', $year); // Tambahkan where tahun
+		// $this->db->group_by('date(tanggal)');
+        
+    return $this->db->get()->result(); // Tampilkan data penerimaan sesuai bulan dan tahun yang diinput oleh user pada filter
+  	}
+    
+  	public function view_by_year($year){
+		$this->db->select("*");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
+		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+        $this->db->where('YEAR(tanggal)', $year); // Tambahkan where tahun
+        
+    return $this->db->get()->result(); // Tampilkan data penerimaan sesuai tahun yang diinput oleh user pada filter
+  	}
+    
+  	public function view_all(){
+		$this->db->select("*");
+		$this->db->from('penerimaan');
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
+		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+    return $this->db->get()->result(); // Tampilkan semua data penerimaan
+  	}
+    
+    public function option_tahun(){
+        $this->db->select('YEAR(tanggal) AS tahun'); // Ambil Tahun dari field tgl
+		$this->db->from('penerimaan'); // select ke tabel penerimaan
+		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
+		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
+		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->group_by('YEAR(tanggal)', 'detail_penerimaan.id_penerimaan'); // Group berdasarkan tahun pada field tgl
+        $this->db->order_by('YEAR(tanggal)'); // Urutkan berdasarkan tahun secara Ascending (ASC)
+        
+        
+        return $this->db->get()->result(); // Ambil data pada tabel transaksi sesuai kondisi diatas
+	}
+	
+	public function view_by_date2($date){
+		$this->db->select("*");
+		$this->db->from('penjualan');
+		$this->db->join('detail_jual','detail_jual.id_penjualan=penjualan.id_penjualan');
+		$this->db->join('produk','detail_jual.id_produk=produk.id_produk');
+		$this->db->where('DATE(tanggal)', $date); // Tambahkan where tanggal nya
+		$this->db->order_by('DATE(tanggal)');
+        
+    return $this->db->get()->result();// Tampilkan data penjualan sesuai tanggal yang diinput oleh user pada filter
+  	}
+    
+  	public function view_by_month2($month, $year){
+		$this->db->select("*");
+		$this->db->from('penjualan');
+		$this->db->join('detail_jual','detail_jual.id_penjualan=penjualan.id_penjualan');
+		$this->db->join('produk','detail_jual.id_produk=produk.id_produk');
+        $this->db->where('MONTH(tanggal)', $month); // Tambahkan where bulan
+		$this->db->where('YEAR(tanggal)', $year); // Tambahkan where tahun
+		// $this->db->group_by('date(tanggal)');
+        
+    return $this->db->get()->result(); // Tampilkan data penerimaan sesuai bulan dan tahun yang diinput oleh user pada filter
+  	}
+    
+  	public function view_by_year2($year){
+		$this->db->select("*");
+		$this->db->from('penjualan');
+		$this->db->join('detail_jual','detail_jual.id_penjualan=penjualan.id_penjualan');
+		$this->db->join('produk','detail_jual.id_produk=produk.id_produk');
+        $this->db->where('YEAR(tanggal)', $year); // Tambahkan where tahun
+        
+    return $this->db->get()->result(); // Tampilkan data penerimaan sesuai tahun yang diinput oleh user pada filter
+  	}
+    
+  	public function view_all2(){
+		$this->db->select("*");
+		$this->db->from('penjualan');
+		$this->db->join('detail_jual','detail_jual.id_penjualan=penjualan.id_penjualan');
+		$this->db->join('produk','detail_jual.id_produk=produk.id_produk');
+    return $this->db->get()->result(); // Tampilkan semua data penerimaan
+  	}
+    
+    public function option_tahun2(){
+        $this->db->select('YEAR(tanggal) AS tahun'); // Ambil Tahun dari field tgl
+		$this->db->from('penjualan');
+		$this->db->join('detail_jual','detail_jual.id_penjualan=penjualan.id_penjualan');
+		$this->db->join('produk','detail_jual.id_produk=produk.id_produk');
+		$this->db->group_by('YEAR(tanggal)', 'detail_penerimaan.id_penerimaan'); // Group berdasarkan tahun pada field tgl
+        $this->db->order_by('YEAR(tanggal)'); // Urutkan berdasarkan tahun secara Ascending (ASC)
+        
+        
+        return $this->db->get()->result(); // Ambil data pada tabel transaksi sesuai kondisi diatas
     }
-    //data kartu stok
-	public function getKartustok($kode_bb,$waktu){
-		$sql = "
-						SELECT waktu,ifnull(total_penerimaan,0) as total_penerimaan,
-						             ifnull(total_penjualan,0) as total_penjualan
-						FROM 
-						(
-							SELECT distinct(date_format(b.tanggal,'%d-%m-%Y')) as waktu 
-							FROM detail_penerimaan a
-							JOIN penerimaan b ON (a.id_penerimaan = b.id_penerimaan AND a.id_pembelian = b.id_pembelian)
-							WHERE a.kode_bb = ".$this->db->escape($kode_bb)." 
-									AND date_format(b.tanggal,'%Y-%m') = ".$this->db->escape($waktu)."
-							UNION 
-							SELECT distinct(date_format(b.waktu,'%d-%m-%Y')) as waktu 
-							FROM detail_penjualan a
-							JOIN penjualan b ON (a.id_penjualan = b.id_penjualan)
-							WHERE a.kode_bb = ".$this->db->escape($kode_bb)." 
-							AND date_format(b.waktu,'%Y-%m') = ".$this->db->escape($waktu)."
-						) x
-						LEFT OUTER JOIN 
-							(SELECT DATE_FORMAT(b.tanggal,'%d-%m-%Y') as wkt,
-									SUM(a.jumlah_penerimaan) as total_penerimaan
-							 FROM detail_penerimaan a
-							 JOIN penerimaan b ON (a.no_faktur = b.no_faktur AND a.id_supplier = b.id_supplier)
-							 WHERE a.kode_bb = ".$this->db->escape($kode_bb)."
-							 AND date_format(b.tanggal,'%Y-%m') = ".$this->db->escape($waktu)."
-							 GROUP BY DATE_FORMAT(b.tanggal,'%d-%m-%Y')
-							 ) y
-						ON (x.waktu = y.wkt)
-						LEFT OUTER JOIN 
-							(SELECT DATE_FORMAT(b.waktu,'%d-%m-%Y') as wkt,
-									SUM(a.jml_buah) as total_penjualan
-							 FROM detail_penjualan a
-							 JOIN penjualan b ON (a.id_penjualan = b.id_penjualan)
-							 WHERE a.kode_bb = ".$this->db->escape($kode_bb)."
-							 AND date_format(b.waktu,'%Y-%m') = ".$this->db->escape($waktu)."
-							 GROUP BY DATE_FORMAT(b.waktu,'%d-%m-%Y')
-							) z
-						ON (x.waktu = z.wkt )
-						order by 1 asc
 
-					";
-			//echo $sql."<br>";
-			$query = $this->db->query($sql);
-			return $query->result_array();
-		}
-
-		//mendapatkan stok persediaan pada akhir periode
-		public function getJumlahpersediaan($kode_bb,$waktu){
-			
-			//cari jumlah pembelian s/d bulan - 1 sebelumnya
-			$sql = "SELECT * 
-					FROM detail_penerimaan a
-					JOIN penerimaan b ON (a.id_penerimaan = b.id_penerimaan AND a.id_pembelian = b.id_pembelian)
-					WHERE a.kode_bb = ".$this->db->escape($kode_bb)."
-					AND DATE_FORMAT(b.tanggal,'%Y-%m') < ".$this->db->escape($waktu)."
-					";
-			
-			$query = $this->db->query($sql);
-			$hasil = $query->result_array();
-			$jml_penerimaan = 0;
-			foreach($hasil as $cacah):
-				$jml_penerimaan = $jml_penerimaan + $cacah['qty'];
-			endforeach;
-			
-			// // cari jumlah penjualan s/d bulan -1 sebelumnya
-			// $sql = "SELECT * 
-			// 		FROM detail_penjualan a
-			// 		JOIN penjualan b ON (a.id_penjualan = b.id_penjualan)
-			// 		WHERE a.kode_bb = ".$this->db->escape($id_buah)."
-			// 		AND DATE_FORMAT(b.waktu,'%Y-%m') < ".$this->db->escape($waktu)."
-			// 		";
-			
-			// $query = $this->db->query($sql);
-			// $hasil = $query->result_array();
-			$jml_penjualan = 0;
-			// foreach($hasil as $cacah):
-			// 	$jml_penjualan = $jml_penjualan + $cacah['jml_buah'];
-			// endforeach;
-			
-			//hitung selisih pembelian dengan penjualan
-			$selisih = $jml_penerimaan - $jml_penjualan;
-			return $selisih;
-			
-		}
 }
 ?>

@@ -27,6 +27,12 @@
                             </div>
                             
                             <div class="form-group col-sm-12">
+                                <label>Jumlah</label><span class="text-danger">*</span>
+                                <input name="jml" type="number" class="form-control" value="<?=$bahanbaku['jumlah'];?>" placeholder="Masukkan Jumlah" min="0">
+                                <?php echo "<b>".form_error('jml')."</b>"; ?>
+                            </div>
+                            
+                            <div class="form-group col-sm-12">
                                 <label>Satuan</label><span class="text-danger">*</span>
                                 <select name="satuan" class="form-control" id="satuan" placeholder="Pilih Satuan">
                                     <option value="">- Pilih Satuan -</option>

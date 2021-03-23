@@ -31,105 +31,66 @@
                             </div>
                             <!-- /.card-header -->
                                 <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                    <!-- text input -->
-                                        <div class="form-group">
-                                            <label for="no_pemakaian">No. Pemakaian</label>
-                                            <input type="text" class="form-control" name="no_pemakaian" readonly value="<?php echo $_SESSION['no_pemakaian']; ?>">
-                                            <!-- <?php echo "<b>".form_error('no_pemakaian')."</b>"; ?> -->
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <table class="table table-bordered table-hover mt-3">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th class="text-center">No.</th>
+                                                        <th>ID Bahan Baku</th>
+                                                        <th>Bahan Baku</th>
+                                                        <!-- <th>Merk</th> -->
+                                                        <th>Jumlah</th>
+                                                        <th>Satuan</th>
+                                                        <!-- <th>Harga</th> -->
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    $no=1;
+                                                    foreach($pemakaian as $cacah):
+                                                        echo "<tr>";
+                                                            echo "<td class='text-center'>".$no++;"</td>";
+                                                            // echo "<td>".$cacah['kode_bb']."</td>";
+                                                            // echo "<td>".$cacah['nama_bb'];"</td>";
+                                                            // echo "<td>".$cacah['qty']."</td>";
+                                                            // echo "<td>".$cacah['satuan_bb']."</td>";
+                                                            // echo "<td>".$cacah['qty']*$cacah['satuan_bahan']."</td>";
+                                                            // echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
+                                                            // echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
+                                                            // echo "<td>".$cacah['ket']."</td>";
+                                                            echo "<td align='center'>";
+                                                                ?>
+                                                                    <!-- <a onclick="deleteConfirm('<?php echo site_url('pemakaian/delete_form_detail/'.$cacah['id'].'/'.$cacah['no_pemakaian'].'/'.$cacah['id_bom']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                                                        <span class="fas fa-trash"></span>
+                                                                    </a> -->
+                                                                <?php
+                                                            echo "</td>";
+                                                        echo "</tr>";
+                                                    endforeach;
+                                                ?>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </div>
-                    
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                                <label for="tanggal">Tanggal</label>
-                                                <div class="input-group date">
-                                                    <input type="date" name="tanggal" readonly class="form-control" value="<?php echo $_SESSION['tanggal']; ?>" max="<?=date('Y-m-d')?>"/>
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                                                </div>
-                                                <?php echo "<b>".form_error('tanggal')."</b>"; ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="nama_produk">ID Produk</label>
-                                        </label>
-                                        <input readonly class="form-control" name="nama_produk" value="<?= $_SESSION['id_produk'];?>">
-                                        </input>
-                                    </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="id_bom">ID BOM</label>
-                                        </label>
-                                        <input readonly class="form-control" name="id_bom" value="<?= $_SESSION['id_bom'];?>">
-                                        </input>
-                                    </div>
                                     </div>
                                 </div>
-                                    <table class="table table-bordered table-hover mt-3">
-                                        <thead>
-                                            <tr class="text-center">
-                                                <th class="text-center">No.</th>
-                                                <th>ID Bahan Baku</th>
-                                                <th>Bahan Baku</th>
-                                                <!-- <th>Merk</th> -->
-                                                <th>Jumlah</th>
-                                                <th>Satuan</th>
-                                                <th>Harga</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                            $no=1;
-                                            foreach($bom as $cacah):
-                                                echo "<tr>";
-                                                    echo "<td class='text-center'>".$no++;"</td>";
-                                                    echo "<td><input name='kode_bb' type='text' hidden value='".$cacah['kode_bb']."' >".$cacah['kode_bb']."</td>";
-                                                    echo "<td>".$cacah['nama_bb'];"</td>";
-                                                    echo "<td><input name='qty' type='text' hidden value='".$cacah['qty']."' >".$cacah['qty']."</td>";
-                                                    echo "<td><input name='satuan_bahan' type='text' hidden value='".$cacah['satuan_bb']."' >".$cacah['satuan_bb']."</td>";
-                                                    echo "<td class='text-center'><input name='harga' class='form-control harga' type='text' min='0' style='width:'100px''>".form_error('harga').
-                                                    "</input></td>";
-                                                    // echo "<td>".$cacah['qty']*$cacah['satuan_bahan']."</td>";
-                                                    // echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
-                                                    // echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
-                                                    // echo "<td>".$cacah['ket']."</td>";
-                                                    echo "<td align='center'>";
-                                                        ?>
-                                                            <!-- <a onclick="deleteConfirm('<?php echo site_url('pemakaian/delete_form_detail/'.$cacah['id'].'/'.$cacah['no_pemakaian'].'/'.$cacah['id_bom']) ?>')" href="#!" class="btn btn-danger btn-sm">
-                                                                <span class="fas fa-trash"></span>
-                                                            </a> -->
-                                                        <?php
-                                                    echo "</td>";
-                                                echo "</tr>";
-                                            endforeach;
-                                        ?>
-                                        </tbody>
-                                    </table></div>
-                                    <div class="card-footer">
-                                        <div class="col-sm-12 text-center">
-                                            <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-success btn-sm">
-                                            <span class="fas fa-sync"></span>
-                                                        Proses
-                                            </button>
-                                            <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-info btn-sm">
-                                            <span class="fas fa-check"></span>
-                                                        Selesai
-                                            </button>
+                                <div class="card-footer">
+                                            <div class="col-sm-12 text-center">
+                                                <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-success btn-sm">
+                                                <span class="fas fa-sync"></span>
+                                                            Proses
+                                                </button>
+                                                <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-info btn-sm">
+                                                <span class="fas fa-check"></span>
+                                                            Selesai
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                        </div>
-                    </div>    
+                        </div>    
+                    </div>
                 </div>
             </div>
-        </div>
         </section>
                 <script src="<?=base_url();?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
                 <script src="<?=base_url();?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

@@ -144,6 +144,7 @@ class m_penerimaan extends CI_Model {
           'harga_satuan'  =>  str_replace(".","",$this->input->post('harga_satuan')),
           'satuan_bb'        =>  $this->input->post('satuan'),
           'qty'           =>  $this->input->post('qty'),
+          'total'         =>  $this->input->post('qty')*$this->input->post('harga_satuan'),
           'ket'    =>  $this->input->post('keterangan'),
 
         ];
@@ -166,6 +167,7 @@ class m_penerimaan extends CI_Model {
           'harga_satuan'  =>  str_replace(".","",$this->input->post('harga_satuan')),
           'satuan_bb'        =>  $this->input->post('satuan'),
           'qty'           =>  $this->input->post('qty'),
+          'total'         =>  $this->input->post('qty')*str_replace(".","",$this->input->post('harga_satuan')),
           'ket'    =>  $this->input->post('keterangan'),
 
         ];

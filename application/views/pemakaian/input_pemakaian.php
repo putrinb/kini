@@ -53,13 +53,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="id_bom">Nama Produk
+                                            <label for="id_bom">ID BOM
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" name="id_bom" value="<?=set_value('id_bom');?>">
-                                                <option value="">- Pilih Nama Produk -</option>
+                                                <option value="">- Pilih ID BOM -</option>
                                                     <?php
                                                         foreach($bom as $row):
                                                     ?>
@@ -75,7 +75,7 @@
                             <div class="card-footer">
                                 <div class="text-center">
                                     <!-- <a href="<?=site_url()?>/penerimaan/view_data" class="btn btn-danger"><span class="fas fa-times"></span> Batal</a> -->
-                                        <button type="submit"class="btn btn-success"><span class="fas fa-plus"></span> Tambah</button>
+                                        <button type="submit" class="btn btn-success"><span class="fas fa-plus"></span> Tambah</button>
                                 </div>
                             </div>
                         </form>
