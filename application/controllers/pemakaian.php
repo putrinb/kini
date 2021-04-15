@@ -5,7 +5,8 @@ class pemakaian extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_pemakaian');
-	    $this->load->model('m_bom'); //digunakan untuk melihat id bahanbaku dan nama bahanbaku
+	    $this->load->model('m_bom');
+        $this->load->model('m_produk');
         // if(!$this->session->userdata('is_logged')){
 		// 	redirect('auth');
         // }
@@ -15,12 +16,12 @@ class pemakaian extends CI_Controller
     {
         $data=[
             'no_pemakaian' => $this->m_pemakaian->getIdPemakaian(),
-            'bom' => $this->m_bom->getData(),
-            'title' =>  'Kini Cheese Tea | Pemakaian',
-            'heading'   =>  'Pemakaian',
+            'bom' => $this->m_bom->getdata(),
+            'title' =>  'Kini Cheese Tea | Produksi',
+            'heading'   =>  'Produksi',
         ];
 
-        $this->form_validation->set_rules('no_pemakaian', 'No', 'required',
+            $this->form_validation->set_rules('no_pemakaian', 'No', 'required',
 			array('required' => 'Anda harus memasukkan %s.')
             );
             
@@ -28,9 +29,25 @@ class pemakaian extends CI_Controller
 			array('required' => 'Anda harus memasukkan %s.')
             );
 
-            $this->form_validation->set_rules('id_bom', 'nama produk', 'required',
+            $this->form_validation->set_rules('id_bom', 'ID BOM', 'required',
 			array('required' => 'Anda harus memasukkan %s.')
             );
+
+            // $this->form_validation->set_rules('gaji', 'gaji', 'required',
+            // array('required' => 'Anda harus memasukkan %s.')
+            // );
+            
+			// $this->form_validation->set_rules('day', 'jumlah hari', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );
+
+            // $this->form_validation->set_rules('person', 'jumlah karyawan', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );   
+            
+            // $this->form_validation->set_rules('sales', 'rata-rata penjualan', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );      
 
 			$this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
 
@@ -69,8 +86,8 @@ class pemakaian extends CI_Controller
 
             $data['no_pemakaian'] = $this->m_pemakaian->getIdPemakaian(); // ambil id pemakaian
 			$data['bom'] = $this->m_pemakaian->detailBOM($_SESSION['id_bom']);
-			$data['heading'] = 'Pemakaian';
-			$data['title'] = 'Kini Cheese Tea | Pemakaian';
+			$data['heading'] = 'Produksi';
+			$data['title'] = 'Kini Cheese Tea | Produksi';
             
             $this->form_validation->set_rules('harga', 'harga', 'required',
 			array('required' => 'Anda belum memasukkan %s.')
@@ -79,6 +96,26 @@ class pemakaian extends CI_Controller
             $this->form_validation->set_rules('nama_bb', 'bahan baku', 'required',
 			array('required' => 'Anda belum memasukkan %s.')
 			);
+
+            $this->form_validation->set_rules('qty', 'jumlah', 'required',
+			array('required' => 'Anda belum memasukkan %s.')
+			);
+
+            $this->form_validation->set_rules('gaji', 'gaji', 'required',
+            array('required' => 'Anda harus memasukkan %s.')
+            );
+            
+			$this->form_validation->set_rules('day', 'jumlah hari', 'required',
+			array('required' => 'Anda harus memasukkan %s.')
+            );
+
+            $this->form_validation->set_rules('person', 'jumlah karyawan', 'required',
+			array('required' => 'Anda harus memasukkan %s.')
+            );   
+            
+            $this->form_validation->set_rules('sales', 'rata-rata penjualan', 'required',
+			array('required' => 'Anda harus memasukkan %s.')
+            );    
 
             $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
             if ($this->form_validation->run() == FALSE)

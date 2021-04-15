@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                                 <label for="tanggal">Tanggal<span class="text-danger">*</span></label>
                                                 <div class="input-group date">
-                                                    <input type="date" name="tanggal" class="form-control" value="11/10/2020" max="<?=date('Y-m-d')?>"/>
+                                                    <input type="date" name="tanggal" class="form-control datetimepicker" value="<?php echo set_value('tanggal'); ?> "max="<?=date('Y-m-d')?>"/>
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
@@ -88,10 +88,17 @@
                         <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
                         <script src="<?php echo base_url(); ?>assets/js/moment-with-locales.js"></script>
                         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+                        <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
                         <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.js"></script>
-                        <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
                         <script src="<?=base_url();?>assets/js/jquery.min.js"></script>
                         <script src="<?=base_url();?>assets/js/jquery.mask.min.js"></script>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('.datetimepicker').datetimepicker({
+                                    format: 'YYYY-MM-DD HH:mm:ss',
+                                });
+                            });
+                        </script>
                         <script type="text/javascript">
                         $(document).ready(function(){
                             $('.harga_satuan').mask('000.000.000.000.000', {reverse: true});

@@ -114,7 +114,7 @@ class m_pemakaian extends CI_Model
           'no_pemakaian' =>  $this->input->post('no_pemakaian'),
           'id_bom'  =>  $this->input->post('id_bom'),
           'kode_bb'            =>  $this->input->post('nama_bb'),
-          'jumlah_pemakaian'           =>  $this->getAmount($amount,
+          'jumlah_pemakaian'           =>  $this->getAmount($amount),
           'satuan_bahan'        =>  $this->$satuan,
           'harga_bahan'  =>  str_replace(".","",$this->input->post('harga')),
   

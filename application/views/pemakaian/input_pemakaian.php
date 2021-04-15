@@ -15,8 +15,8 @@
               <div class="card-header">
                 <h3 class="card-title">Pemakaian Bahan Baku</h3>
                 <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                      <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button> -->
+                      <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
                     </div>
               </div>
               
@@ -27,7 +27,7 @@
                             <div class="row">
                                 <!-- <div class="col pt-2"> -->
                                 <!-- text input -->
-                                    <div class="col sm-2">
+                                    <div class="col sm-4">
                                     <div class="form-group">
                                             <label for="no_pemakaian">No. <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="no_pemakaian" readonly value="<?php echo $no_pemakaian; ?>"/>
@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="id_bom">ID BOM
                                                 <span class="text-danger">*</span>

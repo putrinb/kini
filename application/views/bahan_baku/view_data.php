@@ -25,78 +25,64 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover">
-                    <thead class="text-center">
-                      <tr>
-                        <th>ID Bahan Baku</th>
-                        <th>Nama Bahan Baku</th>
-                        <th>Merk</th>
-                        <th>Berat</th>
-                        <th>Satuan</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-
-                      <!-- <tfoot>
-                      <tr>
-                        <th>ID Bahan Baku</th>
-                        <th>Nama Bahan Baku</th>
-                        <th>Merk</th>
-                        <th>Jumlah</th>
-                        <th>Satuan</th>
-                        <th>Stok Awal</th>
-                        <th>Aksi</th>
-                      </tr>
-                      </tfoot> -->
-
-                    <tbody>
-                      <tr>
+              <table id="example1" class="table table-bordered table-hover">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>ID Bahan Baku</th>
+                                    <th>Nama Bahan Baku</th>
+                                    <th>Merk</th>
+                                    <th>Berat</th>
+                                    <th>Satuan</th>
+                                    <th>Stok</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php
                                     $no=1;
-                                    foreach($bahan_baku as $row):
+                                    foreach($bahan_baku as $cacah):
                                     echo "<tr>";
-                                    echo "<td>".$row['kode_bb']."</td>
-                                    <td>".$row['nama_bb']."</td>
-                                    <td>".$row['merk']."</td>
-                                    <td>".$row['jumlah']."</td>
-                                    <td>".$row['satuan']."</td>
-                                    <td>".$row['stok_awal']."</td>
-                                    <td align='center'>"
+                                    echo "<td class='text-center'>".$no++;"</td>";
+                                    echo "<td>".$cacah['kode_bb']."</td>";                                    
+                                    echo "<td>".$cacah['nama_bb']."</td>";
+                                    echo "<td>".$cacah['merk']."</td>";
+                                    echo "<td>".$cacah['jumlah']."</td>";                                    
+                                    echo "<td>".$cacah['satuan']."</td>";
+                                    echo "<td>".$cacah['stok_awal']."</td>";
+                                    
                                 ?>
-
-                                    <a href="<?=site_url('bahan_baku/edit_data/'.$row['kode_bb'])?>" class="btn btn-success btn-sm">
-                                        <span class="fa fa-edit"></span>
-                                    </a>
-
-                                    <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$row['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                    <td class="text-center">
+                                        <button onclick="location.href = '<?php echo site_url('bahan_baku/edit_data/'.$cacah['kode_bb']) ?>'" type="button" class="btn btn-success btn-sm">
+                                            <span class="fas fa-edit"></span>
+                                        </button>
+                                        <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$cacah['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                         <span class="fa fa-trash"></span>
-                                    </a>
-                                    <?php
+                                        </a>
+                                        <?php
                                     echo "</td>";
                                     echo "</tr>";
                                     endforeach;
                                     ?>
-                            </tr>
-                    </tbody>
-                  </table>
+                            </tbody>
+                        </table>
 
                   <script>
                     $(function () {
                       $("#example1").DataTable({
-                      "responsive": true,
-                      "autoWidth": false,
+                        "responsive": true,
+                        "autoWidth": false,
                       });
                       $('#example2').DataTable({
-                      "paging": true,
-                      "lengthChange": false,
-                      "searching": false,
-                      "ordering": true,
-                      "info": true,
-                      "autoWidth": false,
-                      "responsive": true,
+                        "paging": true,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
                       });
-                    });        
+                    });
                   </script>
 
                   <script>
@@ -120,22 +106,12 @@
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
                           <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+                          </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
-
-              </div>
-              <!-- /.card-body -->
+                  </div>    
             </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
 </div>
-<!-- /.wrapper -->

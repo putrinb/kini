@@ -24,45 +24,45 @@
                     <div class="card-body">
                         <form action="<?php echo site_url('penerimaan/input_form_detail') ?>" method="post"> 
                             <div class="row">
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                 <!-- text input -->
                                     <div class="form-group">
-                                        <label for="id_penerimaan">No. Penerimaan<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="id_penerimaan" readonly value="<?php echo $_SESSION['id_penerimaan']; ?>">
+                                        <label for="id_penerimaan">No. Penerimaan:</label>
+                                        <input type="text" hidden class="form-control" name="id_penerimaan" readonly value="<?php echo $_SESSION['id_penerimaan']; ?>"><br><?=$_SESSION['id_penerimaan']; ?>
                                         <!-- <?php echo "<b>".form_error('id_penerimaan')."</b>"; ?> -->
                                     </div>
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-sm-3">
                                 <!-- text input -->
                                     <div class="form-group">
-                                        <label for="nm_penerima">Nama Penerima<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="nm_penerima" readonly value="<?php echo $_SESSION['nm_penerima']; ?>">
+                                        <label for="nm_penerima">Nama Penerima:</label>
+                                        <input type="text" hidden class="form-control" name="nm_penerima" readonly value="<?php echo $_SESSION['nm_penerima']; ?>"><br><?=$_SESSION['nm_penerima']; ?>
                                         <!-- <?php echo "<b>".form_error('nm_penerima')."</b>"; ?> -->
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                            <label for="tanggal">Tanggal<span class="text-danger">*</span></label>
+                                            <label for="tanggal">Tanggal:</label>
                                             <div class="input-group date">
-                                                <input type="date" name="tanggal" readonly class="form-control" value="<?php echo $_SESSION['tanggal']; ?>" max="<?=date('Y-m-d')?>"/>
+                                                <input type="date" hidden name="tanggal" readonly class="form-control" value="<?php echo $_SESSION['tanggal']; ?>" max="<?=date('Y-m-d')?>"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
-                                            </div>
+                                            </div><?=$_SESSION['tanggal']; ?>
                                             <?php echo "<b>".form_error('tanggal')."</b>"; ?>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="id_pembelian">No. Faktur
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <input readonly class="form-control" name="id_pembelian" value="<?= $_SESSION['id_pembelian'];?>">
-                                    </input>
-                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="id_pembelian">No. Faktur:</label>
+                                        <input readonly hidden class="form-control" name="id_pembelian" value="<?= $_SESSION['id_pembelian'];?>">
+                                        </input><br><?=$_SESSION['id_pembelian']; ?>
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
+                            
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">

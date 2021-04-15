@@ -87,6 +87,6 @@ class m_bb extends CI_Model
     {
         return $this->db->delete('bahan_baku', array("kode_bb" => $kode_bb));
     }
-
+    
 }
 ?>

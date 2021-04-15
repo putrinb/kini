@@ -27,7 +27,7 @@
                     <div class="col-12">
                         <div class="card card-light">
                             <div class="card-header">
-                                <h3 class="card-title mt-2">Detail Data</h3>
+                                <h3 class="card-title mt-2">Detail Biaya Bahan Baku</h3>
                             </div>
                             <!-- /.card-header -->
                                 <div class="card-body">
@@ -48,27 +48,27 @@
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                    $no=1;
-                                                    foreach($pemakaian as $cacah):
-                                                        echo "<tr>";
-                                                            echo "<td class='text-center'>".$no++;"</td>";
-                                                            // echo "<td>".$cacah['kode_bb']."</td>";
-                                                            // echo "<td>".$cacah['nama_bb'];"</td>";
-                                                            // echo "<td>".$cacah['qty']."</td>";
-                                                            // echo "<td>".$cacah['satuan_bb']."</td>";
-                                                            // echo "<td>".$cacah['qty']*$cacah['satuan_bahan']."</td>";
-                                                            // echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
-                                                            // echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
-                                                            // echo "<td>".$cacah['ket']."</td>";
-                                                            echo "<td align='center'>";
-                                                                ?>
-                                                                    <!-- <a onclick="deleteConfirm('<?php echo site_url('pemakaian/delete_form_detail/'.$cacah['id'].'/'.$cacah['no_pemakaian'].'/'.$cacah['id_bom']) ?>')" href="#!" class="btn btn-danger btn-sm">
-                                                                        <span class="fas fa-trash"></span>
-                                                                    </a> -->
-                                                                <?php
-                                                            echo "</td>";
-                                                        echo "</tr>";
-                                                    endforeach;
+                                                    // $no=1;
+                                                    // foreach($pemakaian as $cacah):
+                                                    //     echo "<tr>";
+                                                    //         echo "<td class='text-center'>".$no++;"</td>";
+                                                    //         echo "<td>".$cacah['kode_bb']."</td>";
+                                                    //         echo "<td>".$cacah['nama_bb'];"</td>";
+                                                    //         echo "<td>".$cacah['qty']."</td>";
+                                                    //         echo "<td>".$cacah['satuan_bb']."</td>";
+                                                    //         echo "<td>".$cacah['qty']*$cacah['satuan_bahan']."</td>";
+                                                    //         echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
+                                                    //         echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
+                                                    //         echo "<td>".$cacah['ket']."</td>";
+                                                    //         echo "<td align='center'>";
+                                                    //             ?>
+                                                                     <!-- <a onclick="deleteConfirm('<?php echo site_url('pemakaian/delete_form_detail/'.$cacah['id'].'/'.$cacah['no_pemakaian'].'/'.$cacah['id_bom']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                                    //                     <span class="fas fa-trash"></span>
+                                                    //                 </a> -->
+                                                                 <?php
+                                                    //         echo "</td>";
+                                                    //     echo "</tr>";
+                                                    // endforeach;
                                                 ?>
                                                 </tbody>
                                             </table>
@@ -77,10 +77,10 @@
                                 </div>
                                 <div class="card-footer">
                                             <div class="col-sm-12 text-center">
-                                                <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-success btn-sm">
+                                                <!-- <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-success btn-sm">
                                                 <span class="fas fa-sync"></span>
                                                             Proses
-                                                </button>
+                                                </button> -->
                                                 <button onclick="location.href = '<?php echo site_url('pemakaian/input_form_detail') ?>';" type="button" class="btn btn-info btn-sm">
                                                 <span class="fas fa-check"></span>
                                                             Selesai

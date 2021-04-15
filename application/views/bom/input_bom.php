@@ -109,8 +109,6 @@
                         <!-- <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script> -->
                         <script src="<?php echo base_url(); ?>assets/js/moment-with-locales.js"></script>
                         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-                        <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.js"></script>
-                        <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
                         <script type="text/javascript">
                         $(document).ready(function(){
                             $('.tanggal').mask('00/00/0000 00:00:00');

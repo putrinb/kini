@@ -45,7 +45,7 @@
               <div class="icon">
                 <i class="fas fa-boxes"></i>
               </div>
-              <a href="<?=site_url('penerimaan/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?=site_url('penerimaan/view_data')?>" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -60,7 +60,7 @@
               <div class="icon">
                 <i class="fas fa-archive"></i>
               </div>
-              <a href="<?=site_url('bahan_baku/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?=site_url('bahan_baku/view_data')?>" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -75,7 +75,7 @@
               <div class="icon">
                 <i class="fas fa-beer"></i>
               </div>
-              <a href="<?=site_url('produk/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?=site_url('produk/view_data')?>" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -90,7 +90,7 @@
               <div class="icon">
                 <i class="fas fa-clipboard-list"></i>
               </div>
-              <a href="<?=site_url('bom/view_data')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?=site_url('bom/view_data')?>" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

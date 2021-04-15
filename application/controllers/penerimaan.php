@@ -179,7 +179,7 @@ class penerimaan extends CI_Controller
 
     public function view_data()
     {
-		$data['data_penerimaan'] = $this->m_penerimaan->getData();
+		$data['penerimaan'] = $this->m_penerimaan->getData();
 		$data['heading'] = 'Penerimaan Bahan Baku';
 		$data['title'] = 'Penerimaan Bahan Baku | Data';
         $this->load->view('templates/header', $data);

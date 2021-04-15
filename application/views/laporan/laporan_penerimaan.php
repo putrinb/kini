@@ -22,9 +22,9 @@
                     <label>Filter Berdasarkan</label><br>
                     <select class="col-1 form-control" name="filter" id="filter">
                         <option value="">Pilih</option>
-                        <option value="1">Per Tanggal</option>
-                        <option value="2">Per Bulan</option>
-                        <option value="3">Per Tahun</option>
+                        <option value="1">Tanggal</option>
+                        <option value="2">Bulan</option>
+                        <option value="3">Tahun</option>
                     </select>
                 </div>
                     <div id="form-tanggal" class="form-group">
@@ -78,7 +78,7 @@
                     <!-- <th>Pemasok</th> -->
                     <th>Deskripsi Barang</th>
                     <th>Jumlah</th>
-                    <th>Subtotal</th>
+                    <!-- <th>Subtotal</th> -->
                 </thead>
             <?php
             if( ! empty($transaksi)){
@@ -92,17 +92,17 @@
                 // echo "<td>".$data->nama_supplier."</td>";
                 echo "<td>".$data->nama_bb."</td>";
                 echo "<td>".$data->qty."</td>";
-                echo "<td>".format_rp($data->qty*$data->harga_satuan)."</td>";
-                $gtotal=$gtotal+($data->qty*$data->harga_satuan);
+                // echo "<td>".format_rp($data->qty*$data->harga_satuan)."</td>";
+                // $gtotal=$gtotal+($data->qty*$data->harga_satuan);
                 
                 echo "</tr>";
                 $no++;
                 
             }
-            echo "<tr>";
-            echo "<td colspan='4' class='text-right text-bold'>TOTAL</td>";
-            echo "<td class='text-bold'>". format_rp($gtotal);"</td>";
-            echo "</tr>";
+            // echo "<tr>";
+            // echo "<td colspan='4' class='text-right text-bold'>TOTAL</td>";
+            // echo "<td class='text-bold'>". format_rp($gtotal);"</td>";
+            // echo "</tr>";
             }
             "<tr>
                 <td colspan='5' class='text-right text-bold'>TOTAL</td>

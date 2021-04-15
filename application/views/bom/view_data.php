@@ -46,7 +46,7 @@
                                     echo "<td class='text-center'>".$no++;"</td>";
                                     echo "<td>".$cacah['id_bom']."</td>";                                    
                                     echo "<td>".$cacah['id_produk']."</td>";
-                                    echo "<td>"."[".$cacah['id_produk']."] ".$cacah['nama_produk']."</td>";
+                                    echo "<td>".$cacah['nama_produk']."</td>";
                                     
                                 ?>
                                     <td class="text-center">
@@ -107,7 +107,7 @@
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
                                 <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
-                            </div>
+                                </div>
                         </div>
                     </div>
                   </div>    
