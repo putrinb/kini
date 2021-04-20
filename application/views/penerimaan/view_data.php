@@ -106,6 +106,8 @@
                                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Batalkan</button>
                                             <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
                                         </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                   </div>    

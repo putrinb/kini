@@ -197,7 +197,14 @@ class m_bom extends CI_Model {
       //hapus data tabel anaknya
       $this->db->delete('detail_bom', array("id_bom" => $id_bom, "id_produk" => $id_produk));
       //baru hapus tabel induknya
-      return $this->db->delete('bom', array("id_bom" => $id_bom, "id_produk" => $id_produk));
+      $this->db->delete('bom', array("id_bom" => $id_bom, "id_produk" => $id_produk));
+      //hapus di tabel produk
+      $post = $this->input->post();
+      $sql = "UPDATE produk";
+			$sql = $sql." SET id_bom = NULL";
+			$sql = $sql." WHERE id_bom = '".$id_bom."'";
+			$query = $this->db->query($sql);
+			return $this->db->affected_rows();
       
     }
 
