@@ -55,8 +55,8 @@
                                                     echo "<td>".$cacah['merk']."</td>";
                                                     echo "<td>".$cacah['qty']."</td>";
                                                     echo "<td>".$cacah['satuan']."</td>";
-                                                    echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
-                                                    echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
+                                                    echo "<td>".format_rp($cacah['harga'])."</td>";
+                                                    echo "<td>".format_rp($cacah['qty']*$cacah['harga'])."</td>";
                                                     echo "<td>".$cacah['ket']."</td>";
                                                     echo "<td align='center'>";
                                                         ?>

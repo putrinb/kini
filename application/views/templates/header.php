@@ -57,7 +57,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-pink navbar-dark">
+  <nav class="main-header navbar navbar-expand navbar-navy navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -171,20 +171,20 @@
         </div>
       </li>
       <li></li>
-        <a class="nav-link" onclick="deleteConfirm('<?=site_url('auth/logout');?>')" style="color:white" role="button">
+        <a class="nav-link" href="<?=site_url('auth/logout');?>" style="color:white" role="button">
           <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
     </ul>
   </nav>
-  <script>
+  <!-- <script>
         function deleteConfirm(url){
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
         }
-      </script>
+      </script> -->
       <!-- Logout Delete Confirmation-->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -200,7 +200,7 @@
               </div>
           </div>
         </div>
-      </div>
+      </div> -->
   <!-- /.navbar -->
 
 

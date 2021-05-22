@@ -114,9 +114,9 @@ class penerimaan extends CI_Controller
 			array('required' => 'Anda harus memasukkan %s.')
 			);
 
-			$this->form_validation->set_rules('harga_satuan', 'harga satuan', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
-            );
+			// $this->form_validation->set_rules('harga_satuan', 'harga satuan', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );
             $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
             if ($this->form_validation->run() == FALSE)
 			{

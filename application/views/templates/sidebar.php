@@ -92,29 +92,6 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-clipboard-list"></i>
-              <p class="font-italic">Bill of Material
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=site_url('bom/add')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Data</p>
-                </a>
-              </li> 
-              <li class="nav-item">
-                <a href="<?=site_url('bom/view_data')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Data</p>
-                </a>
-              </li> 
-            </ul>
-          </li>
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-beer"></i>
               <p>Produk
                 <i class="right fas fa-angle-left"></i>
@@ -129,6 +106,29 @@
               </li> 
               <li class="nav-item">
                 <a href="<?=site_url('produk/view_data')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lihat Data</p>
+                </a>
+              </li> 
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-list"></i>
+              <p class="font-italic">Bill of Material
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?=site_url('bom/add')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Data</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="<?=site_url('bom/view_data')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lihat Data</p>
                 </a>

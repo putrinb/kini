@@ -295,7 +295,7 @@ class bom extends CI_Controller
             $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
 
             $this->load->view('templates/header', $data);
-            // $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/sidebar', $data);
 			$this->load->view('bom/input_detail', $data);
 			$this->load->view('bom/view_detail',$data);
             $this->load->view('templates/footer');

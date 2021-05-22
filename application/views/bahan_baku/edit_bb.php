@@ -59,8 +59,8 @@
                             </div> -->
 
                             <div class="form-group col-sm-12">
-                                <label class="col-form-email">Stok Awal</label><span class="text-danger">*</span>
-                                    <input type="number" name="stok_awal" min="0" class="form-control" value="<?=$bahanbaku['stok_awal'];?>" placeholder="Masukan stok awal">
+                                <label class="col-form-email">Stok</label>
+                                    <input type="number" readonly name="stok_awal" min="0" class="form-control" value="<?=$bahanbaku['stok_awal'];?>" placeholder="Masukan stok awal">
                                 <?php echo "<b>".form_error('stok_awal')."</b>"; ?> 
                             </div>
                     </div>

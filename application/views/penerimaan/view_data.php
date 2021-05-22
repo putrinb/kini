@@ -55,7 +55,7 @@
                                         </button>
                                     </td>
                                     <td class="text-center">
-                                        <a onclick="deleteConfirm('<?=site_url('penerimaan/delete_data/'.$row['id_penerimaan'].'/'.$row['id_penerimaan'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                        <a onclick="deleteConfirm('<?=site_url('penerimaan/delete_data/'.$row['id_penerimaan'].'/'.$row['id_pembelian'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                         <span class="fa fa-trash"></span>
                                         </a>
                                         <?php

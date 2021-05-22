@@ -30,7 +30,7 @@
                                         $id_penerimaan = $cacah['id_penerimaan'];
                                         $tanggal = $cacah['tanggal'];
                                         $kode_bb = $cacah['kode_bb'];
-                                        $harga_satuan = $cacah['harga_satuan'];
+                                        $harga = $cacah['harga'];
                                         $qty = $cacah['qty'];
                                         $nama_bb = $cacah['nama_bb'];
                                         $no_faktur = $cacah['no_faktur'];
@@ -72,8 +72,8 @@
                                             echo "<td>".$cacah['merk']."</td>";
                                             echo "<td class='text-center'>".$cacah['qty']."</td>";
                                             echo "<td class='text-center'>".$cacah['satuan_bb']."</td>";
-                                            echo "<td>".format_rp($cacah['harga_satuan'])."</td>";
-                                            echo "<td>".format_rp($cacah['qty']*$cacah['harga_satuan'])."</td>";
+                                            echo "<td>".format_rp($cacah['harga'])."</td>";
+                                            echo "<td>".format_rp($cacah['qty']*$cacah['harga'])."</td>";
                                             echo "<td>".$cacah['ket']."</td>";
                                                 ?>
                                                     <!-- <button onclick="location.href = '<?php echo site_url('pembelian/edit_form_detail/'.$cacah['no_penerimaan']) ?>';" type="button" class="btn btn-success btn-sm">

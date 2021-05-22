@@ -35,7 +35,7 @@
                  
 
 <!-- /.content-wrapper -->
-<footer class="main-footer navbar-pink">
+<footer class="main-footer navbar-navy navbar-dark">
     <div style="color:white">Copyright &copy; 2020 <b>Putri Nabila</b>.</>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
