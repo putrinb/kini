@@ -215,7 +215,7 @@ class penerimaan extends CI_Controller
 
     }
 
-    //fungsi untuk menghapus data ketika input data detail pembelian
+    //fungsi untuk menghapus data ketika input data detail penerimaan
     public function delete_form_detail($no_penerimaan)
     {    
         if ($this->m_penerimaan->deleteFormInputDetailPenerimaan($no_penerimaan)) {

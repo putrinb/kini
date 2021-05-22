@@ -73,8 +73,9 @@ class pemakaian extends CI_Controller
                 $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
                 $this->load->view('templates/header',$data);
                 $this->load->view('templates/sidebar',$data);
-                $this->load->view('pemakaian/detail_pemakaian',$data);
+                $this->load->view('pemakaian/bbb',$data);
                 $this->load->view('pemakaian/view_pemakaian2',$data);
+                $this->load->view('pemakaian/btkl', $data);
                 $this->load->view('templates/footer',$data);
             }
         
@@ -88,10 +89,11 @@ class pemakaian extends CI_Controller
 			$data['bom'] = $this->m_pemakaian->detailBOM($_SESSION['id_bom']);
 			$data['heading'] = 'Produksi';
 			$data['title'] = 'Kini Cheese Tea | Produksi';
+            $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
             
-            $this->form_validation->set_rules('harga', 'harga', 'required',
-			array('required' => 'Anda belum memasukkan %s.')
-            );
+            // $this->form_validation->set_rules('harga', 'harga', 'required',
+			// array('required' => 'Anda belum memasukkan %s.')
+            // );
             
             $this->form_validation->set_rules('nama_bb', 'bahan baku', 'required',
 			array('required' => 'Anda belum memasukkan %s.')
@@ -101,31 +103,32 @@ class pemakaian extends CI_Controller
 			array('required' => 'Anda belum memasukkan %s.')
 			);
 
-            $this->form_validation->set_rules('gaji', 'gaji', 'required',
-            array('required' => 'Anda harus memasukkan %s.')
-            );
+            // $this->form_validation->set_rules('gaji', 'gaji', 'required',
+            // array('required' => 'Anda harus memasukkan %s.')
+            // );
             
-			$this->form_validation->set_rules('day', 'jumlah hari', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
-            );
+			// $this->form_validation->set_rules('day', 'jumlah hari', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );
 
-            $this->form_validation->set_rules('person', 'jumlah karyawan', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
-            );   
+            // $this->form_validation->set_rules('person', 'jumlah karyawan', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );   
             
-            $this->form_validation->set_rules('sales', 'rata-rata penjualan', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
-            );    
+            // $this->form_validation->set_rules('sales', 'rata-rata penjualan', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );    
 
             $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
             if ($this->form_validation->run() == FALSE)
 			{
                 
                 $data['pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
+                $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
 
 				$this->load->view('templates/header',$data);
                 $this->load->view('templates/sidebar',$data);
-                $this->load->view('pemakaian/detail_pemakaian',$data);
+                $this->load->view('pemakaian/bbb',$data);
                 $this->load->view('pemakaian/view_pemakaian2',$data);
                 $this->load->view('templates/footer',$data);
 			}else{
@@ -140,11 +143,37 @@ class pemakaian extends CI_Controller
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar', $data);
                 // $this->load->view('bom/input_detail', $data);
-                // $this->load->view('pemakaian/view_pemakaian',$data);
+                $this->load->view('pemakaian/bbb',$data);
+                $this->load->view('pemakaian/view_pemakaian2',$data);
                 $this->load->view('templates/footer');
             }
             
 
+    }
+
+    public function input_form_detail2(){
+
+        $data['no_pemakaian'] = $this->m_pemakaian->getIdPemakaian(); // ambil id pemakaian
+        $data['bom'] = $this->m_pemakaian->detailBOM($_SESSION['id_bom']);
+        $data['heading'] = 'Produksi';
+        $data['title'] = 'Kini Cheese Tea | Produksi';
+        $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
+        $data['pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'],$_SESSION['id_bom']);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('pemakaian/bbb', $data);
+        $this->load->view('pemakaian/view_pemakaian2',$data);
+        $this->load->view('templates/footer');
+    }
+
+    //fungsi untuk menghapus data ketika input data detail pemakaian
+    public function delete_form_detail($id)
+    {    
+        if ($this->m_pemakaian->deleteFormInputDetailPemakaian($id)) {
+            $this->session->set_flashdata('flash','dihapus');
+        redirect(site_url('pemakaian/input_form_detail2'));
+        }
     }
 }
 ?>
