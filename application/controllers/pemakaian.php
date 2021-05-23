@@ -175,5 +175,7 @@ class pemakaian extends CI_Controller
         redirect(site_url('pemakaian/input_form_detail2'));
         }
     }
+
+    //testing
 }
 ?>
