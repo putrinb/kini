@@ -146,8 +146,7 @@ class pemakaian extends CI_Controller
                 $this->load->view('pemakaian/bbb',$data);
                 $this->load->view('pemakaian/view_pemakaian2',$data);
                 $this->load->view('templates/footer');
-            }
-            
+            } 
 
     }
 
@@ -176,6 +175,5 @@ class pemakaian extends CI_Controller
         }
     }
 
-    //testing
 }
 ?>
