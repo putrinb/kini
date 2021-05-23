@@ -60,19 +60,19 @@
                                         <select class="form-control text-center ml-3" name="nama_bb">
                                             <option value="">- None -</option>
                                             <?php foreach ($bom as $row) : ?>
-                                                <option value="<?php echo $row['kode_bb'] ?>"><?php echo "[ " . $row['kode_bb'] . " ] - " . $row['nama_bb'] ?></option>
+                                                <option value="<?php echo $row['kode_bb'] ?>"><?php echo $row['nama_bb'] ?></option>
                                             <?php endforeach; ?>
                                         </select><?php echo "<b>" . form_error('nama_bb') . "</b>"; ?>
                                     </div>
                                 </div>
 
                                 <div class="col-sm">
-                                    <div class="form-inline form-group mb-4 form-group">
+                                    <div class="form-inline form-group mb-4">
                                         <label for="qty">Jumlah<span class="text-danger">*</span></label>
                                         <select class="form-control ml-3 text-center" name="qty">
                                             <option value="">- None -</option>
                                             <?php foreach ($bom as $row) : ?>
-                                                <option value="<?php echo $row['qty']. " " . $row['satuan_bb'] ?>"><?php echo " " . $row['qty'] . " " . $row['satuan_bb'] ?></option>
+                                                <option value="<?php echo $row['qty_bom']. " " . $row['satuan_bom'] ?>"><?php echo " " . $row['qty_bom'] . " " . $row['satuan_bom'] ?></option>
                                             <?php endforeach; ?>
                                         </select><?php echo "<b>" . form_error('qty') . "</b>"; ?>
                                     </div>
