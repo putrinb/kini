@@ -40,12 +40,13 @@
                                                 <th class="text-center">Bahan Baku</th>
                                                 <th class="text-center">Jumlah</th>
                                                 <th class="text-center">Harga</th>
-                                                <th class="text-center">Hapus</th>
+                                                <!-- <th class="text-center">Hapus</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 1;
+                                            $gtotal = 0;
                                             foreach ($data_pemakaian as $cacah) :
                                                 echo "<tr>";
                                                 echo "<td class='text-center'>" . $no++;
@@ -53,27 +54,40 @@
                                                 echo "<td>" . $cacah['nama_bb'] . "</td>";
                                                 echo "<td>" . $cacah['satuan_bahan'] . "</td>";
                                                 echo "<td>" . format_rp($cacah['harga_bahan']) . "</td>";
-                                                echo "<td align='center'>";
+                                                $gtotal=$gtotal+($cacah['harga_bahan']);
+                                                
                                             ?>
-                                                <a onclick="deleteConfirm('<?php echo site_url('pemakaian/delete_form_detail/' . $cacah['id']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                                <!-- <a onclick="deleteConfirm('<?php echo site_url('pemakaian/delete_form_detail/' . $cacah['id']) ?>')" href="#!" class="btn btn-danger btn-sm">
                                                     <span class="fas fa-trash"></span>
-                                                </a>
+                                                </a> -->
                                             <?php
                                                 echo "</td>";
                                                 echo "</tr>";
+                                                
                                             endforeach;
+                                            echo "<tr>";
+                                                echo "<td colspan='3' class='text-right text-bold'>TOTAL</td>";
+                                                echo "<td class='text-bold'>". format_rp($gtotal);"</td>";
+                                                echo "</tr>";
                                             ?>
                                         </tbody>
                                     </table>
+                                    <?php
+                                    foreach ($detail_btkl as $row):
+                                        $btkl = $row['btkl'];
+                                    endforeach;
+                                    ?>
+                                    <h6 class="mt-2">Biaya Bahan Baku: <?=format_rp($gtotal);?></h6>
+                                    <h6 class="mt-2">Biaya Tenaga Kerja Langsung: <?=format_rp($btkl);?></h6>
                                 </div>
-                                <div class="card-footer">
+                                <!-- <div class="card-footer">
                                     <div class="col-sm-12 text-center">
-                                        <button onclick="location.href = '<?php echo site_url('pemakaian/btkl') ?>';" type="button" class="btn btn-success btn-sm">
+                                        <button onclick="location.href = '<?php echo site_url('pemakaian/selesai') ?>';" type="button" class="btn btn-success btn-sm">
                                             <span class="fas fa-check"></span>
-                                            Simpan
+                                            Selesai
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
