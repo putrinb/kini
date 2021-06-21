@@ -73,12 +73,19 @@
                                         </tbody>
                                     </table>
                                     <?php
+                                    $produksi = 0;
                                     foreach ($detail_btkl as $row):
                                         $btkl = $row['btkl'];
                                     endforeach;
+                                    foreach ($detail_bop as $row):
+                                        $bop = $row['tarif_dasar']*$row['waktu_menit'];
+                                    endforeach;
+                                    $produksi = $gtotal+$btkl+$bop;
                                     ?>
                                     <h6 class="mt-2">Biaya Bahan Baku: <?=format_rp($gtotal);?></h6>
                                     <h6 class="mt-2">Biaya Tenaga Kerja Langsung: <?=format_rp($btkl);?></h6>
+                                    <h6 class="mt-2">Biaya Overhead Pabrik: <?=format_rp($bop);?></h6>
+                                    <h5 class="mt-2">TOTAL: <?=format_rp($produksi);?></h5>
                                 </div>
                                 <!-- <div class="card-footer">
                                     <div class="col-sm-12 text-center">

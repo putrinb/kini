@@ -246,6 +246,51 @@ class laporan extends CI_Controller
 		$this->load->view('laporan/laporan_excel_perbulan',$data);
 	}
 
+	function KartuStok()
+	{
+		$data=[
+			'title'		=> 'Kini Cheese Tea | Laporan',
+			'tahun'		=> $this->m_laporan->getTahun(),
+			'bb'		=> $this->m_laporan->getBahanBaku(),
+            // 'pembelian'	=>	$this->m_laporan->get_lap_pembelian($waktu),
+            'heading'   => 'Laporan'
+		];
+		$this->form_validation->set_rules(
+            'bulan',
+            'bulan laporan',
+            'required',
+            array('required' => 'Anda harus memasukkan %s.')
+        );
+
+		$this->form_validation->set_rules(
+            'tahun',
+            'tahun laporan',
+            'required',
+            array('required' => 'Anda harus memasukkan %s.')
+        );
+
+		$this->form_validation->set_rules(
+            'bahan_baku',
+            'bahan baku',
+            'required',
+            array('required' => 'Anda harus memasukkan %s.')
+        );
+
+        $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
+        if ($this->form_validation->run() == FALSE) {
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar',$data);
+		$this->load->view('laporan/form_input_ks',$data);
+		$this->load->view('templates/footer');
+		}else{
+			$this->load->view('templates/header',$data);
+        	$this->load->view('templates/sidebar',$data);
+			$this->load->view('laporan/kartu_stok',$data);
+			$this->load->view('templates/footer');
+		}
+	}
+
 	
   
 //   public function cetak(){
@@ -288,4 +333,3 @@ class laporan extends CI_Controller
 //     $pdf->Output('Data Transaksi.pdf', 'D');
 //   }
 }
-?>

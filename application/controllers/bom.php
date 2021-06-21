@@ -49,7 +49,7 @@ class bom extends CI_Controller
     {
             $data['id_bom'] = $this->m_bom->getId(); // ambil id penerimaan
 			$data['minuman'] = $this->m_bom->getIdMinuman(); // ambil id pembelian
-			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
+			$data['bahanbaku'] = $this->m_bb->getdata2(); //untuk mengambil data bahanbaku
 			$data['heading'] = 'Bill of Material';
 			$data['title'] = 'Kini Cheese Tea | Bill of Material';
 			$data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
@@ -107,7 +107,7 @@ class bom extends CI_Controller
     {
             // $data['IdPenerimaan'] = $this->m_bom->getIdPenerimaan(); // ambil id penerimaan
 			$data['minuman'] = $this->m_bom->getIdMinuman(); // ambil id pembelian
-			$data['bahanbaku'] = $this->m_bb->getdata(); //untuk mengambil data bahanbaku
+			$data['bahanbaku'] = $this->m_bb->getdata2(); //untuk mengambil data bahanbaku
 			$data['heading'] = 'Bill of Material';
 			$data['title'] = 'Kini Cheese Tea | Bill of Material';
             $data['satuan'] = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','roll'];
@@ -137,7 +137,7 @@ class bom extends CI_Controller
 			}else{
                 //simpan ke database
                 $this->m_bom->input_data();
-                
+                $data['bahanbaku'] = $this->m_bb->getdata2();
                 //dapatkan data hasil penyimpanan
                 $data['bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);
 

@@ -296,7 +296,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=base_url();?>pages/UI/sliders.html" class="nav-link">
+                <a href="<?=site_url('laporan/KartuStok');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kartu Stok</p>
                 </a>

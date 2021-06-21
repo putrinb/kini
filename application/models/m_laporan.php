@@ -3,6 +3,40 @@
 class m_laporan extends CI_Model
 {
 	private $_table = "penerimaan";
+
+	//data tahun
+	public function getTahun(){
+		$sql = "
+					SELECT tahun FROM
+					(
+					SELECT year(tanggal) as tahun 
+					FROM penerimaan
+					UNION
+					SELECT year(tanggal) as tahun 
+					FROM pemakaian
+					) x
+					ORDER BY 1 ASC			
+				";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	public function getBahanBaku(){
+		$sql = "
+					SELECT bb FROM
+					(
+					SELECT kode_bb as bb
+					FROM detail_penerimaan
+					UNION
+					SELECT kode_bb as bb
+					FROM detail_pemakaian
+					) x
+					ORDER BY 1 ASC			
+				";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
 	function get_penerimaan()
 	{
 		$this->db->select("penerimaan.id_penerimaan, concat(day(penerimaan.tanggal),' ',monthname(penerimaan.tanggal),' ',year(penerimaan.tanggal)) as Tanggal, sum(detail_penerimaan.jumlah*detail_penerimaan.harga_satuan) as total");
@@ -161,6 +195,8 @@ class m_laporan extends CI_Model
         
         return $this->db->get()->result(); // Ambil data pada tabel transaksi sesuai kondisi diatas
     }
+
+	
 
 }
 ?>

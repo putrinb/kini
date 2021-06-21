@@ -24,7 +24,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                     <!-- <small>Masukan Periode Kartu Stok</small> -->
-                        <form action="<?php echo site_url('laporan/proseskartustok') ?>" method="post" >
+                        <form action="<?php echo site_url('laporan/KartuStok') ?>" method="post" >
                         
                             <div class="form-group">
                                 <label for="no_faktur">Bulan<span class="text-danger">*</span></label>
@@ -41,20 +41,20 @@
                                     <option value="10">Oktober</option>
                                     <option value="11">November</option>
                                     <option value="12">Desember</option>
-                                </select>	  
+                                </select>	<?=form_error('bulan')?>  
                             </div>
                             
                             <div class="form-group">
                                 <label for="tahun">Tahun<span class="text-danger">*</span></label>
                                 <select class="form-control" name="tahun">
                                     <?php
-                                    foreach($tahun as $cacah_tahun):
+                                    foreach($tahun as $row):
                                         ?>	
-                                            <option value="<?php echo $cacah_tahun['tahun']?>"><?php echo $cacah_tahun['tahun']?></option>
+                                            <option value="<?php echo $row['tahun']?>"><?php echo $row['tahun']?></option>
                                         <?php
                                     endforeach;
                                 ?>
-                                </select>
+                                </select><?=form_error('tahun')?>
                             </div>
                             
                             <div class="form-group">
@@ -62,13 +62,13 @@
                                 <select class="form-control" name="bahan_baku">
                                     <option value="">- None -</option>
                                     <?php
-                                    foreach($bahan_baku as $cacah_buah):
+                                    foreach($bb as $row):
                                         ?>	
-                                            <option value="<?php echo $cacah_buah['kode_bb']?>"><?php echo $cacah_buah['nama_bb']?></option>
+                                            <option value="<?php echo $row['bb']?>"><?php echo $row['bb']?></option>
                                         <?php
                                     endforeach;
                                 ?>
-                                </select>
+                                </select><?=form_error('bahan_baku')?>
                             </div>
                         </div>
                             

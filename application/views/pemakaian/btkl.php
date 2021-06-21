@@ -87,7 +87,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-inline form-group mb-1 mt-3">
-                                        <label for="sales">Rata-rata Penjualan Perhari<span class="text-danger">*</span></label>
+                                        <label for="sales">Rata-rata Penjualan Perbulan<span class="text-danger">*</span></label>
                                         <input class="form-control ml-3" name="sales" value="<?= set_value('sales'); ?>" type="number" min="1" placeholder="1"></input>
                                     </div><?php echo "<b>" . form_error('sales') . "</b>"; ?>
                                 </div>

@@ -53,6 +53,22 @@ class m_bb extends CI_Model
         return $query->result_array();
     }
 
+    public function getdata2(){
+        if(isset($_SESSION['id_bom'])){
+            $sql = "SELECT * FROM bahan_baku
+        WHERE kode_bb NOT IN 
+        (SELECT kode_bb FROM detail_bom WHERE id_bom = ".$this->db->escape($_SESSION['id_bom']).")
+        ";
+        }else{
+            //query tanpa where
+            $sql = "SELECT * FROM bahan_baku
+        ";
+        }        
+        
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
     public function getdata_edit($kode_bb){
         $sql = "SELECT * ";
         $sql = $sql." FROM ".$this->_table." WHERE kode_bb = ".$this->db->escape($kode_bb);

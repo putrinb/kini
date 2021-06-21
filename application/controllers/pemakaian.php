@@ -119,7 +119,6 @@ class pemakaian extends CI_Controller
         $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
         if ($this->form_validation->run() == FALSE) {
 
-            $data['pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
             $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
 
             $this->load->view('templates/header', $data);
@@ -132,13 +131,12 @@ class pemakaian extends CI_Controller
             $this->m_pemakaian->input_data();
 
             //dapatkan data hasil penyimpanan
-            $data['pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
             $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
 
             // $data['data_bom'] = $this->m_bom->getDataDetail($_SESSION['id_bom'],$_SESSION['id_produk']);
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            // $this->load->view('bom/input_detail', $data);
+            $this->load->view('bom/input_detail', $data);
             $this->load->view('pemakaian/bbb', $data);
             $this->load->view('pemakaian/view_pemakaian2', $data);
             $this->load->view('templates/footer');
@@ -149,10 +147,11 @@ class pemakaian extends CI_Controller
     {
 
         $data['no_pemakaian'] = $this->m_pemakaian->getIdPemakaian(); // ambil id pemakaian
+        $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
         $data['bom'] = $this->m_pemakaian->bb_bom($_SESSION['id_bom']);
         $data['heading'] = 'Produksi';
         $data['title'] = 'Kini Cheese Tea | Produksi';
-        $data['data_pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
+        
         $data['pemakaian'] = $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']);
 
         $this->load->view('templates/header', $data);
@@ -310,6 +309,7 @@ class pemakaian extends CI_Controller
             'data_pemakaian' => $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']),
             'pemakaian' => $this->m_pemakaian->getDetailPemakaian($_SESSION['no_pemakaian'], $_SESSION['id_bom']),
             'detail_btkl' => $this->m_pemakaian->getbtkl($_SESSION['no_pemakaian']),
+            'detail_bop' => $this->m_pemakaian->getbop($_SESSION['no_pemakaian']),
 
         ];
         $this->load->view('templates/header', $data);
@@ -320,6 +320,9 @@ class pemakaian extends CI_Controller
     }
     public function selesai()
     {
-        redirect('pemakaian/btkl');
+        unset($_SESSION['no_pemakaian']);
+        unset($_SESSION['id_bom']);
+        unset($_SESSION['tanggal']);
+        redirect('pemakaian/view');
     }
 }

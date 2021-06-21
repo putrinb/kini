@@ -50,13 +50,14 @@ class m_pemakaian extends CI_Model
 
   function bb_bom($id_bom)
   {
-    $id_bom = $this->input->post('id_bom');
-    $nama_bb = $this->input->post('nama_bb');
+    // $id_bom = $this->input->post('id_bom');
+    // $nama_bb = $this->input->post('nama_bb');
     $sql = " SELECT detail_bom.kode_bb, nama_bb, detail_penerimaan.qty as qty_diterima, harga, detail_bom.qty as qty_bom, detail_bom.satuan_bb as satuan_bom
     from detail_bom JOIN detail_penerimaan
     ON detail_penerimaan.kode_bb = detail_bom.kode_bb  join bahan_baku on bahan_baku.kode_bb = detail_bom.kode_bb
     ";
     $sql = $sql . " WHERE detail_bom.id_bom  = " . $this->db->escape($id_bom);
+
     $query = $this->db->query($sql);
     $hasil = $query->result_array();
     foreach ($hasil as $row) :
@@ -243,7 +244,11 @@ class m_pemakaian extends CI_Model
   public function getbtkl($no_pemakaian)
   {
     return $this->db->get_where('detail_btkl',['no_pemakaian' => $no_pemakaian])->result_array();
+  }
 
+  public function getbop($no_pemakaian)
+  {
+    return $this->db->get_where('detail_bop',['no_pemakaian' => $no_pemakaian])->result_array();
   }
 
   public function input_bop()
