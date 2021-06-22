@@ -49,6 +49,38 @@ class m_penerimaan extends CI_Model {
       return $this->db->get_where('pembelian', array('status !=' => 'RECEIVED'))->row_array(); 
     }
 
+    public function getDataSatuanPembelian($nama_bb){
+      $sql = "
+          SELECT bahan_baku.satuan as satuan
+          FROM bahan_baku JOIN pembelian on bahan_baku.kode_bb = pembelian.kode_barang
+          WHERE kode_barang = ".$this->db->escape($nama_bb)."
+          ";
+  
+      $query = $this->db->query($sql);
+      $hasil = $query->result_array();
+      foreach($hasil as $cacah):
+        $satuan = $cacah['satuan'];
+      endforeach;
+  
+      return $satuan;
+      }
+
+      public function getDataJumlahPembelian($nama_bb){
+        $sql = "
+            SELECT banyak_pembelian
+            FROM pembelian
+            WHERE kode_barang = ".$this->db->escape($nama_bb)."
+            ";
+    
+        $query = $this->db->query($sql);
+        $hasil = $query->result_array();
+        foreach($hasil as $cacah):
+          $qty = $cacah['banyak_pembelian'];
+        endforeach;
+    
+        return $qty;
+        }
+
   
     		//untuk membuat jurnal umum
 		// public function generate_jurnal_umum($no_transaksi,$id_supplier){
@@ -161,6 +193,8 @@ class m_penerimaan extends CI_Model {
         //insert ke tabel detail penerimaan
         $nama_bb = $this->input->post('nama_bb');
         $harga = $this->getHarga($nama_bb);
+        $satuan = $this->getDataSatuanPembelian($nama_bb);
+        $qty = $this->getDataJumlahPembelian($nama_bb);
         $detail=[
           'id_penerimaan' =>  $this->input->post('id_penerimaan'),
           'id_pembelian'  =>  $this->input->post('id_pembelian'),
@@ -168,16 +202,17 @@ class m_penerimaan extends CI_Model {
           'kode_bb'       =>  $this->input->post('nama_bb'),
           'harga'  =>  $harga,
           // str_replace(".","",$this->input->post('harga_satuan')),
-          'satuan_bb'        =>  $this->input->post('satuan'),
-          'qty'           =>  $this->input->post('qty'),
-          'total'         =>  $this->input->post('qty')*$this->input->post('harga'),
+          'satuan_bb'        =>  $satuan,
+          'qty'           =>  $qty,
+          'total'         =>  $qty*$harga,
           'ket'    =>  $this->input->post('keterangan'),
 
         ];
         $this->db->insert('detail_penerimaan', $detail);
 
         //update stok barang
-				$sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($post["qty"]);
+        $this->qty = $this->getDataJumlahPembelian($nama_bb);
+				$sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($this->qty);
 				$sql = $sql." WHERE kode_bb = ".$this->db->escape($post["nama_bb"]);
 
         //update status pembelian
@@ -191,6 +226,8 @@ class m_penerimaan extends CI_Model {
         //insert ke tabel detail pembelian_bb
         $nama_bb = $this->input->post('nama_bb');
         $harga = $this->getHarga($nama_bb);
+        $satuan = $this->getDataSatuanPembelian($nama_bb);
+        $qty = $this->getDataJumlahPembelian($nama_bb);
         $detail=[
           'id_penerimaan' =>  $this->input->post('id_penerimaan'),
           'id_pembelian'  =>  $this->input->post('id_pembelian'),
@@ -198,16 +235,17 @@ class m_penerimaan extends CI_Model {
           'kode_bb'       =>  $this->input->post('nama_bb'),
           'harga'  =>  $harga,
           // str_replace(".","",$this->input->post('harga_satuan')),
-          'satuan_bb'        =>  $this->input->post('satuan'),
-          'qty'           =>  $this->input->post('qty'),
-          'total'         =>  $this->input->post('qty')*$this->input->post('harga'),
+          'satuan_bb'        =>  $satuan,
+          'qty'           =>  $qty,
+          'total'         =>  $qty*$harga,
           'ket'    =>  $this->input->post('keterangan'),
 
         ];
         $this->db->insert('detail_penerimaan', $detail);
 
         //update stok barang
-				$sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($post["qty"]);
+        $this->qty = $this->getDataJumlahPembelian($nama_bb);
+				$sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($this->qty);
 				$sql = $sql." WHERE kode_bb = ".$this->db->escape($post["nama_bb"]);
 
         //update status pembelian
@@ -230,7 +268,7 @@ class m_penerimaan extends CI_Model {
     }
 
     public function getData(){
-      $this->db->select('*');
+      $this->db->select('id_penerimaan, date_format(tanggal, "%d-%m-%Y") as time, nm_penerima, penerimaan.id_pembelian, no_faktur');
       $this->db->from('penerimaan');
       $this->db->join('pembelian', 'penerimaan.id_pembelian = pembelian.id_pembelian');
       $this->db->order_by('id_penerimaan', 'asc');

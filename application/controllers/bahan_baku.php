@@ -61,6 +61,11 @@ class bahan_baku extends CI_Controller
                       'numeric' =>  '%s hanya diisi oleh angka!',
                 )
         );
+        $this->form_validation->set_rules('stok_min', 'Batas Stok Minimal', 'required|numeric',
+                array('required' => '%s harus diisi!',
+                      'numeric' =>  '%s hanya diisi oleh angka!',
+                )
+        );
         
         $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
         $data=[
@@ -109,7 +114,7 @@ class bahan_baku extends CI_Controller
                 $data['bahanbaku']= $this->m_bb->get_kode_bb($kode_bb);
                 $data['title']          = 'Kini Cheese Tea | Bahan Baku';
                 $data['heading']        = 'Edit Bahan Baku';
-                $data['satuan']         = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)','pack','balok'];
+                $data['satuan']         = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)'];
 
                 $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces',
                         array('required' => '%s harus diisi!',
@@ -132,7 +137,13 @@ class bahan_baku extends CI_Controller
                         array('required' => '%s harus diisi!',
                         'numeric' =>  '%s hanya diisi oleh angka!',
                         )
-                );              
+                );     
+                
+                $this->form_validation->set_rules('stok_min', 'Batas Stok Minimal', 'required|numeric',
+                        array('required' => '%s harus diisi!',
+                        'numeric' =>  '%s hanya diisi oleh angka!',
+                        )
+                );   
                 $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
 
                 if ($this->form_validation->run() == FALSE)

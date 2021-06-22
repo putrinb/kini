@@ -17,17 +17,17 @@ class m_bb extends CI_Model
     public function insert_data(){
         $post = $this->input->post();
         $this->kode_bb = $this->getkodebb();
-        $this->nama_bb= $post["nama_bb"];
+        $this->nama_bb = $post["nama_bb"];
         $this->satuan = $post["satuan"];
-        // $this->harga_satuan = str_replace(".","",$post["harga_satuan"]);
         $this->merk = $post["merk"];
         $this->stok_awal = $post["stok_awal"];
         $this->jumlah = $post["jml"];
+        $this->batas_min = $post["stok_min"];
         
-        $sql = "INSERT INTO bahan_baku(kode_bb,nama_bb,jumlah,satuan,stok_awal,merk,keterangan) ";
+        $sql = "INSERT INTO bahan_baku(kode_bb,nama_bb,jumlah,satuan,stok_awal,merk,keterangan,batas_min) ";
         $sql = $sql." VALUES(".$this->db->escape($this->kode_bb).",".$this->db->escape($this->nama_bb).",";
         $sql = $sql."".$this->db->escape($this->jumlah).",".$this->db->escape($this->satuan).",";
-        $sql = $sql."".$this->db->escape($this->stok_awal).",".$this->db->escape($this->merk).", 'Bahan Baku Utama')";
+        $sql = $sql."".$this->db->escape($this->stok_awal).",".$this->db->escape($this->merk).", 'Bahan Baku Utama', ".$this->db->escape($this->batas_min).")";
         $query = $this->db->query($sql);
         return $this->db->affected_rows();
     }
@@ -82,10 +82,10 @@ class m_bb extends CI_Model
         $this->kode_bb = $this->getkodebb();
         $this->nama_bb= $post["nama_bb"];
         $this->satuan = $post["satuan"];
-        // $this->harga_satuan = str_replace(".","",$post["harga_satuan"]);
         $this->merk = $post["merk"];
         $this->stok_awal = $post["stok_awal"];
         $this->jumlah = $post["jml"];
+        $this->batas_min = $post["stok_min"];
 			
 			$sql = "UPDATE ".$this->_table;
 			$sql = $sql." SET nama_bb = ".$this->db->escape($this->nama_bb).", satuan = ".$this->db->escape($this->satuan);
@@ -93,6 +93,7 @@ class m_bb extends CI_Model
             $sql = $sql." , stok_awal = ".$this->db->escape($this->stok_awal);
             $sql = $sql." , merk = ".$this->db->escape($this->merk);
             $sql = $sql." , jumlah = ".$this->db->escape($this->jumlah);
+            $sql = $sql." , batas_min = ".$this->db->escape($this->batas_min);
 			$sql = $sql." WHERE kode_bb = ".$this->db->escape($post["kode_bb"]);
 			$query = $this->db->query($sql);
 			return $this->db->affected_rows();

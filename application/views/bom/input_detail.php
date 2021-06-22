@@ -56,7 +56,7 @@
                                             <?php
                                             foreach($bahanbaku as $row):
                                             ?>
-                                            <option value="<?php echo $row['kode_bb']?>"><?php echo $row['kode_bb']?> - <?php echo $row['nama_bb']?></option>
+                                            <option value="<?php echo $row['kode_bb']?>"><?php echo $row['nama_bb']?> - <?php echo $row['merk']?></option>
                                                 <?php
                                                 endforeach;
                                                 ?>

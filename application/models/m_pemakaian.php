@@ -66,13 +66,12 @@ class m_pemakaian extends CI_Model
       $qty_bom = $row['qty_bom'];
       $harga = $row['harga'];
       $satuan_bom = $row['satuan_bom'];
-  endforeach;
+    endforeach;
 
-  return $hasil;
-
+    return $hasil;
   }
 
-  function konversi($id_bom,$nama_bb)
+  function konversi($id_bom, $nama_bb)
   {
     $id_bom = $this->input->post('id_bom');
     $nama_bb = $this->input->post('nama_bb');
@@ -80,7 +79,7 @@ class m_pemakaian extends CI_Model
     from detail_bom JOIN detail_penerimaan
     ON detail_penerimaan.kode_bb = detail_bom.kode_bb  join bahan_baku on bahan_baku.kode_bb = detail_bom.kode_bb
     ";
-    $sql = $sql . " WHERE detail_bom.id_bom  = " . $this->db->escape($id_bom). "and detail_bom.kode_bb = ".$this->db->escape($nama_bb);
+    $sql = $sql . " WHERE detail_bom.id_bom  = " . $this->db->escape($id_bom) . "and detail_bom.kode_bb = " . $this->db->escape($nama_bb);
     $query = $this->db->query($sql);
     $hasil = $query->result_array();
     foreach ($hasil as $cacah) :
@@ -90,52 +89,33 @@ class m_pemakaian extends CI_Model
       $satuan_bom = $cacah['satuan_bom'];
       $satuan_diterima = $cacah['satuan_diterima'];
 
-    if ($satuan_diterima == 'kilogram (kg)' or 'liter(L)' and $satuan_bom == 'gram (gr)' or 'ml') {
-      $berat_diterima = $qty_diterima * 1000;
-      $harga_akhir = $harga / $berat_diterima;
-      $nilai = $harga_akhir * $qty_bom;
-    } else {
-      $nilai = 1000;
-    }
-    return $nilai;
-  endforeach;
+      if ($satuan_diterima == 'kilogram (kg)' or 'liter(L)' and $satuan_bom == 'gram (gr)' or 'ml') {
+        $berat_diterima = $qty_diterima * 1000;
+        $harga_akhir = $harga / $berat_diterima;
+        $nilai = $harga_akhir * $qty_bom;
+      } else {
+        $nilai = 1000;
+      }
+      return $nilai;
+    endforeach;
   }
 
-  //untuk memberi nilai qty berdasarkan id_bom
-  // public function getNilai($kode_bb)
-  // {
-  //   $sql = "
-  //         SELECT harga
-  //         FROM detail_penerimaan
-  //         WHERE kode_bb = " . $this->db->escape($kode_bb) . "
-  //         ";
+  public function getDataSatuanBOM($nama_bb)
+  {
+    $sql = "
+        SELECT satuan_bb
+        FROM detail_bom 
+        WHERE kode_bb = " . $this->db->escape($nama_bb) . "
+        ";
 
-  //   $query = $this->db->query($sql);
-  //   $hasil = $query->result_array();
-  //   foreach ($hasil as $cacah) :
-  //     $nilai = $cacah['qty'];
-  //   endforeach;
+    $query = $this->db->query($sql);
+    $hasil = $query->result_array();
+    foreach ($hasil as $cacah) :
+      $satuan = $cacah['satuan_bb'];
+    endforeach;
 
-  //   return $nilai;
-  // }
-
-  //untuk memberi satuan berdasarkan id_bom
-  // public function getSatuan($kode_bb)
-  // {
-  //   $sql = "
-  //         SELECT qty, satuan_bb
-  //         FROM detail_bom
-  //         WHERE kode_bb = " . $this->db->escape($kode_bb) . "
-  //         ";
-
-  //   $query = $this->db->query($sql);
-  //   $hasil = $query->result_array();
-  //   foreach ($hasil as $cacah) :
-  //     $satuan = $cacah['satuan_bb'];
-  //   endforeach;
-
-  //   return $satuan;
-  // }
+    return $satuan;
+  }
 
   public function input_data()
   {
@@ -160,7 +140,6 @@ class m_pemakaian extends CI_Model
     //jumlah data 0 berarti belum ada datanya, maka dimasukkan ke tabel
     if ($jml_data < 1) {
       //lakukan fungsi upload data ke temporary server dulu
-      //$this->Dokumen = $this->_uploadDokumen();
 
       //insert ke tabel pemakaian dulu
       $data = [
@@ -170,51 +149,34 @@ class m_pemakaian extends CI_Model
       ];
       $this->db->insert('pemakaian', $data);
 
-      //insert ke tabel detail penerimaan
-      // $sql = "declare id_bom varchar";
-      // $sql = "set id_bom = ".$this->db->escape($this->input->post('id_bom'));
-      // $sql = "while (id_bom = ".$this->db->escape($this->input->post('id_bom'));
-      // $sql = "begin "
-      // $nilai = $this->getNilai($post['id_bom']);
-      // $satuan = $this->getSatuan($post['id_bom']);
-      $konversi = $this->konversi($id_bom,$nama_bb);
-      $detail = [
-        'no_pemakaian' =>  $this->input->post('no_pemakaian'),
-        'id_bom'  =>  $this->input->post('id_bom'),
-        'kode_bb'            =>  $this->input->post('nama_bb'),
-        // 'jumlah_pemakaian'           =>  $nilai,
-        'satuan_bahan'        =>  $this->input->post('qty'),
-        'harga_bahan'  =>  $konversi,
-
-      ];
-      $this->db->insert('detail_pemakaian', $detail);
-
-      // //update stok barang
-      // $sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($post["qty"]);
-      // $sql = $sql." WHERE kode_bb = ".$this->db->escape($post["nama_bb"]);
-      // $query = $this->db->query($sql);
-
-      return $this->db->affected_rows();
-    } else {
-      //insert ke tabel detail pemakaian
-      // $nilai = $this->getNilai($post['id_bom']);
-      // $satuan = $this->getSatuan($post['id_bom']);
-      $konversi = $this->konversi($id_bom,$nama_bb);
+      $konversi = $this->konversi($id_bom, $nama_bb);
+      $satuan = $this->getDataSatuanBOM($nama_bb);
       $detail = [
         'no_pemakaian' =>  $this->input->post('no_pemakaian'),
         'id_bom'  =>  $this->input->post('id_bom'),
         'kode_bb'            =>  $this->input->post('nama_bb'),
         'jumlah_pemakaian'           =>  $this->input->post('qty'),
-        'satuan_bahan'        =>  $this->input->post('qty'),
+        'satuan_bahan'        =>  $satuan,
         'harga_bahan'  =>  $konversi,
 
       ];
       $this->db->insert('detail_pemakaian', $detail);
 
-      // //update stok barang
-      // $sql = "UPDATE bahan_baku SET stok_awal = stok_awal + ".$this->db->escape($post["qty"]);
-      // $sql = $sql." WHERE kode_bb = ".$this->db->escape($post["nama_bb"]);
-      // $query = $this->db->query($sql);
+      return $this->db->affected_rows();
+    } else {
+
+      $konversi = $this->konversi($id_bom, $nama_bb);
+      $satuan = $this->getDataSatuanBOM($nama_bb);
+      $detail = [
+        'no_pemakaian' =>  $this->input->post('no_pemakaian'),
+        'id_bom'  =>  $this->input->post('id_bom'),
+        'kode_bb'            =>  $this->input->post('nama_bb'),
+        'jumlah_pemakaian'           =>  $this->input->post('qty'),
+        'satuan_bahan'        =>  $satuan,
+        'harga_bahan'  =>  $konversi,
+
+      ];
+      $this->db->insert('detail_pemakaian', $detail);
 
       return $this->db->affected_rows();
     }
@@ -228,13 +190,14 @@ class m_pemakaian extends CI_Model
   public function input_btkl()
   {
     $detail = [
+      'id_btkl' => $this->getIdBTKL(),
       'no_pemakaian' =>  $this->input->post('no_pemakaian'),
       'id_bom'  =>  $this->input->post('id_bom'),
-      'gaji_harian'            =>  str_replace(".","",$this->input->post('gaji')),
+      'gaji_harian'            =>  str_replace(".", "", $this->input->post('gaji')),
       'jml_hari'           =>  $this->input->post('day'),
       'jml_kry'        =>  $this->input->post('person'),
       'rata_jual' => $this->input->post('sales'),
-      'btkl' => ((str_replace(".","",$this->input->post('gaji'))*$this->input->post('day'))*$this->input->post('person'))/$this->input->post('sales'),
+      'btkl' => ((str_replace(".", "", $this->input->post('gaji')) * $this->input->post('day')) * $this->input->post('person')) / $this->input->post('sales'),
 
     ];
     $this->db->insert('detail_btkl', $detail);
@@ -243,20 +206,21 @@ class m_pemakaian extends CI_Model
 
   public function getbtkl($no_pemakaian)
   {
-    return $this->db->get_where('detail_btkl',['no_pemakaian' => $no_pemakaian])->result_array();
+    return $this->db->get_where('detail_btkl', ['no_pemakaian' => $no_pemakaian])->result_array();
   }
 
   public function getbop($no_pemakaian)
   {
-    return $this->db->get_where('detail_bop',['no_pemakaian' => $no_pemakaian])->result_array();
+    return $this->db->get_where('detail_bop', ['no_pemakaian' => $no_pemakaian])->result_array();
   }
 
   public function input_bop()
   {
     $detail = [
+      'id_bop' => $this->getIdBOP(),
       'no_pemakaian' =>  $this->input->post('no_pemakaian'),
       'id_bom'  =>  $this->input->post('id_bom'),
-      'tarif_dasar'            =>  str_replace(".","",$this->input->post('tarif')),
+      'tarif_dasar'            =>  str_replace(".", "", $this->input->post('tarif')),
       'jenis_bop'           =>  $this->input->post('type'),
       'waktu_menit'        =>  $this->input->post('lama'),
       'watt' => '2',
@@ -264,18 +228,56 @@ class m_pemakaian extends CI_Model
 
     ];
     $this->db->insert('detail_bop', $detail);
+
+    $detail = [
+      
+      'no_pemakaian' =>  $this->input->post('no_pemakaian'),
+      'id_btkl' => $this->getIdBTKL(),
+      'id_bop' => $this->getIdBOP(),
+
+    ];
+    $this->db->insert('biaya_produksi', $detail);
     return $this->db->affected_rows();
   }
 
-  // public function delete_penerimaan($id_penerimaan,$id_pembelian)
-  // {
-  //   //delete dokumen dan qrcode
-  //   //$this->_deleteDokumenDanQrCode($id_bom,$id_produk);
+  public function getIdBTKL()
+  {
+    $sql = "SELECT (substring(IFNULL(MAX(id_btkl),0),7)+0) as hsl FROM detail_btkl";
+    $query = $this->db->query($sql);
+    $hasil = $query->result_array();
+    foreach ($hasil as $cacah) :
+      $jml_data = $cacah['hsl'];
+    endforeach;
+    $id = 'BTKL';
+    $nomor = str_pad(($jml_data + 1), 6, "0", STR_PAD_LEFT);
+    $id = $id . $nomor;
+    return $id;
+  }
 
-  //   //hapus data tabel anaknya
-  //   $this->db->delete('detail_penerimaan', array("id_penerimaan" => $id_penerimaan, "id_pembelian" => $id_pembelian));
-  //   //baru hapus tabel induknya
-  //   return $this->db->delete('penerimaan', array("id_penerimaan" => $id_penerimaan, "id_pembelian" => $id_pembelian));
+  public function getIdBOP()
+  {
+    $sql = "SELECT (substring(IFNULL(MAX(id_bop),0),7)+0) as hsl FROM detail_bop";
+    $query = $this->db->query($sql);
+    $hasil = $query->result_array();
+    foreach ($hasil as $cacah) :
+      $jml_data = $cacah['hsl'];
+    endforeach;
+    $id = 'BOP';
+    $nomor = str_pad(($jml_data + 1), 6, "0", STR_PAD_LEFT);
+    $id = $id . $nomor;
+    return $id;
+  }
 
-  // }
+  public function getDataProduksi()
+  {
+    $this->db->select('*');
+    $this->db->from('pemakaian');
+    $this->db->join('bom', 'pemakaian.id_bom = bom.id_bom');
+    $this->db->join('produk', 'produk.id_produk = bom.id_produk');
+    // $this->db->join('bom', 'bom.id_bom = pemakaian.id_bom');
+    // $this->db->where('detail_pemakaian.no_pemakaian', $no_pemakaian);
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
 }

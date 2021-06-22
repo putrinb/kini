@@ -24,12 +24,54 @@
                         </div>
                     </div>
                 <?php endif; ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Biaya Produksi</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <form action="<?php echo site_url('pemakaian/btkl') ?>" method="post">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="no_pemakaian">No. Pemakaian:</label>
+                                            <input type="text" hidden class="form-control" name="no_pemakaian" readonly value="<?php echo $_SESSION['no_pemakaian']; ?>"><br><?= $_SESSION['no_pemakaian']; ?>
+                                            <!-- <?php echo "<b>" . form_error('no_pemakaian') . "</b>"; ?> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="tanggal">Tanggal:</label>
+                                            <div class="input-group date">
+                                                <input type="date" hidden name="tanggal" readonly class="form-control" value="<?php echo $_SESSION['tanggal']; ?>" max="<?= date('Y-m-d') ?>" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div><?= $_SESSION['tanggal']; ?>
+                                            <?php echo "<b>" . form_error('tanggal') . "</b>"; ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="id_bom">ID BOM:</label></label>
+                                            <input readonly hidden class="form-control" name="id_bom" value="<?= $_SESSION['id_bom']; ?>">
+                                            </input><br><?= $_SESSION['id_bom']; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="container-fluid">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title mt-2">Detail Biaya Produksi</h3>
+                                    <h3 class="card-title mt-2">Daftar Bahan Baku</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -46,63 +88,29 @@
                                         <tbody>
                                             <?php
                                             $no = 1;
-                                            $gtotal = 0;
-                                            foreach ($data_pemakaian as $cacah) :
+                                            foreach ($bom as $cacah) :
                                                 echo "<tr>";
                                                 echo "<td class='text-center'>" . $no++;
                                                 "</td>";
-                                                echo "<td>" . $cacah['nama_bb'] . "</td>";
-                                                echo "<td>" . $cacah['satuan_bahan'] . "</td>";
-                                                echo "<td>" . format_rp($cacah['harga_bahan']) . "</td>";
-                                                $gtotal = $gtotal + ($cacah['harga_bahan']);
+                                                echo "<td><input hidden name='nama_bb' value='" . $cacah['nama_bb'] . "'>" . $cacah['nama_bb'] . "</td>";
+                                                echo "<td><input hidden name='qty' value='" . $cacah['qty'] . "'>" . $cacah['qty'] . " " . $cacah['satuan_bb'] . "</td>";
+                                                // echo "<td>" . format_rp($cacah['harga_bahan']) . "</td>";
+                                                echo "<td align='center'>";
                                                 echo "</td>";
                                                 echo "</tr>";
-
                                             endforeach;
-                                            echo "<tr>";
-                                            echo "<td colspan='3' class='text-right text-bold'>Total Biaya Bahan Baku</td>";
-                                            echo "<td class='text-bold'>" . format_rp($gtotal);
-                                            "</td>";
-                                            echo "</tr>";
                                             ?>
                                         </tbody>
-
-                                        <?php
-                                        $produksi = 0;
-                                        foreach ($detail_btkl as $row) :
-                                            $btkl = $row['btkl'];
-                                        endforeach;
-                                        foreach ($detail_bop as $row) :
-                                            $bop = $row['tarif_dasar'] * $row['waktu_menit'];
-                                        endforeach;
-                                        $produksi = $gtotal + $btkl + $bop;
-                                        ?>
-                                        <tr>
-                                            <td colspan="3" class="mt-2">Biaya Bahan Baku</td>
-                                            <td> <?= format_rp($gtotal); ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="mt-2">Biaya Tenaga Kerja Langsung</td>
-                                            <td><?= format_rp($btkl); ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="mt-2">Biaya Overhead Pabrik</td>
-                                            <td> <?= format_rp($bop); ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="mt-2 text-center text-bold">Total Biaya Produksi </td>
-                                            <td class="text-bold"><?= format_rp($produksi); ?></td>
-                                        </tr>
                                     </table>
                                 </div>
-                                <!-- <div class="card-footer">
+                                <div class="card-footer">
                                     <div class="col-sm-12 text-center">
-                                        <button onclick="location.href = '<?php echo site_url('pemakaian/selesai') ?>';" type="button" class="btn btn-success btn-sm">
+                                        <button onclick="location.href = '<?php echo site_url('pemakaian/btkl') ?>';" type="button" class="btn btn-success btn-sm">
                                             <span class="fas fa-check"></span>
-                                            Selesai
+                                            Simpan
                                         </button>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>

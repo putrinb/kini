@@ -37,7 +37,7 @@
                                             <th class="text-center">Nama Bahan Baku</th>
                                             <th class="text-center">Jumlah</th>
                                             <th class="text-center">Satuan</th>
-                                            <th class="text-center">Hapus</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,7 +52,7 @@
                                                 echo "<td align='center'>";
                                                     ?>
                                                         <a onclick="deleteConfirm('<?php echo site_url('bom/delete_form_detail/'.$cacah['no_bom'].'/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>')" href="#!" class="btn btn-danger btn-sm">
-                                                            <span class="fas fa-trash"></span> Hapus
+                                                            <span class="fas fa-trash"></span>
                                                         </a>
                                                     <?php
                                                 echo "</td>";

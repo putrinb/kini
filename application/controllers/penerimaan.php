@@ -102,17 +102,17 @@ class penerimaan extends CI_Controller
 			array('required' => 'Anda harus memasukkan %s.')
 			);
 
-			$this->form_validation->set_rules('qty', 'jumlah', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
-            );
+			// $this->form_validation->set_rules('qty', 'jumlah', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+            // );
             
             $this->form_validation->set_rules('keterangan', 'keterangan produk', 'max_length[20]',
 			array('max_length' => 'Jumlah karakter maksimal 20.')
 			);
 
-			$this->form_validation->set_rules('satuan', 'satuan', 'required',
-			array('required' => 'Anda harus memasukkan %s.')
-			);
+			// $this->form_validation->set_rules('satuan', 'satuan', 'required',
+			// array('required' => 'Anda harus memasukkan %s.')
+			// );
 
 			// $this->form_validation->set_rules('harga_satuan', 'harga satuan', 'required',
 			// array('required' => 'Anda harus memasukkan %s.')
@@ -131,7 +131,6 @@ class penerimaan extends CI_Controller
 			}else{
                 //simpan ke database
                 $this->m_penerimaan->input_data();
-                
                 //dapatkan data hasil penyimpanan
                 $data['bb_pembelian'] = $this->m_penerimaan->getDataBBPembelian($_SESSION['id_pembelian']);
                 $data['penerimaan'] = $this->m_penerimaan->getDataDetail($_SESSION['id_penerimaan'],$_SESSION['id_pembelian']);
@@ -175,7 +174,7 @@ class penerimaan extends CI_Controller
         unset($_SESSION['tanggal']);
         $this->session->set_flashdata('flash','tersimpan');
         redirect('penerimaan/view_data');
-    }
+    } 
 
     public function view_data()
     {

@@ -35,6 +35,7 @@
                                     <th>Berat</th>
                                     <th>Satuan</th>
                                     <th>Stok</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -50,16 +51,30 @@
                                     echo "<td>".$cacah['jumlah']."</td>";                                    
                                     echo "<td>".$cacah['satuan']."</td>";
                                     echo "<td>".$cacah['stok_awal']."</td>";
-                                    
+                                    if( $cacah['stok_awal'] >= $cacah['batas_min'] )
+                                    {
+                                      echo "<td class='text-center'>"."<span class='badge badge-success'>Aman</span>"."</td>";
+                                    // }elseif($cacah['stok_awal'] = $cacah['batas_min']){
+                                    //   echo "<td class='text-center'><span class='badge badge-warning'>Cukup</span></td>";
+                                    }elseif($cacah['stok_awal'] < $cacah['batas_min']){
+                                      echo "<td class='text-center'><span class='badge badge-danger'>Kurang</span></td>";
+                                    }
                                 ?>
                                     <td class="text-center">
-                                        <button onclick="location.href = '<?php echo site_url('bahan_baku/edit_data/'.$cacah['kode_bb']) ?>'" type="button" class="btn btn-success btn-sm">
+                                        <button onclick="location.href = '<?php echo site_url('bahan_baku/edit_data/'.$cacah['kode_bb']) ?>'" type="button" class="btn btn-info btn-sm">
                                             <span class="fas fa-edit"></span>
                                         </button>
+                                        <?php if($cacah['stok_awal'] <2 ){ ?>
                                         <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$cacah['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                        <span class="fa fa-trash"></span>
+                                        </a> 
+                                        <?php
+                                        }else{ ?>
+                                          <a onclick="deleteConfirm('<?=site_url('bahan_baku/delete_data/'.$cacah['kode_bb'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                         <span class="fa fa-trash"></span>
                                         </a>
                                         <?php
+                                        }
                                     echo "</td>";
                                     echo "</tr>";
                                     endforeach;

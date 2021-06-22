@@ -34,7 +34,6 @@
                             <th>Penerima</th>
                             <th>No. Faktur</th>
                             <!--<th class="text-center">Upload</th>-->
-                            <th>Detail</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,16 +44,15 @@
                                     echo "<tr>";
                                     echo "<td class='text-center'>".$no++;"</td>";
                                     echo "<td>".$row['id_penerimaan']."</td>";
-                                    echo "<td>".$row['tanggal']."</td>";
+                                    echo "<td>".$row['time']."</td>";
                                     echo "<td>".$row['nm_penerima']."</td>";
                                     echo "<td>".$row['no_faktur']."</td>";
                                 ?>
                                     <td class="text-center">
                                         <button onclick="location.href = '<?php echo site_url('penerimaan/view_data_detail/'.$row['id_penerimaan'].'/'.$row['id_pembelian']) ?>'" type="button" class="btn btn-info btn-sm">
-                                        <span class="fas fa-info-circle"></span> Detail
+                                        <span class="fas fa-info-circle"></span>
                                         </button>
-                                    </td>
-                                    <td class="text-center">
+
                                         <a onclick="deleteConfirm('<?=site_url('penerimaan/delete_data/'.$row['id_penerimaan'].'/'.$row['id_pembelian'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                         <span class="fa fa-trash"></span>
                                         </a>

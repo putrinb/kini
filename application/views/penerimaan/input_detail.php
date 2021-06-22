@@ -84,7 +84,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                            <!-- <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="qty">Jumlah
                                         <span class="text-danger">*</span>
@@ -92,9 +92,9 @@
                                     <input class="form-control" name="qty" value="<?= set_value('qty'); ?>" type="number" min="1" placeholder="1"></input>
                                     <?php echo "<b>" . form_error('qty') . "</b>"; ?>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-sm-3">
+                            <!-- <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Satuan</label><span class="text-danger">*</span>
                                     <select name="satuan" class="form-control" value=<?php echo set_value('satuan'); ?>"" id="satuan" placeholder="Pilih Satuan">
@@ -108,7 +108,7 @@
                                         <?php endforeach; ?>
                                     </select><?php echo "<b>" . form_error('satuan') . "</b>"; ?>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- <div class="col-sm-3">
                                 <div class="form-group">

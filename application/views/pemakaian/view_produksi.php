@@ -17,7 +17,7 @@
           <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h3 class="card-title mt-2">Data Bill of Material</h3>
+                <h3 class="card-title mt-2">Data Produksi</h3>
                   <div class="text-right">
                     <a href="<?=site_url('bom/add')?>" class="btn btn-info btn-sm">
                       <span class="fa fa-plus"></span> Tambah</a>
@@ -30,7 +30,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>No. BOM</th>
-                                    <th>Kode Produk</th>
+                                    <th>Tanggal</th>
+                                    <th>Kode Produk</th>                                    
                                     <th>Nama Produk</th>
                                     <!-- <th>No. Faktur</th> -->
                                     <!--<th class="text-center">Upload</th>-->
@@ -40,24 +41,25 @@
                             <tbody>
                                 <?php
                                     $no=1;
-                                    foreach($data_bom as $cacah):
+                                    foreach($produksi as $cacah):
                                     echo "<tr>";
                                     echo "<td class='text-center'>".$no++;"</td>";
-                                    echo "<td>".$cacah['id_bom']."</td>";                                    
+                                    echo "<td>".$cacah['no_pemakaian']."</td>";
+                                    echo "<td>".$cacah['tanggal']."</td>";
                                     echo "<td>".$cacah['id_produk']."</td>";
                                     echo "<td>".$cacah['nama_produk']."</td>";
                                     
                                 ?>
-                                    <td class="text-center">
+                                    <!-- <td class="text-center">
                                         <button onclick="location.href = '<?php echo site_url('bom/view_data_detail/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>'" type="button" class="btn btn-info btn-sm">
                                         <span class="fas fa-info-circle"></span>
-                                        </button>
+                                        </button> -->
                                         <!-- <button onclick="location.href = '<?php echo site_url('bom/edit_data/'.$cacah['id_bom'].'/'.$cacah['id_produk']) ?>'" type="button" class="btn btn-success btn-sm">
                                             <span class="fas fa-edit"></span>
                                         </button> -->
-                                        <a onclick="deleteConfirm('<?=site_url('bom/delete_data/'.$cacah['id_bom'].'/'.$cacah['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                        <!-- <a onclick="deleteConfirm('<?=site_url('bom/delete_data/'.$cacah['id_bom'].'/'.$cacah['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
                                         <span class="fa fa-trash"></span>
-                                        </a>
+                                        </a> -->
                                         <?php
                                     echo "</td>";
                                     echo "</tr>";
