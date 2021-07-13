@@ -6,9 +6,7 @@ class bahan_baku extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_bb');
-        if(!$this->session->userdata('is_logged')){
-                redirect('auth');
-            }
+        check_not_login();
     }
 
     public function index()
@@ -37,31 +35,50 @@ class bahan_baku extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    function check_data() {
+        $nama_bb = $this->input->post('nama_bb');
+        $merk = $this->input->post('merk');
+        $jml = $this->input->post('jml');
+        $satuan = $this->input->post('satuan');
+
+        $this->db->select('kode_bb');
+        $this->db->from('bahanbaku_utama');
+        $this->db->where('nama_bb', $nama_bb);
+        $this->db->where('merk', $merk);
+        $this->db->where('jumlah', $jml);
+        $this->db->where('satuan', $satuan);
+
+        $query = $this->db->get();
+        $num = $query->num_rows();
+        if ($num > 0) {
+                $this->form_validation->set_message('check_data','Spesifikasi bahan baku sudah ada');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
     public function insert()
     {
-        $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces',
+        $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces|callback_check_data',
+        // is_unique[bahanbaku_utama.nama_bb
                 array('required' => '%s harus diisi!',
                         'alpha_numeric_spaces' => '%s hanya boleh diisi dengan angka, huruf, atau spasi.')
                 );
-        $this->form_validation->set_rules('satuan', 'Satuan Bahan Baku', 'required',
+        $this->form_validation->set_rules('satuan', 'Satuan Bahan Baku', 'required|callback_check_data',
                 array('required' => '%s harus diisi!')
         );
 
-        $this->form_validation->set_rules('jml', 'Berat', 'required',
+        $this->form_validation->set_rules('jml', 'Berat', 'required|callback_check_data',
                 array('required' => '%s harus diisi!',
                 )
         );
 
-        $this->form_validation->set_rules('merk', 'Merk', 'required',
+        $this->form_validation->set_rules('merk', 'Merk', 'required|callback_check_data',
                 array('required' => '%s harus diisi!',
                 )
         );
         $this->form_validation->set_rules('stok_awal', 'Stok Awal', 'required|numeric',
-                array('required' => '%s harus diisi!',
-                      'numeric' =>  '%s hanya diisi oleh angka!',
-                )
-        );
-        $this->form_validation->set_rules('stok_min', 'Batas Stok Minimal', 'required|numeric',
                 array('required' => '%s harus diisi!',
                       'numeric' =>  '%s hanya diisi oleh angka!',
                 )
@@ -105,8 +122,7 @@ class bahan_baku extends CI_Controller
                 }
                 
         }
-        
-        
+                
     }
         public function edit_data($kode_bb){
                 if(!isset($kode_bb)) redirect('bahan_baku/view_data');
@@ -114,7 +130,7 @@ class bahan_baku extends CI_Controller
                 $data['bahanbaku']= $this->m_bb->get_kode_bb($kode_bb);
                 $data['title']          = 'Kini Cheese Tea | Bahan Baku';
                 $data['heading']        = 'Edit Bahan Baku';
-                $data['satuan']         = ['kilogram (kg)','liter (L)','gram (gr)','ml','piece (pc)'];
+                $data['satuan']         = ['gram (gr)','ml'];
 
                 $this->form_validation->set_rules('nama_bb', 'Nama Bahan Baku', 'required|alpha_numeric_spaces',
                         array('required' => '%s harus diisi!',
@@ -139,11 +155,11 @@ class bahan_baku extends CI_Controller
                         )
                 );     
                 
-                $this->form_validation->set_rules('stok_min', 'Batas Stok Minimal', 'required|numeric',
-                        array('required' => '%s harus diisi!',
-                        'numeric' =>  '%s hanya diisi oleh angka!',
-                        )
-                );   
+                // $this->form_validation->set_rules('stok_min', 'Batas Stok Minimal', 'required|numeric',
+                //         array('required' => '%s harus diisi!',
+                //         'numeric' =>  '%s hanya diisi oleh angka!',
+                //         )
+                // );   
                 $this->form_validation->set_error_delimiters('<div class="text-danger" style="font-size:12px">', '</div>');
 
                 if ($this->form_validation->run() == FALSE)
@@ -164,9 +180,10 @@ class bahan_baku extends CI_Controller
 
     public function view_data()
     {
-        $data=array('bahan_baku' =>  $this->m_bb->getdata(),
-        'title'=>'Kini Cheese Tea | Bahan Baku',
-        'heading' => 'Bahan Baku'
+        $data=array(
+                'bahan_baku' =>  $this->m_bb->getdata(),
+                'title'=>'Kini Cheese Tea | Bahan Baku',
+                'heading' => 'Bahan Baku'
         );
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar',$data);

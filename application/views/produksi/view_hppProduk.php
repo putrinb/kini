@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card card-light">
                     <div class="card-header">
-                        <h3 class="card-title">Detail <i>Bill of Material</i></h3>
+                        <h3 class="card-title">Detail Harga Pokok Penjualan</h3>
                         <div class="text-right">
                             <!-- <button onclick="location.href = '<?php echo site_url('bom/view_data')?>'" type="button" class="btn btn-success btn-sm">
                                 <span class="fas fa-print"></span> Cetak
@@ -63,7 +63,12 @@
                                             echo "<td class='text-center'>".$cacah['qty']."</td>";
                                             echo "<td class='text-center'>".$cacah['satuan_bb']."</td>";
                                                 ?>
-                                                    
+                                                    <!-- <button onclick="location.href = '<?php echo site_url('pembelian/edit_form_detail/'.$cacah['no_penerimaan']) ?>';" type="button" class="btn btn-success btn-sm">
+                                                        <span class="glyphicon glyphicon-edit"></span> Ubah
+                                                    </button>
+                                                    <a onclick="deleteConfirm('<?php echo site_url('pembelian/delete_form_detail2/'.$cacah['no_penerimaan'].'/'.$cacah['id_penerimaan'].'/'.$cacah['id_supplier']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                                        <span class="glyphicon glyphicon-trash"></span> Hapus
+                                                    </a> -->
                                                 <?php
                                             // echo "</td>";
                                         echo "</tr>";

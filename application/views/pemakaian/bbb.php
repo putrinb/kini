@@ -15,13 +15,13 @@
             <!-- general form elements -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Biaya Produksi</h3>
+                    <h3 class="card-title">Produksi</h3>
                 </div>
                 <div class="card-body">
                     <div class="container">
                         <form action="<?php echo site_url('pemakaian/input_form_detail') ?>" method="post">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="no_pemakaian">No. Pemakaian:</label>
                                         <input type="text" hidden class="form-control" name="no_pemakaian" readonly value="<?php echo $_SESSION['no_pemakaian']; ?>"><br><?= $_SESSION['no_pemakaian']; ?>
@@ -29,11 +29,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="tanggal">Tanggal:</label>
+                                        <label for="tanggal">Waktu Produksi:</label>
                                         <div class="input-group date">
-                                            <input type="date" hidden name="tanggal" readonly class="form-control" value="<?php echo $_SESSION['tanggal']; ?>" max="<?= date('Y-m-d') ?>" />
+                                            <input type="date" hidden name="tanggal" readonly class="form-control" value="<?php echo $_SESSION['tanggal']; ?>"/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -42,13 +42,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <!-- <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="id_bom">ID BOM:</label></label>
-                                        <input readonly hidden class="form-control" name="id_bom" value="<?= $_SESSION['id_bom']; ?>">
-                                        </input><br><?= $_SESSION['id_bom']; ?>
+                                        <label for="no_nota">No. Nota:</label></label>
+                                        <input readonly hidden class="form-control" name="no_nota" value="<?= $_SESSION['no_nota']; ?>">
+                                        </input><br><?= $_SESSION['no_nota']; ?>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <hr style="height:1px;border:none;color:#333;background-color:#333;" />

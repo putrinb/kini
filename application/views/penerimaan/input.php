@@ -26,47 +26,28 @@
                             <div class="row">
                                 <!-- <div class="col pt-2"> -->
                                 <!-- text input -->
-                                    <div class="col sm-2">
+                                    <div class="col sm-4">
                                     <div class="form-group">
-                                            <label for="id_penerimaan">No. Penerimaan<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="id_penerimaan" disabled value="<?php echo $id_penerimaan; ?>"/>
-                                            <!-- <?php echo "<b>".form_error('id_penerimaan')."</b>"; ?> -->
+                                            <label for="id_penerimaan">No. Penerimaan</label>
+                                            <input type="text" class="form-control" name="id_penerimaan" readonly value="<?php echo $id_penerimaan; ?>"/>
+                                            <?php echo "<b>".form_error('id_penerimaan')."</b>"; ?>
                                         </div>
                                     </div>   
                             
-                                    <div class="col sm-6">
+                                    <div class="col sm-4">
                                     <!-- text input -->
                                         <div class="form-group">
-                                            <label for="nm_penerima">Nama Penerima<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="nm_penerima" value="<?php echo set_value('nm_penerima'); ?>" placeholder="Nama Penerima">
-                                            </input>
+                                            <label for="nm_penerima">Nama Penerima</label>
+                                            <input type="text" class="form-control" name="nm_penerima" readonly value="<?php echo $nama; ?>" placeholder="Nama Penerima"/>
                                             <?php echo "<b>".form_error('nm_penerima')."</b>"; ?>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="id_pembelian">No. Faktur
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <select class="form-control" name="id_pembelian" value="<?=set_value('id_pembelian');?>">
-                                                <option readonly value="">- Pilih No. Faktur -</option>
-                                                    <?php
-                                                        foreach($pembelian as $row):
-                                                    ?>
-                                                <option value="<?php echo $row['id_pembelian']?>"><?php echo $row['no_faktur']?></option>
-                                                    <?php
-                                                        endforeach;
-                                                    ?>
-                                        </select><?php echo "<b>".form_error('id_pembelian')."</b>"; ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                                 <label for="tanggal">Tanggal<span class="text-danger">*</span></label>
                                                 <div class="input-group date">
-                                                    <input type="date" name="tanggal" class="form-control datetimepicker" value="<?php echo set_value('tanggal'); ?> "max="<?=date('Y-m-d')?>"/>
+                                                    <input type="date" name="tanggal" class="form-control " value="<?php echo set_value('tanggal'); ?>" min="<?=date('Y-m-d', strtotime('yesterday'))?>" max="<?=date('Y-m-d')?>"/>
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>

@@ -36,10 +36,10 @@
 
 <!-- /.content-wrapper -->
 <footer class="main-footer navbar-navy navbar-dark">
-    <div style="color:white">Copyright &copy; 2020 <b>Putri Nabila</b>.</>
+    <div style="color:white">Copyright &copy; 2021 <b>Kini Cheese Tea</b>.
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-    Design dan Developed by <b>Putri Nabila</b>
+    Design dan Developed by <b>Kini Cheese Tea</b>
     </div>
   </footer>
 </body>

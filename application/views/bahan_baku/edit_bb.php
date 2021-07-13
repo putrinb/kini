@@ -39,7 +39,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Satuan</label><span class="text-danger">*</span>
                                     <select name="satuan" class="form-control" id="satuan" placeholder="Pilih Satuan">
@@ -55,20 +55,20 @@
                                     <?php echo "<b>" . form_error('satuan') . "</b>"; ?>
                                 </div>
                             </div>
-                        </div>
+                        <!-- </div> -->
 
-                        <div class="row">
-                            <div class="form-group col-sm-6">
+                        <!-- <div class="row"> -->
+                            <div class="form-group col-sm-3">
                                 <label class="col-form-email">Stok</label>
                                 <input type="number" readonly name="stok_awal" min="0" class="form-control" value="<?= $bahanbaku['stok_awal']; ?>" placeholder="Masukan stok awal">
                                 <?php echo "<b>" . form_error('stok_awal') . "</b>"; ?>
                             </div>
 
-                            <div class="form-group col-sm-6">
+                            <!-- <div class="form-group col-sm-6">
                                 <label class="col-form-email">Batas Stok Minimal</label>
                                 <input type="number" name="stok_min" min="0" class="form-control" value="<?= $bahanbaku['batas_min']; ?>" placeholder="Masukan Batas Stok Minimal">
                                 <?php echo "<b>" . form_error('stok_min') . "</b>"; ?>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
 

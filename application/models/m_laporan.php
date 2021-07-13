@@ -9,11 +9,45 @@ class m_laporan extends CI_Model
 		$sql = "
 					SELECT tahun FROM
 					(
-					SELECT year(tanggal) as tahun 
-					FROM penerimaan
+					SELECT year(tgl_pembelian) as tahun 
+					FROM pembelian
 					UNION
 					SELECT year(tanggal) as tahun 
 					FROM pemakaian
+					) x
+					ORDER BY 1 ASC
+				";
+				
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	public function getBulan(){
+		$sql = "
+					SELECT bulan FROM
+					(
+					SELECT month(tgl_catat) as bulan 
+					FROM biaya_produksi
+					UNION
+					SELECT month(tgl_jual) as bulan 
+					FROM nota_penjualan
+					) x
+					ORDER BY 1 ASC
+				";
+				
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	public function getBahanBaku(){
+		$sql = "
+					SELECT kode, bb FROM
+					(
+					SELECT kode_bb as kode, nama_bb as bb
+					FROM bahanbaku_utama
+					UNION
+					SELECT kode_bb as kode, nama_bb as bb
+					FROM bahan_baku
 					) x
 					ORDER BY 1 ASC			
 				";
@@ -21,18 +55,114 @@ class m_laporan extends CI_Model
 		return $query->result_array();
 	}
 
-	public function getBahanBaku(){
-		$sql = "
-					SELECT bb FROM
-					(
-					SELECT kode_bb as bb
-					FROM detail_penerimaan
-					UNION
-					SELECT kode_bb as bb
-					FROM detail_pemakaian
-					) x
-					ORDER BY 1 ASC			
+	//mendapatkan stok persediaan pada akhir periode
+	public function getStok($kode_bb,$waktu){
+			
+		//cari jumlah pembelian s/d bulan - 1 sebelumnya
+		$sql = "SELECT * 
+				FROM pembelian_detail 
+				JOIN pembelian ON (pembelian_detail.id_pembelian = pembelian.id_pembelian)
+				WHERE pembelian_detail.kode_bhn_baku_pembelian = ".$this->db->escape($kode_bb)."
+				AND DATE_FORMAT(pembelian.tgl_pembelian,'%Y-%m') < ".$this->db->escape($waktu)."
 				";
+		$query = $this->db->query($sql);
+		$hasil = $query->result_array();
+		$jml_beli = 0;
+		foreach($hasil as $cacah):
+			$jml_beli = $jml_beli + $cacah['qty_pembelian'];
+		endforeach;
+		
+		//cari jumlah penjualan s/d bulan -1 sebelumnya
+		$sql = "SELECT * 
+				FROM detail_bom a
+				JOIN bom b ON (a.id_bom = b.id_bom)
+				WHERE a.id_bom = ".$this->db->escape($id_bom)."
+				AND DATE_FORMAT(b.,'%Y-%m') < ".$this->db->escape($waktu)."
+				";
+		
+		$query = $this->db->query($sql);
+		$hasil = $query->result_array();
+		// $jml_penjualan = 0;
+		// foreach($hasil as $cacah):
+		// 	$jml_penjualan = $jml_penjualan + $cacah['jml_buah'];
+		// endforeach;
+		
+		//hitung selisih pembelian dengan penjualan
+		$selisih = $jml_beli;
+		return $selisih;
+	}
+
+	public function getHarga($kode_bb,$waktu){
+			
+		//cari jumlah pembelian s/d bulan - 1 sebelumnya
+		$sql = "SELECT * 
+				FROM pembelian_detail 
+				JOIN pembelian ON (pembelian_detail.id_pembelian = pembelian.id_pembelian)
+				WHERE pembelian_detail.kode_bhn_baku_pembelian = ".$this->db->escape($kode_bb)."
+				AND DATE_FORMAT(pembelian.tgl_pembelian,'%Y-%m') < ".$this->db->escape($waktu)."
+				";
+		$query = $this->db->query($sql);
+		$hasil = $query->result_array();
+		$harga_beli = 0;
+		foreach($hasil as $cacah):
+			$harga_beli = $cacah['harga_bhn_baku_pembelian'];
+		endforeach;
+		
+		//cari jumlah penjualan s/d bulan -1 sebelumnya
+		// $sql = "SELECT * 
+		// 		FROM detail_penjualan a
+		// 		JOIN penjualan b ON (a.id_penjualan = b.id_penjualan)
+		// 		WHERE a.id_buah = ".$this->db->escape($id_buah)."
+		// 		AND DATE_FORMAT(b.waktu,'%Y-%m') < ".$this->db->escape($waktu)."
+		// 		";
+		
+		$query = $this->db->query($sql);
+		$hasil = $query->result_array();
+		// $jml_penjualan = 0;
+		// foreach($hasil as $cacah):
+		// 	$jml_penjualan = $jml_penjualan + $cacah['jml_buah'];
+		// endforeach;
+		
+		//hitung selisih pembelian dengan penjualan
+		$nilai = $harga_beli - 0;
+		return $nilai;
+		
+	}
+
+	public function getKartuStok($kode_bb,$waktu){
+		$sql = "
+					SELECT waktu,id,harga,ifnull(total_pembelian,0) as total_pembelian
+					FROM 
+					(
+						SELECT distinct(date_format(pembelian.tgl_pembelian,'%d-%m-%Y')) as waktu, SUM(pembelian_detail.qty_pembelian) as total_pembelian,pembelian_detail.id_pembelian as id, harga_bhn_baku_pembelian as harga
+						FROM pembelian_detail
+						JOIN pembelian ON (pembelian_detail.id_pembelian = pembelian.id_pembelian)
+						WHERE pembelian_detail.kode_bhn_baku_pembelian = ".$this->db->escape($kode_bb)."
+						AND date_format(pembelian.tgl_pembelian,'%Y-%m') = ".$this->db->escape($waktu)."
+						GROUP BY pembelian_detail.id_pembelian
+					) x
+					group by id 
+					order by 1 asc
+
+				";
+		//echo $sql."<br>";
+		// LEFT OUTER JOIN  	
+		// 				(SELECT DATE_FORMAT(pembelian.tgl_pembelian,'%d-%m-%Y') as wkt,
+		// 						SUM(pembelian_detail.qty_pembelian) as total_pembelian, pembelian_detail.id_pembelian as id, harga_bhn_baku_pembelian as harga
+		// 				 FROM pembelian_detail
+		// 				 JOIN pembelian ON (pembelian_detail.id_pembelian = pembelian.id_pembelian)
+		// 				 WHERE pembelian_detail.kode_bhn_baku_pembelian = ".$this->db->escape($kode_bb)."
+		// 				 AND date_format(pembelian.tgl_pembelian,'%Y-%m') = ".$this->db->escape($waktu)."
+		// 				 GROUP BY DATE_FORMAT(pembelian.tgl_pembelian,'%d-%m-%Y')
+		// 				 ) y
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	public function get_hpp($waktu)
+	{
+		$sql = "SELECT * FROM biaya_produksi";
+		$sql = $sql. " WHERE DATE_FORMAT(tgl_catat,'%Y-%m') = '".$waktu."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -77,20 +207,12 @@ class m_laporan extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function get_supplier(){
-		$sql = "SELECT a.*,b.nama as NamaSupplier FROM ".$this->_table." a ";
-		$sql = $sql." JOIN supplier b ON (a.id_supplier=b.id_supplier) ";
-		$query = $this->db->query($sql);
-		
-		return $query->result_array();
-	  }
-
   	public function view_by_date($date){
 		$this->db->select("*");
 		$this->db->from('penerimaan');
 		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
 		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
-		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->join('bahanbaku_utama','detail_penerimaan.kode_bb=bahanbaku_utama.kode_bb');
 		$this->db->where('DATE(tanggal)', $date); // Tambahkan where tanggal nya
 		$this->db->order_by('DATE(tanggal)');
         
@@ -102,7 +224,7 @@ class m_laporan extends CI_Model
 		$this->db->from('penerimaan');
 		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
 		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
-		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->join('bahanbaku_utama','detail_penerimaan.kode_bb=bahanbaku_utama.kode_bb');
         $this->db->where('MONTH(tanggal)', $month); // Tambahkan where bulan
 		$this->db->where('YEAR(tanggal)', $year); // Tambahkan where tahun
 		// $this->db->group_by('date(tanggal)');
@@ -115,7 +237,7 @@ class m_laporan extends CI_Model
 		$this->db->from('penerimaan');
 		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
 		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
-		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->join('bahanbaku_utama','detail_penerimaan.kode_bb=bahanbaku_utama.kode_bb');
         $this->db->where('YEAR(tanggal)', $year); // Tambahkan where tahun
         
     return $this->db->get()->result(); // Tampilkan data penerimaan sesuai tahun yang diinput oleh user pada filter
@@ -126,7 +248,7 @@ class m_laporan extends CI_Model
 		$this->db->from('penerimaan');
 		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
 		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
-		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->join('bahanbaku_utama','detail_penerimaan.kode_bb=bahanbaku_utama.kode_bb');
     return $this->db->get()->result(); // Tampilkan semua data penerimaan
   	}
     
@@ -135,7 +257,7 @@ class m_laporan extends CI_Model
 		$this->db->from('penerimaan'); // select ke tabel penerimaan
 		$this->db->join('detail_penerimaan','detail_penerimaan.id_penerimaan=penerimaan.id_penerimaan');
 		// $this->db->join('supplier','detail_penerimaan.id_supplier=supplier.id_supplier');
-		$this->db->join('bahan_baku','detail_penerimaan.kode_bb=bahan_baku.kode_bb');
+		$this->db->join('bahanbaku_utama','detail_penerimaan.kode_bb=bahanbaku_utama.kode_bb');
 		$this->db->group_by('YEAR(tanggal)', 'detail_penerimaan.id_penerimaan'); // Group berdasarkan tahun pada field tgl
         $this->db->order_by('YEAR(tanggal)'); // Urutkan berdasarkan tahun secara Ascending (ASC)
         
@@ -195,8 +317,6 @@ class m_laporan extends CI_Model
         
         return $this->db->get()->result(); // Ambil data pada tabel transaksi sesuai kondisi diatas
     }
-
-	
 
 }
 ?>

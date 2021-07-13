@@ -7,7 +7,7 @@
       <div class="div row mt-3">
           <div class="div col md-3">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-              Data penerimaan<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
+              Proses <strong><?=$this->session->flashdata('flash');?></strong>.
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
             </div>
           </div>
@@ -17,11 +17,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title mt-2">Data Penerimaan Bahan Baku</h3>
-                  <div class="text-right">
-                    <a href="<?=site_url('penerimaan/add')?>" class="btn btn-info btn-sm">
-                      <span class="fa fa-plus"></span> Tambah</a>
-                  </div>
+                <h3 class="card-title mt-2">Data Pesanan</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -29,27 +25,34 @@
                     <thead class="text-center">
                         <tr>
                             <th>No.</th>
-                            <th>No. Penerimaan</th>
-                            <th>Tanggal Penerimaan</th>
-                            <th>Penerima</th>
-                            <!-- <th>No. Faktur</th> -->
+                            <!-- <th>No. Nota</th> -->
+                            <th>Tanggal</th>
+                            <th>Pegawai</th>
+                            <th>Total</th>
                             <!--<th class="text-center">Upload</th>-->
                             <th>Aksi</th>
                         </tr>
                     </thead>
                             <tbody>
+                            
                                 <?php
                                     $no=1;
-                                    foreach($penerimaan as $row):
-                                    echo "<tr>";
-                                    echo "<td class='text-center'>".$no++;"</td>";
-                                    echo "<td>".$row['id_penerimaan']."</td>";
-                                    echo "<td>".$row['time']."</td>";
-                                    echo "<td>".$row['nm_penerima']."</td>";
+                                    
+                                    foreach($sales as $row):
+                                    $tgl = date("d-m-Y", strtotime($row['waktu']));
+                                    $tgl2 = date("Y-m-d", strtotime($row['waktu']));
+                                    echo "<tr class='text-center'>";
+                                    echo "<td>".$no++;"</td>";
+                                    // echo "<td>".$row['no_nota']."</td>";
+                                    echo "<td>".$tgl."</td>";
+                                    echo "<td>".$row['nama_pegawai']."</td>";
+                                    echo "<td class='text-left'>".$row['total_jual']."</td>";
+                                    // echo "<td>".$row['nm_penerima']."</td>";
                                     // echo "<td>".$row['no_faktur']."</td>";
                                 ?>
+                                
                                     <td class="text-center">
-                                        <button onclick="location.href = '<?php echo site_url('penerimaan/view_data_detail/'.$row['id_penerimaan'])?>'" type="button" class="btn btn-info btn-sm">
+                                        <button onclick="location.href = '<?php echo site_url('produksi/detail_order/'.$tgl2.'') ?>'" type="button" class="btn btn-info btn-sm">
                                         <span class="fas fa-eye"></span>
                                         </button>
                                         <?php

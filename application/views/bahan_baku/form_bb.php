@@ -36,7 +36,7 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Nama Bahan Baku Utama</label><span class="text-danger">*</span>
                 <input name="nama_bb" type="text" maxlength="50" class="form-control" value="<?php echo set_value('nama_bb'); ?>" placeholder="Masukkan Bahan Baku">
@@ -44,7 +44,7 @@
               </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <div class="form-group">
                 <label>Merk</label><span class="text-danger">*</span>
                 <input type="text" name="merk" id="merk" class="form-control merk" maxlength="30" value="<?php echo set_value('merk'); ?>" placeholder="ABC">
@@ -52,7 +52,7 @@
               </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <div class="form-group">
                 <label>Berat</label><span class="text-danger">*</span>
                 <input name="jml" type="number" class="form-control" value="<?php echo set_value('jml'); ?>" placeholder="Masukkan Jumlah" min="0">
@@ -60,40 +60,39 @@
               </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <div class="form-group">
                 <label>Satuan</label><span class="text-danger">*</span>
                 <select name="satuan" class="form-control" value="<?php echo set_value('satuan'); ?>" placeholder="Pilih Satuan">
                   <option value="">- Pilih Satuan -</option>
-                  <option value="kilogram (kg)">kilogram (kg)</option>
-                  <option value="liter (L)">liter (L)</option>
                   <option value="gram (gr)">gram (gr)</option>
                   <option value="ml">ml</option>
-                  <option value="piece (pc)">piece (pc)</option>
                 </select>
                 <?php echo "<b>" . form_error('satuan') . "</b>"; ?>
               </div>
             </div>
+
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>Stok Awal</label><span class="text-danger">*</span>
+                <input name="stok_awal" type="number" class="form-control" value="<?php echo set_value('stok_awal'); ?>" placeholder="Masukkan Stok Awal" min="0">
+                <?php echo "<b>" . form_error('stok_awal') . "</b>"; ?>
+              </div>
+            </div>
           </div>
 
-          <div class="row mt-3">
-          <div class="col-sm-4">
-          <div class="form-group">
-            <label>Stok Awal</label><span class="text-danger">*</span>
-            <input name="stok_awal" type="number" class="form-control" value="<?php echo set_value('stok_awal'); ?>" placeholder="Masukkan Stok Awal" min="0">
-            <?php echo "<b>" . form_error('stok_awal') . "</b>"; ?>
-          </div>
-          </div>
+          <!-- <div class="row mt-3"> -->
+            
 
-          <div class="col-sm-4">
-          <div class="form-group">
+            <!-- <div class="col-sm-4">
+              <div class="form-group">
 
-            <label>Batas Stok Minimal</label><span class="text-danger">*</span>
-            <input name="stok_min" type="number" class="form-control" value="<?php echo set_value('stok_min'); ?>" placeholder="Masukkan Jumlah Stok Minimal" min="0">
-            <?php echo "<b>" . form_error('stok_min') . "</b>"; ?>
-          </div>
-          </div>
-          </div>
+                <label>Batas Stok Minimal</label><span class="text-danger">*</span>
+                <input name="stok_min" type="number" class="form-control" value="<?php echo set_value('stok_min'); ?>" placeholder="Masukkan Jumlah Stok Minimal" min="0">
+                <?php echo "<b>" . form_error('stok_min') . "</b>"; ?>
+              </div>
+            </div> -->
+          <!-- </div> -->
         </div>
 
         <!-- /.card-body -->

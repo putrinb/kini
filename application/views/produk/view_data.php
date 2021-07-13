@@ -21,10 +21,10 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title mt-2">Data Produk</h3>
-                  <div class="text-right">
+                  <!-- <div class="text-right">
                     <a href="<?=site_url('produk/add')?>" class="btn btn-info btn-sm">
                       <span class="fa fa-plus"></span> Tambah</a>
-                  </div>
+                  </div> -->
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -34,9 +34,9 @@
                     <th class="text-center">No</th>
                     <th>ID Produk</th>
                     <th>Nama Produk</th>
+                    <th>ID Kategori</th>
                     <th>ID BOM</th>
-                    <th>Gambar</th>
-                    <th>Aksi</th>
+                    <!-- <th>Aksi</th> -->
                   </tr>
                   </thead>
 
@@ -51,29 +51,33 @@
                               <?= $no; ?>
                               </td>
                               <td class="text-center">
-                                  <?= $row['id_produk']; ?>
+                                  <?= $row['id_minum']; ?>
                               </td>
                               <td class="text-left">
-                                  <?= $row['nama_produk']; ?>
+                                  <?= $row['nama_minum']; ?>
                               </td>
-
+                              <td class="text-left">
+                                  <?= $row['nama_kategori']; ?>
+                              </td>
                               <td class="text-center">
                                   <?= $row['id_bom']; ?>
                               </td>
 
-                              <td class="text-center">
+                              <!-- <td class="text-center">
                               <a id="image" href="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="perbesar">
                                 <img alt="image" src="<?php echo base_url('upload/produk/'.$row['gambar']) ?>" class="img-thumbnail" width="64" /></a>
-                              </td>
+                              </td> -->
 
-                              <td class="text-center">
-                                <a href="<?=site_url('produk/edit_data/'.$row['id_produk'])?>" class="btn btn-success btn-sm">
+                              <!-- <td class="text-center">
+                                <a href="<?=site_url('produk/edit_data/'.$row['id_produk'])?>">
+                                <a class="btn btn-success btn-sm" style="color:white">
                                     <span class="fa fa-edit"></span>
-                                </a>
+                                </a> -->
 
-                                <a onclick="deleteConfirm('<?=site_url('produk/delete_data/'.$row['id_produk'])?>')" class="btn btn-danger btn-sm" style="color:white">
+                                <!-- <a onclick="deleteConfirm('<?=site_url('produk/delete_data/'.$row['id_produk'])?>')"> -->
+                                <!-- <a class="btn btn-danger btn-sm" style="color:white">
                                     <span class="fa fa-trash"></span>
-                                </a>
+                                </a> -->
                             </td>
                                 </tr>
                             

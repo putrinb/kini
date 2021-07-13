@@ -1,7 +1,7 @@
 <?php
 class m_bb extends CI_Model
 {
-    private $_table = "bahan_baku";
+    private $_table = "bahanbaku_utama";
 	public $kode_bb;
 	public $nama_bb;
 	public $satuan;
@@ -12,7 +12,7 @@ class m_bb extends CI_Model
 
     public function get_kode_bb($kode_bb)
     {
-        return $this->db->get_where('bahan_baku', array('kode_bb' => $kode_bb))->row_array();
+        return $this->db->get_where('bahanbaku_utama', array('kode_bb' => $kode_bb))->row_array();
     }
     public function insert_data(){
         $post = $this->input->post();
@@ -22,12 +22,12 @@ class m_bb extends CI_Model
         $this->merk = $post["merk"];
         $this->stok_awal = $post["stok_awal"];
         $this->jumlah = $post["jml"];
-        $this->batas_min = $post["stok_min"];
+        // $this->batas_min = $post["stok_min"];
         
-        $sql = "INSERT INTO bahan_baku(kode_bb,nama_bb,jumlah,satuan,stok_awal,merk,keterangan,batas_min) ";
+        $sql = "INSERT INTO bahanbaku_utama(kode_bb,nama_bb,jumlah,satuan,stok_awal,merk,keterangan) ";
         $sql = $sql." VALUES(".$this->db->escape($this->kode_bb).",".$this->db->escape($this->nama_bb).",";
         $sql = $sql."".$this->db->escape($this->jumlah).",".$this->db->escape($this->satuan).",";
-        $sql = $sql."".$this->db->escape($this->stok_awal).",".$this->db->escape($this->merk).", 'Bahan Baku Utama', ".$this->db->escape($this->batas_min).")";
+        $sql = $sql."".$this->db->escape($this->stok_awal).",".$this->db->escape($this->merk).", 'Bahan Baku Utama')";
         $query = $this->db->query($sql);
         return $this->db->affected_rows();
     }
@@ -49,19 +49,20 @@ class m_bb extends CI_Model
     
     public function getdata(){
         //$this->db->order_by('nama', 'ASC');
-        $query = $this->db->get($this->_table); 
+        $sql ="SELECT * FROM bahanbaku_utama";
+        $query = $this->db->query($sql); 
         return $query->result_array();
     }
 
     public function getdata2(){
         if(isset($_SESSION['id_bom'])){
-            $sql = "SELECT * FROM bahan_baku
+            $sql = "SELECT * FROM bahanbaku_utama
         WHERE kode_bb NOT IN 
         (SELECT kode_bb FROM detail_bom WHERE id_bom = ".$this->db->escape($_SESSION['id_bom']).")
-        ";
+        ORDER BY nama_bb ASC ";
         }else{
             //query tanpa where
-            $sql = "SELECT * FROM bahan_baku
+            $sql = "SELECT * FROM bahanbaku_utama 
         ";
         }        
         
@@ -85,7 +86,7 @@ class m_bb extends CI_Model
         $this->merk = $post["merk"];
         $this->stok_awal = $post["stok_awal"];
         $this->jumlah = $post["jml"];
-        $this->batas_min = $post["stok_min"];
+        // $this->batas_min = $post["stok_min"];
 			
 			$sql = "UPDATE ".$this->_table;
 			$sql = $sql." SET nama_bb = ".$this->db->escape($this->nama_bb).", satuan = ".$this->db->escape($this->satuan);
@@ -93,16 +94,16 @@ class m_bb extends CI_Model
             $sql = $sql." , stok_awal = ".$this->db->escape($this->stok_awal);
             $sql = $sql." , merk = ".$this->db->escape($this->merk);
             $sql = $sql." , jumlah = ".$this->db->escape($this->jumlah);
-            $sql = $sql." , batas_min = ".$this->db->escape($this->batas_min);
+            // $sql = $sql." , batas_min = ".$this->db->escape($this->batas_min);
 			$sql = $sql." WHERE kode_bb = ".$this->db->escape($post["kode_bb"]);
 			$query = $this->db->query($sql);
 			return $this->db->affected_rows();
-        // return $this->db->get_where('bahan_baku', array('kode_bb' => $kode_bb))->row_array();
+        // return $this->db->get_where('bahanbaku_utama', array('kode_bb' => $kode_bb))->row_array();
     }
 
     public function delete($kode_bb)
     {
-        return $this->db->delete('bahan_baku', array("kode_bb" => $kode_bb));
+        return $this->db->delete('bahanbaku_utama', array("kode_bb" => $kode_bb));
     }
     
 }

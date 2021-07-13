@@ -16,7 +16,7 @@
             <div class="div row mt-3">
                 <div class="div col md-3">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Bahan baku<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
+                    Data<strong> berhasil </strong><?=$this->session->flashdata('flash');?>!
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
                     </div>
                 </div>
@@ -34,32 +34,32 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th class="text-center">No.</th>
-                                            <th class="text-center">Nama Bahan Baku</th>
-                                            <th class="text-center">Merk</th>
-                                            <th class="text-center">Jumlah</th>
-                                            <th class="text-center">Satuan</th>
+                                            <th class="text-center">Jenis Penggunaan</th>
+                                            <th class="text-center">Daya Penggunaan</th>
+                                            <th class="text-center">Tarif Dasar Listrik</th>
+                                            <th class="text-center">Lama</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $no=1;
-                                        foreach($data_bom as $cacah):
-                                            echo "<tr>";
-                                                echo "<td class='text-center'>".$no++;"</td>";
-                                                echo "<td>".$cacah['nama_bb']."</td>";
-                                                echo "<td>".$cacah['merk']."</td>";
-                                                echo "<td class='text-center'>".$cacah['qty']."</td>";
-                                                echo "<td>".$cacah['satuan_bb']."</td>";
-                                                echo "<td align='center'>";
-                                                    ?>
-                                                        <a onclick="deleteConfirm('<?php echo site_url('bom/delete_form_detail/'.$cacah['no_bom'].'/'.$cacah['id_bom'].'/'.$cacah['id_minum']) ?>')" href="#!" class="btn btn-danger btn-sm">
-                                                            <span class="fas fa-trash"></span>
-                                                        </a>
-                                                    <?php
-                                                echo "</td>";
-                                            echo "</tr>";
-                                        endforeach;
+                                        // foreach($data_bom as $cacah):
+                                        //     echo "<tr>";
+                                        //         echo "<td class='text-center'>".$no++;"</td>";
+                                        //         echo "<td>".$cacah['nama_bb']."</td>";
+                                        //         echo "<td>".$cacah['merk']."</td>";
+                                        //         echo "<td class='text-center'>".$cacah['qty']."</td>";
+                                        //         echo "<td>".$cacah['satuan_bb']."</td>";
+                                        //         echo "<td align='center'>";
+                                        //             ?>
+                                        //                 <a onclick="deleteConfirm('<?php echo site_url('bom/delete_form_detail/'.$cacah['no_bom'].'/'.$cacah['id_bom'].'/'.$cacah['id_minum']) ?>')" href="#!" class="btn btn-danger btn-sm">
+                                        //                     <span class="fas fa-trash"></span>
+                                        //                 </a>
+                                        //             <?php
+                                        //         echo "</td>";
+                                        //     echo "</tr>";
+                                        // endforeach;
                                     ?>
                                     </tbody>
                                     
@@ -68,7 +68,7 @@
                                     <div class="col-sm-12 text-center">
                                         <button onclick="location.href = '<?php echo site_url('bom/selesai') ?>';" type="button" class="btn btn-info btn-sm">
                                         <span class="fas fa-check"></span>
-                                                    Selesai
+                                                    Simpan
                                         </button>
                                     </div>
                                 </div>

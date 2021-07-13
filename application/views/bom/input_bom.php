@@ -43,7 +43,7 @@
                                             <?php
                                             foreach($minuman as $row):
                                             ?>
-                                            <option value="<?php echo $row['id_produk']?>"><?php echo $row['id_produk']?> - <?php echo $row['nama_produk']?></option>
+                                            <option value="<?php echo $row['id_minum']?>"><?php echo $row['id_minum']?> - <?php echo $row['nama_minum']?></option>
                                                 <?php
                                                 endforeach;
                                                 ?>

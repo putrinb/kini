@@ -44,7 +44,14 @@ class m_produk extends CI_Model
 
       public function getdata()
       {
-        return $this->db->get('produk')->result_array();
+        $this->db->select('*');
+        $this->db->from('minuman');
+        $this->db->join('kategori', 'minuman.id_kategori = kategori.id_kategori');
+        // $this->db->join('produk', 'produk.id_produk = bom.id_produk');
+        // $this->db->join('bom', 'bom.id_bom = pemakaian.id_bom');
+        // $this->db->where('detail_pemakaian.no_pemakaian', $no_pemakaian);
+        $query = $this->db->get();
+        return $query->result_array();
       }
 
       public function getEdit($id_produk)

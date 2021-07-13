@@ -13,89 +13,95 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container">
                 <?php if ($this->session->flashdata('flash')) : ?>
                     <div class="div row mt-3">
                         <div class="div col md-3">
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                Bahan baku<strong> berhasil </strong><?= $this->session->flashdata('flash'); ?>!
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                Data<strong> berhasil </strong><?= $this->session->flashdata('flash'); ?>!
                                 <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
                             </div>
                         </div>
                     </div>
                 <?php endif; ?>
-                <div class="row">
-                    <div class="container-fluid">
+
+                <form action="<?php echo site_url('produksi/selesai') ?>" method="post">
+                    <input type="text" hidden name="no_produksi" value="<?= $_SESSION['no_produksi']; ?>" />
+                    <input type="text" hidden name="tgl" value="<?= $_SESSION['tgl2']; ?>" />
+                    <input type="text" hidden name="waktu" value="<?= $_SESSION['waktu']; ?>" />
+                    <input type="text" hidden name="nilai_bbb" value="<?= $_SESSION['nilai_bbb']; ?>" />
+
+
+                    <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-light">
                                 <div class="card-header">
                                     <h3 class="card-title mt-2">Detail Data</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover">
-                                        <thead>
+                                        <thead class="thead-light">
                                             <tr>
                                                 <th class="text-center">No.</th>
-                                                <th class="text-center">Bahan Baku</th>
-                                                <th class="text-center">Merk</th>
-                                                <th class="text-center">Berat</th>
-                                                <th class="text-center">Satuan</th>
-                                                <th class="text-center">Jumlah</th>
-                                                <th class="text-center">Harga</th>
-                                                <th class="text-center">Total</th>
-                                                <th class="text-center">Keterangan</th>
-                                                <th class="text-center">Hapus</th>
+                                                <th class="text-center">Nama Penggunaan</th>
+                                                <th class="text-center">Besar Daya</th>
+                                                <th class="text-center">Lama Penggunaan</th>
+                                                <th class="text-center">Biaya</th>
+                                                <th class="text-center">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 1;
-                                            foreach ($penerimaan as $cacah) :
+                                            $total_bop = 0;
+                                            foreach ($data_bop as $cacah) :
+                                                $watt = $cacah['daya_watt'];
+                                                $wkt = $cacah['waktu_menit'];
+                                                $tarif = $cacah['tarif_dasar'];
+                                                $subtotal = ($watt * $wkt) / 1000 * $tarif;
+                                                $total_bop = $total_bop + $subtotal;
                                                 echo "<tr>";
                                                 echo "<td class='text-center'>" . $no++;
                                                 "</td>";
-                                                echo "<td>" . "[" . $cacah['kode_bb'] . "] " . $cacah['nama_bb'] . "</td>";
-                                                echo "<td>" . $cacah['merk'] . "</td>";
-                                                echo "<td>" . $cacah['jumlah'] . "</td>";
-                                                echo "<td>" . $cacah['satuan'] . "</td>";
-                                                echo "<td>" . $cacah['qty'] . " item</td>";
-                                                echo "<td>" . format_rp($cacah['harga']) . "</td>";
-                                                echo "<td>" . format_rp($cacah['qty'] * $cacah['harga']) . "</td>";
-                                                echo "<td>" . $cacah['ket'] . "</td>";
+                                                echo "<td>" . $cacah['penggunaan'] . "</td>";
+                                                echo "<td>" . $cacah['daya_watt'] . " watt</td>";
+                                                echo "<td>" . number_format($cacah['waktu_menit'], 0, ",", ".") . " jam</td>";
+                                                echo "<td>" . format_rp($subtotal) . "</td>";
+
                                                 echo "<td align='center'>";
-                                            ?>
-                                                <a onclick="deleteConfirm('<?php echo site_url('penerimaan/delete_form_detail/'.$cacah['no_penerimaan'])?>')" href="#!" class="btn btn-danger btn-sm">
+                                            ?><a onclick="deleteConfirm('<?php echo site_url('produksi/delete_bop/' . $cacah['id_bop']) ?>')" href="#!" class="btn btn-danger btn-sm">
                                                     <span class="fas fa-trash"></span>
                                                 </a>
                                             <?php
                                                 echo "</td>";
                                                 echo "</tr>";
                                             endforeach;
+
                                             ?>
+                                            <td colspan="4" class="text-right">Total</td>
+                                            <td colspan="5"><input type="text" hidden name="nilai_bop" value="<?= format_rp($total_bop) ?>"><?= format_rp($total_bop) ?></td>
+
                                         </tbody>
+
                                     </table>
                                 </div>
                                 <div class="card-footer">
                                     <div class="col-sm-12 text-center">
-                                        <button onclick="location.href = '<?php echo site_url('penerimaan/selesai') ?>';" type="button" class="btn btn-info btn-sm">
-                                            <span class="fas fa-check"></span>
-                                            Selesai
-                                        </button>
+                                        <button data-role="button" type="submit" data-inline="true" class="btn btn-sm btn-success">
+                                            <span class="fa fa-check"></span> Simpan </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
-        <script>
-            < script src = "<?= base_url(); ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js" >
-        </script>
+        <script src="<?= base_url(); ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="<?= base_url(); ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
         <script src="<?= base_url(); ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        </script>
+
         <script>
             function deleteConfirm(url) {
                 $('#btn-delete').attr('href', url);
@@ -122,4 +128,5 @@
         </div>
     </div>
 </body>
+
 </html>

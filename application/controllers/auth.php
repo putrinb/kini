@@ -11,6 +11,7 @@ class auth extends CI_Controller
 
 	function index()
 	{
+		check_already_login();
 		$rules=[
 			[
 				'field'		=> 'username',
@@ -61,11 +62,11 @@ class auth extends CI_Controller
 					// password valid
 					// set user privileges
 					if($user['user_privileges'] == 1){
-						$role = 'Admin';
+						$role = 'Bagian Produksi';
 
 					}elseif($user['user_privileges'] == 2){
-						$role = 'Pegawai';
-					}elseif($user['user_privileges'] ==3){
+						$role = 'Bagian Keuangan';
+					}elseif($user['user_privileges'] == 3){
 						$role = 'Pemilik';
 					}
 					$data=[
